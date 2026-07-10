@@ -30,7 +30,7 @@ export default function LionheartPage() {
             <p className="mt-5 font-serif text-2xl font-bold text-softGold">
               Survival. Family. Identity. Career. Faith. Mentorship. Legacy.
             </p>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-warmIvory/76">
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-warmIvory/84">
               Lionheart is a memoir project about becoming whole while still building. It holds Black masculinity, family, faith, engineering, healing, mentorship, and legacy with emotional weight and professional restraint.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">

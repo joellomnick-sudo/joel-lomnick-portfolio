@@ -3,7 +3,7 @@ import { Card } from "@/components/Card";
 import { CTASection } from "@/components/CTASection";
 import { SectionHeading } from "@/components/SectionHeading";
 import { VisualTile } from "@/components/VisualTile";
-import { aboutArc, beliefStatements } from "@/data/site";
+import { aboutArc, aboutPhotos, beliefStatements } from "@/data/site";
 
 export default function AboutPage() {
   return (
@@ -14,7 +14,7 @@ export default function AboutPage() {
           <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
             The Builder Behind the Work
           </h1>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/76 sm:text-xl">
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/84 sm:text-xl">
             My life has trained me to turn survival, service, and technical discipline into useful systems.
           </p>
           <div className="mt-8">
@@ -26,46 +26,62 @@ export default function AboutPage() {
       </section>
 
       <section className="soft-cream-surface">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
-          <SectionHeading
-            eyebrow="Life arc"
-            title="A public version of the story, held with structure."
-            body="This page gives enough context to understand the man behind the systems without turning the portfolio into the full memoir."
-            tone="light"
-          />
-          <div className="mt-10 grid gap-5">
-            {aboutArc.map((section, index) => (
-              <article
-                key={section.title}
-                className="grid overflow-hidden rounded-lg border border-deepBrown/12 bg-paper shadow-premium lg:grid-cols-[0.34fr_0.66fr]"
-              >
-                <VisualTile
-                  title={section.title}
-                  category={section.category}
-                  visualLabel={section.visualLabel}
-                  placeholderVariant={section.placeholderVariant}
-                  aspect="landscape"
-                  className="h-full rounded-none border-b lg:border-b-0 lg:border-r"
-                />
-                <div className="p-6 sm:p-8">
-                  <p className="text-sm font-black uppercase text-mutedBrown">
-                    {String(index + 1).padStart(2, "0")} / {section.category}
-                  </p>
-                  <h2 className="mt-3 text-2xl font-black text-ink sm:text-3xl">{section.title}</h2>
-                  <p className="mt-4 text-base leading-8 text-ink/74">{section.description}</p>
-                  {section.bullets ? (
-                    <ul className="mt-6 grid gap-2 text-sm font-semibold text-mutedBrown sm:grid-cols-2">
-                      {section.bullets.map((bullet) => (
-                        <li key={bullet} className="flex gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-mutedGold" aria-hidden="true" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </div>
-              </article>
-            ))}
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:py-20">
+          <div>
+            <SectionHeading
+              eyebrow="Life arc"
+              title="A public version of the story, told with care."
+              body="This is not the full memoir. It is the thread that helps explain why my work keeps returning to structure, service, communication, and legacy."
+              tone="light"
+            />
+            <blockquote className="mt-8 border-l-4 border-mutedGold bg-paper/72 px-6 py-5 text-ink shadow-sm">
+              <p className="font-serif text-2xl font-bold leading-9">
+                I am interested in work that makes people clearer, stronger, and better held by the systems around them.
+              </p>
+            </blockquote>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+              {aboutPhotos.map((photo) => (
+                <figure key={photo.title} className="overflow-hidden rounded-lg border border-deepBrown/12 bg-paper shadow-premium">
+                  <VisualTile
+                    title={photo.title}
+                    category={photo.category}
+                    image={photo.image}
+                    alt={photo.alt}
+                    imageFit={photo.imageFit}
+                    imageType={photo.imageType}
+                    aspect="landscape"
+                    sizes="(min-width: 1024px) 26vw, (min-width: 640px) 30vw, 90vw"
+                  />
+                  <figcaption className="p-4">
+                    <p className="text-sm font-black uppercase text-mutedBrown">{photo.category}</p>
+                    <p className="mt-1 text-base font-semibold leading-7 text-ink/82">{photo.description}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-deepBrown/12 bg-paper/88 p-6 shadow-premium sm:p-8">
+            <ol className="grid gap-7">
+              {aboutArc.map((section) => (
+                <li key={section.title} className="grid gap-4 border-b border-deepBrown/10 pb-7 last:border-b-0 last:pb-0 sm:grid-cols-[4rem_1fr]">
+                  <span className="font-serif text-3xl font-black text-mutedGold">{section.category}</span>
+                  <div>
+                    <h2 className="text-2xl font-black text-ink">{section.title}</h2>
+                    <p className="mt-3 text-base leading-8 text-ink/82 sm:text-lg">{section.description}</p>
+                    {section.bullets ? (
+                      <ul className="mt-4 flex flex-wrap gap-2">
+                        {section.bullets.map((bullet) => (
+                          <li key={bullet} className="rounded-md border border-deepBrown/12 bg-parchment/70 px-3 py-1.5 text-sm font-bold text-mutedBrown">
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
@@ -94,7 +110,7 @@ export default function AboutPage() {
         primaryLabel="Read the Story Behind the Work"
         primaryHref="/lionheart"
         secondaryLabel="Explore My Work"
-        secondaryHref="/portfolio"
+        secondaryHref="/work"
       />
     </>
   );

@@ -61,10 +61,8 @@ export const navLinks: LinkItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Engineering", href: "/engineering" },
-  { label: "Creative Services", href: "/creative-services" },
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Work & Leadership", href: "/work" },
   { label: "Lionheart", href: "/lionheart" },
-  { label: "Leadership", href: "/leadership" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -79,48 +77,28 @@ export const identityLabels = [
 export const homeLanes: CardItem[] = [
   {
     title: "Engineering & Infrastructure",
-    category: "Engineering",
-    description:
-      "Electrical systems coordination, construction documentation, public-sector infrastructure, and owner-facing communication.",
+    description: "Making complex technical work usable.",
     href: "/engineering",
-    visualLabel: "EIT",
-    placeholderVariant: "engineering",
   },
   {
     title: "Creative Strategy",
-    category: "Creative",
-    description:
-      "LomnickPro structure for websites, brands, presentations, resumes, and public-facing messaging that builds trust.",
-    href: "/creative-services",
-    visualLabel: "LP",
-    placeholderVariant: "creative",
+    description: "Helping mission-driven people show up with clarity.",
+    href: "/work",
   },
   {
     title: "Leadership & Community Systems",
-    category: "Leadership",
-    description:
-      "Chapter systems, church media workflows, coalition support, compliance-minded leadership, and succession planning.",
-    href: "/leadership",
-    visualLabel: "LEAD",
-    placeholderVariant: "leadership",
+    description: "Building structure around service.",
+    href: "/work",
   },
   {
     title: "Writing & Storytelling",
-    category: "Story",
-    description:
-      "Lionheart and the larger practice of turning survival, identity, faith, career, and legacy into disciplined story.",
+    description: "Turning survival and reflection into language.",
     href: "/lionheart",
-    visualLabel: "LH",
-    placeholderVariant: "story",
   },
   {
     title: "Culture & Mentorship",
-    category: "Mentorship",
-    description:
-      "Young men's mentoring, career support, cultural wellness, rhythm, movement, and spaces where people can rise.",
-    href: "/contact",
-    visualLabel: "RISE",
-    placeholderVariant: "community",
+    description: "Using rhythm, guidance, and presence to help people rise.",
+    href: "/work",
   },
 ];
 
@@ -133,85 +111,105 @@ export const featuredWork: CardItem[] = [
     href: "/engineering",
     visualLabel: "EIT",
     placeholderVariant: "engineering",
-    ctaLabel: "Explore related work",
+    ctaLabel: "Connect About Engineering",
   },
   {
     title: "LomnickPro Creative Services",
-    category: "Creative Services",
+    category: "Creative Strategy",
     description:
-      "Websites, graphics, resumes, branding, and structured visibility for mission-driven clients and organizations.",
-    href: "/creative-services",
+      "Websites, graphics, professional storytelling, and public-facing structure for mission-driven people.",
+    href: "/work",
     visualLabel: "LP",
     placeholderVariant: "creative",
-    ctaLabel: "Explore related work",
+    ctaLabel: "Start a Creative Project",
+  },
+  {
+    title: "Leadership & Community Systems",
+    category: "Leadership",
+    description:
+      "Iota, NPHC-MR, church media, NSBE, mentoring, and culturally grounded service systems.",
+    href: "/work",
+    visualLabel: "RISE",
+    placeholderVariant: "leadership",
+    ctaLabel: "Connect About Leadership",
   },
   {
     title: "Lionheart: The Joel Lomnick Story",
     category: "Memoir",
     description:
-      "A personal testimony about becoming whole while still building systems, stories, and legacy.",
+      "A literary project about survival, faith, identity, career, mentorship, and legacy.",
     href: "/lionheart",
     visualLabel: "LH",
     placeholderVariant: "story",
     ctaLabel: "Explore the Story",
-  },
-  {
-    title: "Leadership & Community Impact",
-    category: "Leadership",
-    description:
-      "Iota Phi Theta, NPHC-MR, church service, NSBE, mentoring, and culturally grounded community work.",
-    href: "/leadership",
-    visualLabel: "RISE",
-    placeholderVariant: "leadership",
-    ctaLabel: "Explore related work",
   },
 ];
 
 export const aboutArc: SectionItem[] = [
   {
     title: "Rochester Foundation",
-    category: "Origin",
+    category: "01",
     description:
-      "The foundation was built around family, faith, survival, work ethic, and learning how to read the room without losing the mission.",
-    bullets: ["Family roots", "Early responsibility", "Faith and service", "Resilience with restraint"],
-    visualLabel: "ROC",
-    placeholderVariant: "document",
+      "Family, faith, responsibility, and learning how to read the room without losing the mission.",
+    bullets: ["Family roots", "Early responsibility", "Faith and service"],
   },
   {
     title: "RIT Engineering & NSBE",
-    category: "Formation",
+    category: "02",
     description:
-      "Engineering school sharpened the technical lens, while NSBE leadership reinforced representation, preparation, and academic excellence.",
-    bullets: ["Electrical engineering", "Academic excellence", "Programs leadership", "STEM mentorship"],
-    visualLabel: "RIT",
-    placeholderVariant: "engineering",
+      "Engineering sharpened the technical lens. NSBE reinforced representation, preparation, academic excellence, and student leadership.",
+    bullets: ["Electrical engineering", "Academic excellence", "Student leadership"],
   },
   {
     title: "Albany Brotherhood, Church & Cultural Arts",
-    category: "Community",
+    category: "03",
     description:
-      "Brotherhood, worship, cultural arts, and service shaped a public leadership style grounded in rhythm, accountability, and care.",
-    bullets: ["Iota Phi Theta", "Church service", "African drum and dance", "Cultural memory"],
-    visualLabel: "ALB",
-    placeholderVariant: "leadership",
+      "Brotherhood, worship, African drum and dance, and service shaped a leadership style rooted in rhythm, accountability, and care.",
+    bullets: ["Brotherhood", "Worship", "Cultural arts"],
   },
   {
     title: "Richmond Rebuilding & Leadership",
-    category: "Rebuild",
+    category: "04",
     description:
       "Richmond became the place where engineering, LomnickPro, church media, NPHC, mentoring, and creative strategy became one ecosystem.",
-    bullets: ["Public-sector projects", "LomnickPro", "NPHC-MR", "Church media"],
-    visualLabel: "RVA",
-    placeholderVariant: "community",
+    bullets: ["Public-sector work", "LomnickPro", "Coalition service"],
   },
   {
     title: "Current & Future Legacy",
-    category: "Legacy",
+    category: "05",
     description:
       "The next chapter is about building systems, stories, leaders, and infrastructure that help people rise without turning the work into performance.",
-    bullets: ["Lionheart", "Mentorship", "Leadership systems", "Purposeful infrastructure"],
-    visualLabel: "NEXT",
-    placeholderVariant: "story",
+    bullets: ["Lionheart", "Mentorship", "Purposeful infrastructure"],
+  },
+];
+
+export const aboutPhotos: CardItem[] = [
+  {
+    title: "Family foundation",
+    category: "Foundation",
+    description: "Family, care, and legacy warmth.",
+    image: "/images/mother-godmother-legacy.jpg",
+    alt: "Family legacy photo with Joel Lomnick's mother and godmother.",
+    imageFit: "cover",
+    imageType: "cover",
+  },
+  {
+    title: "Faith and early service",
+    category: "Faith",
+    description: "RIT, gospel, and formative service.",
+    image: "/images/rit-gospel-ensemble.jpg",
+    alt: "RIT Gospel Ensemble formative faith and service photo.",
+    imageFit: "group-photo",
+    imageType: "group-photo",
+  },
+  {
+    title: "Richmond civic identity",
+    category: "Richmond",
+    description: "Black history, place, and public memory.",
+    image: "/images/rva-maggie-walker-statue-unveiling.jpg",
+    alt: "Richmond Maggie Walker statue unveiling civic identity photo.",
+    imageFit: "cover",
+    imageType: "cover",
   },
 ];
 
@@ -280,9 +278,9 @@ export const serviceCards: CardItem[] = [
     title: "Branding & Graphic Design",
     category: "Branding",
     description:
-      "Flyers, identity systems, event graphics, social media layouts, business cards, and presentation visuals with structure behind the style.",
-    image: "/images/lomnickpro-work.jpg",
-    alt: "Lomnick Professional Services website and branding preview.",
+      "Flyers, identity systems, event graphics, social layouts, business cards, and presentation visuals with structure behind the style.",
+    image: "/images/LomnickPro-Business-Card.jpg",
+    alt: "Lomnick Professional Services branded business card.",
     imageFit: "screenshot",
     imageType: "screenshot",
   },
@@ -291,8 +289,10 @@ export const serviceCards: CardItem[] = [
     category: "Professional Story",
     description:
       "Safe, polished career documents, bios, and positioning language that communicate value without exposing private details.",
-    visualLabel: "BIO",
-    placeholderVariant: "document",
+    image: "/images/bio-storytelling.jpg",
+    alt: "Professional storytelling and biography development work.",
+    imageFit: "cover",
+    imageType: "cover",
   },
   {
     title: "Project Planning & Technical Communication",
@@ -309,16 +309,6 @@ export const serviceCards: CardItem[] = [
       "Structure for service programs, mentoring efforts, chapter initiatives, campaigns, and public-facing community work.",
     visualLabel: "PLAN",
     placeholderVariant: "community",
-  },
-  {
-    title: "Leadership & Mentoring Support",
-    category: "Mentoring",
-    description:
-      "Practical coaching, structure, documentation, and confidence-building support for emerging leaders and young professionals.",
-    image: "/images/mentoring-work.jpg",
-    alt: "Young men's mentoring program group photo.",
-    imageFit: "group-photo",
-    imageType: "group-photo",
   },
 ];
 
@@ -337,16 +327,14 @@ export const portfolioItems: CardItem[] = [
     title: "Public-Sector Electrical Coordination",
     category: "Engineering / Infrastructure",
     description:
-      "Coordinated technical work for real construction environments where clarity, safety, and public trust matter.",
+      "Coordinated technical work for construction environments where clarity, safety, and public trust matter.",
     role: "Electrical Engineer / Project Engineer",
     whatBuilt:
-      "Coordinated construction documentation, electrical systems, RFIs, submittals, field notes, and owner-facing communication.",
+      "Construction documentation, electrical systems coordination, RFIs, submittals, field notes, and owner-facing communication.",
     whatItProves:
       "Technical discipline, public trust, and buildable clarity in public-sector infrastructure.",
     methods: "Power, lighting, fire alarm, low-voltage, utilities, field coordination",
     href: "/engineering",
-    visualLabel: "EIT",
-    placeholderVariant: "engineering",
     ctaLabel: "Connect About Engineering",
   },
   {
@@ -356,13 +344,11 @@ export const portfolioItems: CardItem[] = [
       "A creative services platform built around structure, polish, visibility, and trust for mission-driven people.",
     role: "Founder / Creative Strategist",
     whatBuilt:
-      "Websites, flyers, brand systems, presentations, resumes, bios, and public-facing messaging.",
+      "Websites, flyers, brand systems, presentations, bios, and public-facing messaging.",
     whatItProves:
       "Visual clarity, mission translation, and practical communication without unnecessary noise.",
-    methods: "Brand systems, web planning, Canva/Wix-style workflows, messaging strategy",
-    href: "/creative-services",
-    visualLabel: "LP",
-    placeholderVariant: "creative",
+    methods: "Brand systems, web planning, messaging strategy, digital presence",
+    href: "/contact",
     ctaLabel: "Start a Creative Project",
   },
   {
@@ -372,13 +358,11 @@ export const portfolioItems: CardItem[] = [
       "Chapter visibility and digital structure aligned with public professionalism and brotherhood.",
     role: "Vice Polaris / Webmaster / Strategist",
     whatBuilt:
-      "Digital presence, recruitment-facing materials, chapter visibility, documentation habits, and succession support.",
+      "Digital presence, recruitment-facing materials, public visibility, documentation habits, and succession support.",
     whatItProves:
       "Leadership, Brotherhood, Fidelity, and sustainable chapter systems handled with compliance-minded care.",
-    methods: "Website/social media rebuild, public communications, training support, documentation culture",
-    href: "/leadership",
-    visualLabel: "IOTA",
-    placeholderVariant: "leadership",
+    methods: "Website/social rebuild, public communication, training support, documentation culture",
+    href: "/contact",
     ctaLabel: "Connect About Leadership",
   },
   {
@@ -392,9 +376,7 @@ export const portfolioItems: CardItem[] = [
     whatItProves:
       "Service, stewardship, and technical communication inside faith institutions.",
     methods: "AV support, livestream workflows, governance mindset, young men's mentoring",
-    href: "/leadership",
-    visualLabel: "MEDIA",
-    placeholderVariant: "community",
+    href: "/contact",
     ctaLabel: "Discuss Church Media Support",
   },
   {
@@ -408,9 +390,7 @@ export const portfolioItems: CardItem[] = [
     whatItProves:
       "Citizenship, neutrality, professionalism, and coalition trust across organizations.",
     methods: "Council communications, event visibility, public presentation, strategic support",
-    href: "/leadership",
-    visualLabel: "NPHC",
-    placeholderVariant: "community",
+    href: "/contact",
     ctaLabel: "Connect About Leadership",
   },
   {
@@ -425,8 +405,6 @@ export const portfolioItems: CardItem[] = [
       "Voice, emotional truth, reflection, literary discipline, and legacy-minded storytelling.",
     methods: "Memoir structure, thematic framing, testimony, revision, voice development",
     href: "/lionheart",
-    visualLabel: "LH",
-    placeholderVariant: "story",
     ctaLabel: "Explore the Story",
   },
   {
@@ -440,9 +418,7 @@ export const portfolioItems: CardItem[] = [
     whatItProves:
       "People development, emotional intelligence, Black joy, and legacy work that lives beyond a single program.",
     methods: "Mentorship, career coaching, cultural arts, line dancing, community wellness",
-    href: "/leadership",
-    visualLabel: "RISE",
-    placeholderVariant: "community",
+    href: "/contact",
     ctaLabel: "Request Mentoring or Career Support",
   },
 ];
@@ -462,27 +438,17 @@ export const leadershipSections: SectionItem[] = [
     title: "Iota Phi Theta / Omicron Omega",
     category: "Fraternity Leadership",
     description:
-      "Building tradition through structure, visibility, compliance, and brotherhood.",
-    challenge:
-      "A chapter needs public visibility, internal continuity, and leadership development without exposing private or restricted fraternity work.",
+      "Building tradition through structure, public visibility, compliance-minded documentation, and brotherhood.",
     role:
-      "Vice Polaris, Webmaster, Advisor, strategist, and compliance-minded mentor supporting chapter visibility and successor development.",
+      "Vice Polaris, Webmaster, Advisor, strategist, and mentor supporting chapter visibility and successor development.",
     system:
-      "Website and social media rebuild, public-facing communication habits, education support, documentation culture, and executive council continuity.",
+      "Website and social media rebuild, public communication habits, education support, documentation culture, and executive council continuity.",
     principle:
       "Scholarship, Leadership, Citizenship, Fidelity, and Brotherhood.",
     outcome:
       "A stronger public presence and a more structured leadership culture that keeps service and brotherhood ahead of personal clout.",
-    bullets: [
-      "Vice Polaris",
-      "Webmaster",
-      "Advisor",
-      "Compliance-focused education support",
-      "Chapter strategist",
-      "Succession planning",
-    ],
-    image: "/images/iota-phi-theta.JPG",
-    alt: "Joel Lomnick with Iota Phi Theta fraternity brothers.",
+    image: "/images/omicron-omega-young-professionals.jpg",
+    alt: "Omicron Omega young professionals representing polished Iota leadership.",
     imageFit: "group-photo",
     imageType: "group-photo",
   },
@@ -491,8 +457,6 @@ export const leadershipSections: SectionItem[] = [
     category: "Council Service",
     description:
       "Coalition work requires clarity, neutrality, professionalism, and trust.",
-    challenge:
-      "A citywide Divine Nine council needs shared public visibility without making the work look like one chapter's platform.",
     role:
       "Webmaster, digital support partner, and Iota representative supporting neutral public-facing presentation.",
     system:
@@ -500,46 +464,35 @@ export const leadershipSections: SectionItem[] = [
     principle:
       "Citizenship, collaboration, neutrality, and professional trust.",
     outcome:
-      "NPHC-MR work stays visually and politically distinct from Iota while still showing coordinated service across organizations.",
-    bullets: ["Webmaster", "Digital support", "Iota representative", "Divine Nine collaboration"],
-    image: "/images/nphc-mr.jpg",
-    alt: "National Pan-Hellenic Council of Metro Richmond group photo.",
+      "Council work stays visually and politically distinct while still showing coordinated service across organizations.",
+    image: "/images/nphc-mr-presidents.jpg",
+    alt: "National Pan-Hellenic Council of Metro Richmond presidents group photo.",
     imageFit: "group-photo",
     imageType: "group-photo",
   },
   {
-    title: "Third Street Bethel AME Church",
+    title: "Third Street Bethel AME Church Media",
     category: "Church Media",
     description:
       "Church media is ministry infrastructure.",
-    challenge:
-      "Worship, announcements, livestream, and service communication need dependable systems, not last-minute improvisation.",
     role:
       "Media ministry servant with trustee, internal audit, and mentoring perspective.",
     system:
-      "Livestream support, AV workflows, communications habits, event visuals, and documentation-minded service.",
+      "Livestream support, AV workflows, communication habits, event visuals, and documentation-minded service.",
     principle:
       "Stewardship, accountability, ministry support, and practical excellence.",
     outcome:
       "Media work reads as operational ministry infrastructure rather than a side volunteer hobby.",
-    bullets: [
-      "Media Ministry",
-      "Trustee Board",
-      "Internal Audit Committee",
-      "Young Men's Mentoring Program",
-    ],
     image: "/images/church-media-work.jpg",
     alt: "Church media production setup for livestream and worship support.",
     imageFit: "landscape",
     imageType: "landscape",
   },
   {
-    title: "National Society of Black Engineers",
+    title: "NSBE / STEM Leadership",
     category: "STEM Leadership",
     description:
       "STEM leadership is academic excellence, representation, and preparation.",
-    challenge:
-      "Students in demanding technical spaces need preparation, representation, and peer leadership that takes excellence seriously.",
     role:
       "Academic Excellence Chair, Programs Chair, Vice President, and STEM mentor formed through the RIT engineering experience.",
     system:
@@ -548,42 +501,34 @@ export const leadershipSections: SectionItem[] = [
       "Representation, preparation, academic excellence, and disciplined support.",
     outcome:
       "Engineering identity became connected to service, not just credentials.",
-    bullets: ["Academic Excellence Chair", "Programs Chair", "Vice President", "STEM mentor"],
-    visualLabel: "NSBE",
-    placeholderVariant: "engineering",
+    image: "/images/NSBE-Regional1-Board-Award.jpg",
+    alt: "NSBE regional board award representing STEM leadership.",
+    imageFit: "contain",
+    imageType: "contain",
   },
   {
     title: "Mentoring",
     category: "Mentorship",
     description:
       "Mentoring is helping people name their value and build enough structure to act on it.",
-    challenge:
-      "Young men and emerging professionals often have ability before they have language, confidence, or systems around their next move.",
     role:
       "Mentor, career coach, big-brother/father-figure style guide, and practical structure builder.",
     system:
-      "Resume coaching, career support, leadership development, personal branding, and confidence-building conversations.",
+      "Career support, leadership development, personal branding, and confidence-building conversations.",
     principle:
       "People development, emotional intelligence, preparation, and care.",
     outcome:
       "Mentees get clearer language, stronger documents, and enough structure to take the next responsible step.",
-    bullets: [
-      "Young men's mentoring",
-      "Resume and career coaching",
-      "Leadership development",
-      "Personal branding",
-      "Professional confidence",
-    ],
-    visualLabel: "MENTOR",
-    placeholderVariant: "leadership",
+    image: "/images/mentorship-anime-convention.jpg",
+    alt: "Mentorship and anime convention relational mentoring photo.",
+    imageFit: "group-photo",
+    imageType: "group-photo",
   },
   {
     title: "Cultural Arts & Wellness",
     category: "Cultural Arts",
     description:
       "Movement, rhythm, and culture are part of how communities heal and remember.",
-    challenge:
-      "Community wellness needs spaces where people can reconnect with rhythm, movement, memory, and Black joy.",
     role:
       "Cultural participant and community connector supporting wellness through shared practice.",
     system:
@@ -592,9 +537,8 @@ export const leadershipSections: SectionItem[] = [
       "Memory, movement, joy, wellness, and continuity.",
     outcome:
       "Culture becomes part of the leadership ecosystem instead of being treated as an unrelated hobby.",
-    bullets: ["Break It Down RVA", "West African drum and dance", "Line dancing", "Community wellness"],
-    image: "/images/cultural-arts.jpg",
-    alt: "Joel Lomnick participating in African drum and dance cultural arts.",
+    image: "/images/joel-djembe-drum-african.jpg",
+    alt: "Joel Lomnick with a djembe drum representing cultural arts and wellness.",
     imageFit: "portrait",
     imageType: "portrait",
   },

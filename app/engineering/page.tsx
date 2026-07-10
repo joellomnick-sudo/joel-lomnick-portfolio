@@ -13,7 +13,7 @@ export default function EngineeringPage() {
           <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
             I make complex electrical systems understandable, coordinated, and buildable.
           </h1>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/76 sm:text-xl">
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/84 sm:text-xl">
             The work is real construction documentation: electrical systems coordination, public-sector infrastructure, owner-facing communication, and field-aware technical support.
           </p>
         </div>
@@ -32,16 +32,16 @@ export default function EngineeringPage() {
               <VisualTile
                 title="Engineering project coordination"
                 category="Electrical Systems"
-                image="/images/engineering-project.jpg"
-                alt="Engineering project coordination illustration representing electrical systems and construction documentation."
-                imageFit="contain"
-                imageType="contain"
+                image="/images/engineering-work-innovation.jpg"
+                alt="Engineering innovation and technical coordination visual."
+                imageFit="cover"
+                imageType="cover"
                 aspect="landscape"
                 sizes="(min-width: 1024px) 38vw, 90vw"
               />
               <div className="border-t border-deepBrown/10 p-5">
                 <p className="text-sm font-bold text-mutedBrown">
-                  Visual anchor only. Sensitive project drawings and private documents are not displayed.
+                  Safe visual anchor only. Sensitive project drawings and private documents are not displayed.
                 </p>
               </div>
             </div>
@@ -51,7 +51,7 @@ export default function EngineeringPage() {
             {engineeringCards.map((item) => (
               <Card key={item.title} className="border-l-4 border-l-mutedGold">
                 <h2 className="text-xl font-black text-ink">{item.title}</h2>
-                <p className="mt-3 text-base leading-8 text-ink/74">{item.description}</p>
+                <p className="mt-3 text-base leading-8 text-ink/82">{item.description}</p>
               </Card>
             ))}
           </div>
@@ -68,7 +68,7 @@ export default function EngineeringPage() {
           />
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {engineeringSkills.map((skill) => (
-              <div key={skill} className="rounded-md border border-deepBrown/12 bg-paper/90 px-4 py-4 text-sm font-bold text-mutedBrown shadow-sm">
+              <div key={skill} className="rounded-md border border-deepBrown/12 bg-paper/90 px-4 py-4 text-[0.95rem] font-bold text-mutedBrown shadow-sm">
                 {skill}
               </div>
             ))}
@@ -82,7 +82,7 @@ export default function EngineeringPage() {
           <h2 className="mt-4 text-3xl font-black text-warmIvory">
             The math matters. The explanation matters too.
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-warmIvory/78">
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-warmIvory/84">
             I approach engineering as service, risk management, stewardship, and public trust. Good technical work should be coordinated enough for the field and clear enough for the owner.
           </p>
         </Card>

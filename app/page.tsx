@@ -1,9 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CTASection } from "@/components/CTASection";
 import { SectionHeading } from "@/components/SectionHeading";
-import { VisualTile } from "@/components/VisualTile";
 import { homeLanes, identityLabels } from "@/data/site";
 
 export default function Home() {
@@ -21,17 +19,17 @@ export default function Home() {
             <p className="mt-5 max-w-2xl text-xl font-semibold leading-8 text-warmIvory/86">
               Joel Maurice Lomnick, EIT
             </p>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-warmIvory/74">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-warmIvory/82">
               Electrical Engineer. Creative Strategist. Author. Mentor. Community Builder. Built from survival, designed with purpose, and focused on work that helps people rise.
             </p>
             <div className="mt-6 max-w-2xl rounded-lg border border-mutedGold/25 bg-softBlack/55 p-4 shadow-gold">
-              <p className="text-xs font-bold uppercase text-mutedGold">Command center</p>
-              <p className="mt-2 text-sm leading-6 text-warmIvory/78">
+              <p className="text-sm font-bold uppercase text-mutedGold">Command center</p>
+              <p className="mt-2 text-base leading-7 text-warmIvory/82">
                 Engineering documentation, LomnickPro creative strategy, Lionheart storytelling, Iota/NPHC leadership, church media, mentoring, and cultural wellness in one connected portfolio.
               </p>
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/portfolio">Explore My Work</ButtonLink>
+              <ButtonLink href="/work">Explore My Work</ButtonLink>
               <ButtonLink href="/contact" variant="ghost">
                 Book a Consultation
               </ButtonLink>
@@ -72,42 +70,39 @@ export default function Home() {
       </section>
 
       <section className="soft-cream-surface">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
-          <SectionHeading
-            eyebrow="Orientation"
-            title="Five lanes, one operating system."
-            body="The work spans different rooms, but the pattern is consistent: clarify the mission, build the structure, document the next move, and leave people stronger than before."
-            tone="light"
-          />
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {homeLanes.map((lane) => (
-              <Link
-                key={lane.title}
-                href={lane.href ?? "/portfolio"}
-                className="group block overflow-hidden rounded-lg border border-deepBrown/12 bg-paper shadow-premium transition hover:-translate-y-1 hover:border-mutedGold/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold"
-              >
-                <VisualTile
-                  title={lane.title}
-                  category={lane.category}
-                  visualLabel={lane.visualLabel}
-                  placeholderVariant={lane.placeholderVariant}
-                  aspect="square"
-                />
-                <div className="p-5">
-                  <h2 className="text-lg font-black text-ink">{lane.title}</h2>
-                  <p className="mt-3 text-sm leading-6 text-ink/74">{lane.description}</p>
-                </div>
-              </Link>
-            ))}
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:py-20">
+          <div>
+            <SectionHeading
+              eyebrow="Orientation"
+              title="Five lanes. One operating system."
+              body="My work moves through different rooms: engineering offices, church balconies, fraternity meetings, mentoring conversations, creative projects, and cultural spaces. The pattern stays consistent: clarify the mission, build the structure, document the next move, and leave people stronger than before."
+              tone="light"
+            />
           </div>
+          <ol className="overflow-hidden rounded-lg border border-deepBrown/12 bg-paper/88 shadow-premium">
+            {homeLanes.map((lane, index) => (
+              <li
+                key={lane.title}
+                className="grid gap-4 border-b border-deepBrown/10 p-5 last:border-b-0 sm:grid-cols-[4rem_1fr] sm:p-6"
+              >
+                <span className="font-serif text-3xl font-black text-mutedGold">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h2 className="text-xl font-black text-ink">{lane.title}</h2>
+                  <p className="mt-2 text-base leading-7 text-ink/82">{lane.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       <CTASection
         headline="Need the work to become clear, useful, and public-ready?"
-        text="Start with the portfolio, then bring the rough idea when it is time to turn it into a system, story, document, website, or next move."
+        text="Start with the work, then bring the rough idea when it is time to turn it into a system, story, document, website, or next move."
         primaryLabel="View Case Studies"
-        primaryHref="/portfolio"
+        primaryHref="/work"
         secondaryLabel="Book a Consultation"
         secondaryHref="/contact"
       />

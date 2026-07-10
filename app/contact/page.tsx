@@ -11,7 +11,7 @@ export default function ContactPage() {
           <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
             Let's turn the rough idea into something clear, useful, and public-ready.
           </h1>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/76 sm:text-xl">
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/84 sm:text-xl">
             Reach out for engineering clarity, creative services, leadership systems, speaking, mentoring, church/fraternity collaboration, or a Lionheart writing conversation.
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function ContactPage() {
               <h2 className="text-2xl font-black text-ink">Good reasons to reach out</h2>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {contactCategories.map((category) => (
-                  <div key={category} className="rounded-md border border-deepBrown/12 bg-white/55 px-4 py-3 text-sm font-bold leading-6 text-mutedBrown">
+                  <div key={category} className="rounded-md border border-deepBrown/12 bg-white/60 px-4 py-3 text-[0.95rem] font-bold leading-6 text-mutedBrown">
                     {category}
                   </div>
                 ))}
@@ -111,7 +111,7 @@ export default function ContactPage() {
                   >
                     Send a Message
                   </button>
-                  <p className="mt-3 text-sm leading-6 text-ink/68">
+                  <p className="mt-3 text-[0.95rem] leading-6 text-ink/78">
                     This form is a contact placeholder. For now, please email or call directly.
                   </p>
                 </div>

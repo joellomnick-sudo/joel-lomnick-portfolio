@@ -28,7 +28,7 @@ export function CTASection({
             <h2 className="mt-3 max-w-3xl text-3xl font-black text-balance sm:text-4xl">
               {headline}
             </h2>
-            <p className="mt-4 text-base leading-8 text-ink/78 sm:text-lg">{text}</p>
+            <p className="mt-4 text-base leading-8 text-ink/82 sm:text-lg">{text}</p>
           </div>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row lg:mt-0 lg:shrink-0">
             <ButtonLink href={primaryHref}>{primaryLabel}</ButtonLink>

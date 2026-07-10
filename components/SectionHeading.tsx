@@ -19,7 +19,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const centered = align === "center";
   const headingColor = tone === "light" ? "text-ink" : "text-warmIvory";
-  const bodyColor = tone === "light" ? "text-ink/72" : "text-warmIvory/72";
+  const bodyColor = tone === "light" ? "text-ink/82" : "text-warmIvory/84";
 
   return (
     <div className={`${centered ? "mx-auto text-center" : ""} w-full max-w-3xl ${className}`}>
