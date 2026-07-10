@@ -22,7 +22,7 @@ export function SectionHeading({
   const bodyColor = tone === "light" ? "text-ink/72" : "text-warmIvory/72";
 
   return (
-    <div className={`${centered ? "mx-auto text-center" : ""} max-w-3xl ${className}`}>
+    <div className={`${centered ? "mx-auto text-center" : ""} w-full max-w-3xl ${className}`}>
       {eyebrow ? (
         <p className="text-sm font-bold uppercase text-mutedGold">{eyebrow}</p>
       ) : null}

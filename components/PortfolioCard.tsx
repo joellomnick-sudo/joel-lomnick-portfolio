@@ -8,7 +8,7 @@ type PortfolioCardProps = {
 
 export function PortfolioCard({ item }: PortfolioCardProps) {
   const content = (
-    <article className="group h-full overflow-hidden rounded-lg border border-deepBrown/12 bg-paper shadow-premium transition hover:-translate-y-1 hover:border-mutedGold/65">
+    <article className="group h-full w-full min-w-0 overflow-hidden rounded-lg border border-deepBrown/12 bg-paper shadow-premium transition hover:-translate-y-1 hover:border-mutedGold/65">
       <VisualTile
         title={item.title}
         category={item.category}
@@ -39,7 +39,7 @@ export function PortfolioCard({ item }: PortfolioCardProps) {
   }
 
   return (
-    <Link href={item.href} className="block h-full rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold">
+    <Link href={item.href} className="block h-full w-full rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold">
       {content}
     </Link>
   );

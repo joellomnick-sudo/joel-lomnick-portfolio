@@ -11,7 +11,7 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-mutedGold/18 bg-richBlack/94 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-mutedGold/18 bg-richBlack shadow-gold">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 sm:px-8">
         <Link href="/" className="group min-w-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold">
           <span className="block font-serif text-xl font-bold leading-none text-warmIvory group-hover:text-mutedGold">

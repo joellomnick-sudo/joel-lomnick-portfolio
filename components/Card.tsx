@@ -13,7 +13,7 @@ const toneClasses = {
 export function Card({ children, className = "", tone = "light" }: CardProps) {
   return (
     <article
-      className={`rounded-lg border p-6 transition duration-200 hover:-translate-y-1 hover:border-mutedGold/55 ${toneClasses[tone]} ${className}`}
+      className={`w-full min-w-0 rounded-lg border p-6 transition duration-200 hover:-translate-y-1 hover:border-mutedGold/55 ${toneClasses[tone]} ${className}`}
     >
       {children}
     </article>

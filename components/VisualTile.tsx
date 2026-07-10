@@ -75,7 +75,7 @@ export function VisualTile({
   if (image) {
     return (
       <div
-        className={`relative overflow-hidden rounded-t-lg border-b border-deepBrown/10 bg-parchment ${aspectClasses[aspect]} ${className}`}
+        className={`relative w-full min-w-0 overflow-hidden rounded-t-lg border-b border-deepBrown/10 bg-parchment ${aspectClasses[aspect]} ${className}`}
       >
         <Image
           src={image}
@@ -91,7 +91,7 @@ export function VisualTile({
 
   return (
     <div
-      className={`branded-placeholder ${aspectClasses[aspect]} ${className}`}
+      className={`branded-placeholder w-full min-w-0 ${aspectClasses[aspect]} ${className}`}
       style={variantStyles[placeholderVariant]}
       aria-label={`${title} visual placeholder`}
       role="img"
