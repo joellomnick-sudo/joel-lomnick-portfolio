@@ -33,6 +33,10 @@ export type CardItem = {
   placeholderVariant?: PlaceholderVariant;
   ctaLabel?: string;
   category?: string;
+  role?: string;
+  whatBuilt?: string;
+  whatItProves?: string;
+  methods?: string;
 };
 
 export type SectionItem = {
@@ -46,6 +50,11 @@ export type SectionItem = {
   visualLabel?: string;
   placeholderVariant?: PlaceholderVariant;
   category?: string;
+  challenge?: string;
+  role?: string;
+  system?: string;
+  principle?: string;
+  outcome?: string;
 };
 
 export const navLinks: LinkItem[] = [
@@ -60,44 +69,58 @@ export const navLinks: LinkItem[] = [
 ];
 
 export const identityLabels = [
-  "Engineering",
+  "Electrical Engineering",
   "Creative Strategy",
-  "LomnickPro Services",
-  "Leadership",
-  "Mentorship",
   "Storytelling",
+  "Leadership Systems",
+  "Community Mentorship",
 ];
 
 export const homeLanes: CardItem[] = [
   {
-    title: "Electrical Engineer",
+    title: "Engineering & Infrastructure",
+    category: "Engineering",
     description:
-      "Building systems, documentation, coordination, and practical technical communication for real projects and real stakeholders.",
+      "Electrical systems coordination, construction documentation, public-sector infrastructure, and owner-facing communication.",
+    href: "/engineering",
+    visualLabel: "EIT",
+    placeholderVariant: "engineering",
   },
   {
-    title: "Creative Strategist",
+    title: "Creative Strategy",
+    category: "Creative",
     description:
-      "Websites, graphics, resumes, brand presence, and organized visibility for people whose work deserves to be understood.",
+      "LomnickPro structure for websites, brands, presentations, resumes, and public-facing messaging that builds trust.",
+    href: "/creative-services",
+    visualLabel: "LP",
+    placeholderVariant: "creative",
   },
   {
-    title: "Author of Lionheart",
+    title: "Leadership & Community Systems",
+    category: "Leadership",
     description:
-      "A memoir project shaped by survival, family, faith, Black identity, engineering, mentorship, and reinvention.",
+      "Chapter systems, church media workflows, coalition support, compliance-minded leadership, and succession planning.",
+    href: "/leadership",
+    visualLabel: "LEAD",
+    placeholderVariant: "leadership",
   },
   {
-    title: "Iota & NPHC Leader",
+    title: "Writing & Storytelling",
+    category: "Story",
     description:
-      "Fraternity and council service rooted in scholarship, leadership, citizenship, fidelity, and brotherhood.",
+      "Lionheart and the larger practice of turning survival, identity, faith, career, and legacy into disciplined story.",
+    href: "/lionheart",
+    visualLabel: "LH",
+    placeholderVariant: "story",
   },
   {
-    title: "Church Media & Mentoring Servant",
+    title: "Culture & Mentorship",
+    category: "Mentorship",
     description:
-      "Media ministry, trustee service, audit support, and young men's mentoring through Third Street Bethel AME Church.",
-  },
-  {
-    title: "Cultural Arts & Community Connector",
-    description:
-      "A Richmond-based builder who values cultural memory, wellness, movement, rhythm, and the power of shared space.",
+      "Young men's mentoring, career support, cultural wellness, rhythm, movement, and spaces where people can rise.",
+    href: "/contact",
+    visualLabel: "RISE",
+    placeholderVariant: "community",
   },
 ];
 
@@ -144,61 +167,86 @@ export const featuredWork: CardItem[] = [
   },
 ];
 
-export const aboutSections: SectionItem[] = [
+export const aboutArc: SectionItem[] = [
   {
-    title: "The Professional",
+    title: "Rochester Foundation",
+    category: "Origin",
     description:
-      "Joel works across electrical engineering, building systems, project coordination, technical communication, and practical problem solving. His professional lens is disciplined, service-oriented, and grounded in the responsibility that comes with public-facing infrastructure.",
+      "The foundation was built around family, faith, survival, work ethic, and learning how to read the room without losing the mission.",
+    bullets: ["Family roots", "Early responsibility", "Faith and service", "Resilience with restraint"],
+    visualLabel: "ROC",
+    placeholderVariant: "document",
   },
   {
-    title: "The Creative",
+    title: "RIT Engineering & NSBE",
+    category: "Formation",
     description:
-      "Through Lomnick Professional Services, he helps people and organizations look as strong as their mission. That work includes website design, graphic design, resumes, branding, presentations, Canva and Wix support, and sharper professional storytelling.",
+      "Engineering school sharpened the technical lens, while NSBE leadership reinforced representation, preparation, and academic excellence.",
+    bullets: ["Electrical engineering", "Academic excellence", "Programs leadership", "STEM mentorship"],
+    visualLabel: "RIT",
+    placeholderVariant: "engineering",
   },
   {
-    title: "The Community Builder",
+    title: "Albany Brotherhood, Church & Cultural Arts",
+    category: "Community",
     description:
-      "His service ecosystem includes Iota Phi Theta, NPHC of Metro Richmond, Third Street Bethel AME Church, the Young Men's Mentoring Program, NSBE, Break It Down RVA, and African drum and dance.",
+      "Brotherhood, worship, cultural arts, and service shaped a public leadership style grounded in rhythm, accountability, and care.",
+    bullets: ["Iota Phi Theta", "Church service", "African drum and dance", "Cultural memory"],
+    visualLabel: "ALB",
+    placeholderVariant: "leadership",
   },
   {
-    title: "The Storyteller",
+    title: "Richmond Rebuilding & Leadership",
+    category: "Rebuild",
     description:
-      "Lionheart frames his memoir work around survival, family, career, identity, faith, mentorship, and reinvention. The story is personal, but its structure is designed to help others name what they have carried and what they can still build.",
+      "Richmond became the place where engineering, LomnickPro, church media, NPHC, mentoring, and creative strategy became one ecosystem.",
+    bullets: ["Public-sector projects", "LomnickPro", "NPHC-MR", "Church media"],
+    visualLabel: "RVA",
+    placeholderVariant: "community",
+  },
+  {
+    title: "Current & Future Legacy",
+    category: "Legacy",
+    description:
+      "The next chapter is about building systems, stories, leaders, and infrastructure that help people rise without turning the work into performance.",
+    bullets: ["Lionheart", "Mentorship", "Leadership systems", "Purposeful infrastructure"],
+    visualLabel: "NEXT",
+    placeholderVariant: "story",
   },
 ];
 
 export const beliefStatements = [
-  "Build systems that outlive you.",
-  "Make the mission visible.",
-  "Tell the truth with structure.",
-  "Mentor the next builder.",
+  "Build systems that outlive the meeting.",
+  "Make the mission visible without making it noisy.",
+  "Tell the truth with structure and restraint.",
+  "Mentor the next builder before the room needs them.",
 ];
 
 export const engineeringCards: SectionItem[] = [
   {
-    title: "Stratus / Ascent Engineering Group",
+    title: "Electrical Systems Coordination",
     description:
-      "Project Engineer II, Electrical Engineer, and EIT supporting design, documentation, coordination, and construction-phase communication.",
+      "Code-aware design support across power distribution, lighting, fire alarm, low-voltage, utilities, and existing building conditions.",
   },
   {
-    title: "Electrical Engineering & Building Systems",
+    title: "Construction Documentation",
     description:
-      "Power distribution, lighting, fire alarm, low-voltage coordination, and renovation work across complex existing conditions.",
+      "Buildable drawings, scope narratives, field notes, and document coordination that help teams make decisions with confidence.",
   },
   {
-    title: "Construction Administration",
+    title: "RFIs, Submittals & Field Coordination",
     description:
-      "RFI responses, submittal review, field observation, and clear written communication that keeps project teams aligned.",
+      "Construction-phase support that turns questions, reviews, and site observations into clear next steps.",
   },
   {
-    title: "K-12 and Public-Sector Projects",
+    title: "Public-Sector Infrastructure",
     description:
-      "Owner-sensitive documentation and coordination for schools and public environments where clarity, budget, safety, and trust matter.",
+      "K-12 and public environments where safety, trust, phasing, budget, and owner communication matter as much as the technical answer.",
   },
   {
-    title: "Power, Lighting, Fire Alarm, Low-Voltage, Utility Coordination",
+    title: "Owner-Facing Communication",
     description:
-      "Electrical scopes handled with attention to interdisciplinary dependencies, stakeholder needs, and field realities.",
+      "Plain-language technical communication for owners, architects, consultants, contractors, and stakeholders who need usable clarity.",
   },
 ];
 
@@ -222,7 +270,7 @@ export const serviceCards: CardItem[] = [
     title: "Website Design & Digital Presence",
     category: "Websites",
     description:
-      "Clean, purposeful websites for individuals, churches, fraternities, nonprofits, and small businesses.",
+      "Purposeful websites and digital ecosystems for churches, chapters, nonprofits, entrepreneurs, and mission-driven people.",
     image: "/images/website-design-work.jpg",
     alt: "Website design and digital presence work sample.",
     imageFit: "screenshot",
@@ -232,7 +280,7 @@ export const serviceCards: CardItem[] = [
     title: "Branding & Graphic Design",
     category: "Branding",
     description:
-      "Flyers, visual identity, event graphics, social media layouts, business cards, and presentation visuals.",
+      "Flyers, identity systems, event graphics, social media layouts, business cards, and presentation visuals with structure behind the style.",
     image: "/images/lomnickpro-work.jpg",
     alt: "Lomnick Professional Services website and branding preview.",
     imageFit: "screenshot",
@@ -242,7 +290,7 @@ export const serviceCards: CardItem[] = [
     title: "Resume, Bio & Professional Storytelling",
     category: "Professional Story",
     description:
-      "Career documents and personal branding that help people communicate their value clearly.",
+      "Safe, polished career documents, bios, and positioning language that communicate value without exposing private details.",
     visualLabel: "BIO",
     placeholderVariant: "document",
   },
@@ -250,7 +298,7 @@ export const serviceCards: CardItem[] = [
     title: "Project Planning & Technical Communication",
     category: "Technical Communication",
     description:
-      "Scope narratives, meeting notes, planning documents, and plain-language technical communication.",
+      "Scope narratives, meeting notes, project plans, and plain-language technical communication that make decisions easier.",
     visualLabel: "SCOPE",
     placeholderVariant: "engineering",
   },
@@ -258,7 +306,7 @@ export const serviceCards: CardItem[] = [
     title: "Community Program Strategy",
     category: "Community Strategy",
     description:
-      "Support for service programs, mentoring efforts, chapter initiatives, and public-facing campaigns.",
+      "Structure for service programs, mentoring efforts, chapter initiatives, campaigns, and public-facing community work.",
     visualLabel: "PLAN",
     placeholderVariant: "community",
   },
@@ -266,7 +314,7 @@ export const serviceCards: CardItem[] = [
     title: "Leadership & Mentoring Support",
     category: "Mentoring",
     description:
-      "Practical coaching, structure, and documentation for emerging leaders and young professionals.",
+      "Practical coaching, structure, documentation, and confidence-building support for emerging leaders and young professionals.",
     image: "/images/mentoring-work.jpg",
     alt: "Young men's mentoring program group photo.",
     imageFit: "group-photo",
@@ -275,111 +323,135 @@ export const serviceCards: CardItem[] = [
 ];
 
 export const portfolioCategories = [
-  "Websites",
-  "Graphics",
-  "Community",
-  "Professional Development",
-  "Engineering Communication",
+  "Engineering / Infrastructure",
+  "Creative Strategy",
+  "Fraternity Leadership",
+  "Church Media",
+  "Coalition Leadership",
   "Storytelling",
+  "Mentorship / Culture",
 ];
 
 export const portfolioItems: CardItem[] = [
   {
-    title: "LomnickPro Creative Services",
-    category: "Branding / Digital Strategy",
+    title: "Public-Sector Electrical Coordination",
+    category: "Engineering / Infrastructure",
     description:
-      "Personal creative services platform supporting websites, graphics, resumes, and community storytelling.",
+      "Coordinated technical work for real construction environments where clarity, safety, and public trust matter.",
+    role: "Electrical Engineer / Project Engineer",
+    whatBuilt:
+      "Coordinated construction documentation, electrical systems, RFIs, submittals, field notes, and owner-facing communication.",
+    whatItProves:
+      "Technical discipline, public trust, and buildable clarity in public-sector infrastructure.",
+    methods: "Power, lighting, fire alarm, low-voltage, utilities, field coordination",
+    href: "/engineering",
+    visualLabel: "EIT",
+    placeholderVariant: "engineering",
+    ctaLabel: "Connect About Engineering",
+  },
+  {
+    title: "LomnickPro Creative Services",
+    category: "Creative Strategy",
+    description:
+      "A creative services platform built around structure, polish, visibility, and trust for mission-driven people.",
+    role: "Founder / Creative Strategist",
+    whatBuilt:
+      "Websites, flyers, brand systems, presentations, resumes, bios, and public-facing messaging.",
+    whatItProves:
+      "Visual clarity, mission translation, and practical communication without unnecessary noise.",
+    methods: "Brand systems, web planning, Canva/Wix-style workflows, messaging strategy",
     href: "/creative-services",
     visualLabel: "LP",
     placeholderVariant: "creative",
-    ctaLabel: "Explore related work",
+    ctaLabel: "Start a Creative Project",
   },
   {
-    title: "Omicron Omega / Iota Phi Theta Support",
-    category: "Fraternity / Leadership / Digital Presence",
+    title: "Omicron Omega Digital Rebuild",
+    category: "Fraternity Leadership",
     description:
-      "Website, graphics, communications, and strategic visibility support for chapter operations and public presence.",
+      "Chapter visibility and digital structure aligned with public professionalism and brotherhood.",
+    role: "Vice Polaris / Webmaster / Strategist",
+    whatBuilt:
+      "Digital presence, recruitment-facing materials, chapter visibility, documentation habits, and succession support.",
+    whatItProves:
+      "Leadership, Brotherhood, Fidelity, and sustainable chapter systems handled with compliance-minded care.",
+    methods: "Website/social media rebuild, public communications, training support, documentation culture",
     href: "/leadership",
     visualLabel: "IOTA",
     placeholderVariant: "leadership",
-    ctaLabel: "Explore related work",
+    ctaLabel: "Connect About Leadership",
   },
   {
-    title: "NPHC of Metro Richmond",
-    category: "Council / Website Support",
+    title: "Third Street Bethel Media Systems",
+    category: "Church Media / Ministry Operations",
     description:
-      "Digital support and website presence for Richmond-area Divine Nine collaboration.",
-    href: "/leadership",
-    visualLabel: "NPHC",
-    placeholderVariant: "community",
-    ctaLabel: "Explore related work",
-  },
-  {
-    title: "Third Street Bethel AME Church Media",
-    category: "Church / Media / Community",
-    description:
-      "Worship media, event visuals, reports, and digital communication support.",
+      "Media support treated as ministry infrastructure: reliable, visible, and accountable.",
+    role: "Media Team / Trustee / Internal Audit / Mentor",
+    whatBuilt:
+      "Worship support, livestream workflows, communications structure, ministry visibility, and service documentation.",
+    whatItProves:
+      "Service, stewardship, and technical communication inside faith institutions.",
+    methods: "AV support, livestream workflows, governance mindset, young men's mentoring",
     href: "/leadership",
     visualLabel: "MEDIA",
     placeholderVariant: "community",
-    ctaLabel: "Explore related work",
+    ctaLabel: "Discuss Church Media Support",
   },
   {
-    title: "Cathy Lomnick Sepsis Foundation",
-    category: "Nonprofit / Website",
+    title: "NPHC-MR Digital / Conference Strategy",
+    category: "Coalition Leadership",
     description:
-      "Website and awareness support connected to family legacy and public health advocacy.",
-    href: "/creative-services",
-    visualLabel: "CLSF",
-    placeholderVariant: "creative",
-    ctaLabel: "Explore related work",
-  },
-  {
-    title: "Frills & Finds Consignment",
-    category: "Small Business / Website",
-    description: "Digital presence support for a small business brand.",
-    href: "/creative-services",
-    visualLabel: "F&F",
-    placeholderVariant: "creative",
-    ctaLabel: "Explore related work",
-  },
-  {
-    title: "Resume & Professional Development Support",
-    category: "Mentoring / Career",
-    description:
-      "Resumes, cover letters, bios, and portfolio support for young professionals and mentees.",
-    href: "/creative-services",
-    visualLabel: "BIO",
-    placeholderVariant: "document",
-    ctaLabel: "Explore related work",
-  },
-  {
-    title: "Flyers & Community Campaigns",
-    category: "Graphic Design / Events",
-    description:
-      "Event flyers, service graphics, church visuals, fraternity promotions, and community announcements.",
-    href: "/creative-services",
-    visualLabel: "ARTS",
+      "Coalition-facing support where neutrality, professionalism, and shared trust are the point.",
+    role: "Webmaster / Digital Support / Iota Representative",
+    whatBuilt:
+      "Public-facing digital support and strategic planning support for collaborative Divine Nine work.",
+    whatItProves:
+      "Citizenship, neutrality, professionalism, and coalition trust across organizations.",
+    methods: "Council communications, event visibility, public presentation, strategic support",
+    href: "/leadership",
+    visualLabel: "NPHC",
     placeholderVariant: "community",
-    ctaLabel: "Explore related work",
+    ctaLabel: "Connect About Leadership",
   },
   {
-    title: "Lionheart",
-    category: "Writing / Memoir / Storytelling",
+    title: "Lionheart Memoir Project",
+    category: "Writing / Storytelling",
     description:
-      "A personal memoir project about survival, family, engineering, faith, identity, mentorship, and reinvention.",
+      "A literary framework for the story behind the builder, held with emotional honesty and restraint.",
+    role: "Author",
+    whatBuilt:
+      "A memoir framework turning survival, identity, faith, career, mentorship, and legacy into story.",
+    whatItProves:
+      "Voice, emotional truth, reflection, literary discipline, and legacy-minded storytelling.",
+    methods: "Memoir structure, thematic framing, testimony, revision, voice development",
     href: "/lionheart",
     visualLabel: "LH",
     placeholderVariant: "story",
     ctaLabel: "Explore the Story",
+  },
+  {
+    title: "Mentorship & Cultural Wellness",
+    category: "Mentorship / Culture",
+    description:
+      "Support systems for young men, emerging professionals, and community wellness through rhythm and movement.",
+    role: "Mentor / Cultural Participant / Community Builder",
+    whatBuilt:
+      "Career support, confidence-building, young men's mentoring, and culturally rooted wellness practice.",
+    whatItProves:
+      "People development, emotional intelligence, Black joy, and legacy work that lives beyond a single program.",
+    methods: "Mentorship, career coaching, cultural arts, line dancing, community wellness",
+    href: "/leadership",
+    visualLabel: "RISE",
+    placeholderVariant: "community",
+    ctaLabel: "Request Mentoring or Career Support",
   },
 ];
 
 export const lionheartThemes = [
   "Survival",
   "Family",
-  "Career",
   "Identity",
+  "Career",
   "Faith",
   "Mentorship",
   "Legacy",
@@ -390,13 +462,24 @@ export const leadershipSections: SectionItem[] = [
     title: "Iota Phi Theta / Omicron Omega",
     category: "Fraternity Leadership",
     description:
-      "Fraternity service shaped by scholarship, leadership, citizenship, fidelity, and brotherhood.",
+      "Building tradition through structure, visibility, compliance, and brotherhood.",
+    challenge:
+      "A chapter needs public visibility, internal continuity, and leadership development without exposing private or restricted fraternity work.",
+    role:
+      "Vice Polaris, Webmaster, Advisor, strategist, and compliance-minded mentor supporting chapter visibility and successor development.",
+    system:
+      "Website and social media rebuild, public-facing communication habits, education support, documentation culture, and executive council continuity.",
+    principle:
+      "Scholarship, Leadership, Citizenship, Fidelity, and Brotherhood.",
+    outcome:
+      "A stronger public presence and a more structured leadership culture that keeps service and brotherhood ahead of personal clout.",
     bullets: [
       "Vice Polaris",
       "Webmaster",
       "Advisor",
-      "Intake leader and compliance-focused mentor",
+      "Compliance-focused education support",
       "Chapter strategist",
+      "Succession planning",
     ],
     image: "/images/iota-phi-theta.JPG",
     alt: "Joel Lomnick with Iota Phi Theta fraternity brothers.",
@@ -407,7 +490,17 @@ export const leadershipSections: SectionItem[] = [
     title: "NPHC of Metro Richmond",
     category: "Council Service",
     description:
-      "Digital support and collaborative representation for Richmond-area Divine Nine work.",
+      "Coalition work requires clarity, neutrality, professionalism, and trust.",
+    challenge:
+      "A citywide Divine Nine council needs shared public visibility without making the work look like one chapter's platform.",
+    role:
+      "Webmaster, digital support partner, and Iota representative supporting neutral public-facing presentation.",
+    system:
+      "Digital visibility, council communications, event support, and web updates that keep the coalition clear and credible.",
+    principle:
+      "Citizenship, collaboration, neutrality, and professional trust.",
+    outcome:
+      "NPHC-MR work stays visually and politically distinct from Iota while still showing coordinated service across organizations.",
     bullets: ["Webmaster", "Digital support", "Iota representative", "Divine Nine collaboration"],
     image: "/images/nphc-mr.jpg",
     alt: "National Pan-Hellenic Council of Metro Richmond group photo.",
@@ -418,7 +511,17 @@ export const leadershipSections: SectionItem[] = [
     title: "Third Street Bethel AME Church",
     category: "Church Media",
     description:
-      "Church service across media, governance, accountability, and mentorship.",
+      "Church media is ministry infrastructure.",
+    challenge:
+      "Worship, announcements, livestream, and service communication need dependable systems, not last-minute improvisation.",
+    role:
+      "Media ministry servant with trustee, internal audit, and mentoring perspective.",
+    system:
+      "Livestream support, AV workflows, communications habits, event visuals, and documentation-minded service.",
+    principle:
+      "Stewardship, accountability, ministry support, and practical excellence.",
+    outcome:
+      "Media work reads as operational ministry infrastructure rather than a side volunteer hobby.",
     bullets: [
       "Media Ministry",
       "Trustee Board",
@@ -434,27 +537,36 @@ export const leadershipSections: SectionItem[] = [
     title: "National Society of Black Engineers",
     category: "STEM Leadership",
     description:
-      "STEM leadership and student support rooted in academic excellence and professional readiness.",
+      "STEM leadership is academic excellence, representation, and preparation.",
+    challenge:
+      "Students in demanding technical spaces need preparation, representation, and peer leadership that takes excellence seriously.",
+    role:
+      "Academic Excellence Chair, Programs Chair, Vice President, and STEM mentor formed through the RIT engineering experience.",
+    system:
+      "Academic support, programs, student leadership, and professional readiness habits.",
+    principle:
+      "Representation, preparation, academic excellence, and disciplined support.",
+    outcome:
+      "Engineering identity became connected to service, not just credentials.",
     bullets: ["Academic Excellence Chair", "Programs Chair", "Vice President", "STEM mentor"],
     visualLabel: "NSBE",
     placeholderVariant: "engineering",
   },
   {
-    title: "Cultural Arts & Wellness",
-    category: "Cultural Arts",
-    description:
-      "Community wellness through cultural expression, movement, rhythm, and shared memory.",
-    bullets: ["Break It Down RVA", "West African drum and dance", "Line dancing", "Community wellness"],
-    image: "/images/cultural-arts.jpg",
-    alt: "Joel Lomnick participating in African drum and dance cultural arts.",
-    imageFit: "portrait",
-    imageType: "portrait",
-  },
-  {
     title: "Mentoring",
     category: "Mentorship",
     description:
-      "Support for young people and emerging professionals learning to name their value and lead with confidence.",
+      "Mentoring is helping people name their value and build enough structure to act on it.",
+    challenge:
+      "Young men and emerging professionals often have ability before they have language, confidence, or systems around their next move.",
+    role:
+      "Mentor, career coach, big-brother/father-figure style guide, and practical structure builder.",
+    system:
+      "Resume coaching, career support, leadership development, personal branding, and confidence-building conversations.",
+    principle:
+      "People development, emotional intelligence, preparation, and care.",
+    outcome:
+      "Mentees get clearer language, stronger documents, and enough structure to take the next responsible step.",
     bullets: [
       "Young men's mentoring",
       "Resume and career coaching",
@@ -465,6 +577,27 @@ export const leadershipSections: SectionItem[] = [
     visualLabel: "MENTOR",
     placeholderVariant: "leadership",
   },
+  {
+    title: "Cultural Arts & Wellness",
+    category: "Cultural Arts",
+    description:
+      "Movement, rhythm, and culture are part of how communities heal and remember.",
+    challenge:
+      "Community wellness needs spaces where people can reconnect with rhythm, movement, memory, and Black joy.",
+    role:
+      "Cultural participant and community connector supporting wellness through shared practice.",
+    system:
+      "African drum and dance, Break It Down RVA, line dancing, and culturally rooted gathering spaces.",
+    principle:
+      "Memory, movement, joy, wellness, and continuity.",
+    outcome:
+      "Culture becomes part of the leadership ecosystem instead of being treated as an unrelated hobby.",
+    bullets: ["Break It Down RVA", "West African drum and dance", "Line dancing", "Community wellness"],
+    image: "/images/cultural-arts.jpg",
+    alt: "Joel Lomnick participating in African drum and dance cultural arts.",
+    imageFit: "portrait",
+    imageType: "portrait",
+  },
 ];
 
 export const contactCards = [
@@ -472,6 +605,16 @@ export const contactCards = [
   { title: "Phone", value: "(804) 885-0256", href: "tel:+18048850256" },
   { title: "Location", value: "Richmond, Virginia" },
   { title: "Consultation", value: "30-minute virtual consultation" },
+];
+
+export const contactCategories = [
+  "Engineering / professional inquiry",
+  "Creative services",
+  "Website or digital presence",
+  "Speaking or workshop request",
+  "Resume or career support",
+  "Community, church, or fraternity collaboration",
+  "Lionheart or writing inquiry",
 ];
 
 export const footerValues = [

@@ -9,10 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        richBlack: "#1E160F",
+        richBlack: "#1A100A",
+        softBlack: "#0D0A07",
         warmIvory: "#F7F1E5",
         parchment: "#EFE4CF",
-        deepBrown: "#3A2416",
+        deepBrown: "#2B1A10",
+        richBrown: "#3A2416",
         mutedBrown: "#5A3A24",
         mutedGold: "#C9A24A",
         softGold: "#D7B866",

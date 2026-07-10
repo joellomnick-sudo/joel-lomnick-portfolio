@@ -32,7 +32,7 @@ const imageFitClasses: Record<ImageFit, string> = {
   contain: "object-contain object-center p-3",
   portrait: "object-cover object-center",
   landscape: "object-cover object-center",
-  "group-photo": "object-cover object-center",
+  "group-photo": "object-contain object-center p-2",
   screenshot: "object-contain object-center p-3",
   "book-cover": "object-contain object-center p-2",
   "branded-placeholder": "object-contain object-center",
