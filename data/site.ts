@@ -3,12 +3,35 @@ export type LinkItem = {
   href: string;
 };
 
+export type ImageFit =
+  | "cover"
+  | "contain"
+  | "portrait"
+  | "landscape"
+  | "group-photo"
+  | "screenshot"
+  | "book-cover"
+  | "branded-placeholder";
+
+export type PlaceholderVariant =
+  | "engineering"
+  | "creative"
+  | "leadership"
+  | "story"
+  | "community"
+  | "document";
+
 export type CardItem = {
   title: string;
   description: string;
   href?: string;
   image?: string;
   alt?: string;
+  imageFit?: ImageFit;
+  imageType?: ImageFit;
+  visualLabel?: string;
+  placeholderVariant?: PlaceholderVariant;
+  ctaLabel?: string;
   category?: string;
 };
 
@@ -16,6 +39,13 @@ export type SectionItem = {
   title: string;
   description: string;
   bullets?: string[];
+  image?: string;
+  alt?: string;
+  imageFit?: ImageFit;
+  imageType?: ImageFit;
+  visualLabel?: string;
+  placeholderVariant?: PlaceholderVariant;
+  category?: string;
 };
 
 export const navLinks: LinkItem[] = [
@@ -74,35 +104,43 @@ export const homeLanes: CardItem[] = [
 export const featuredWork: CardItem[] = [
   {
     title: "Engineering & Project Coordination",
+    category: "Engineering",
     description:
       "Electrical design support, construction administration, K-12 public-sector work, and owner-facing communication.",
     href: "/engineering",
-    image: "/images/engineering-project.jpg",
-    alt: "Placeholder for an engineering project coordination scene",
+    visualLabel: "EIT",
+    placeholderVariant: "engineering",
+    ctaLabel: "Explore related work",
   },
   {
     title: "LomnickPro Creative Services",
+    category: "Creative Services",
     description:
       "Websites, graphics, resumes, branding, and structured visibility for mission-driven clients and organizations.",
     href: "/creative-services",
-    image: "/images/lomnickpro-work.jpg",
-    alt: "Placeholder for Lomnick Professional Services creative work",
+    visualLabel: "LP",
+    placeholderVariant: "creative",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Lionheart: The Joel Lomnick Story",
+    category: "Memoir",
     description:
       "A personal testimony about becoming whole while still building systems, stories, and legacy.",
     href: "/lionheart",
-    image: "/images/lionheart-cover.jpg",
-    alt: "Placeholder book cover for Lionheart",
+    visualLabel: "LH",
+    placeholderVariant: "story",
+    ctaLabel: "Explore the Story",
   },
   {
     title: "Leadership & Community Impact",
+    category: "Leadership",
     description:
       "Iota Phi Theta, NPHC-MR, church service, NSBE, mentoring, and culturally grounded community work.",
     href: "/leadership",
-    image: "/images/iota-nphc-work.jpg",
-    alt: "Placeholder for leadership and community impact work",
+    visualLabel: "RISE",
+    placeholderVariant: "leadership",
+    ctaLabel: "Explore related work",
   },
 ];
 
@@ -182,39 +220,57 @@ export const engineeringSkills = [
 export const serviceCards: CardItem[] = [
   {
     title: "Website Design & Digital Presence",
+    category: "Websites",
     description:
       "Clean, purposeful websites for individuals, churches, fraternities, nonprofits, and small businesses.",
     image: "/images/website-design-work.jpg",
-    alt: "Placeholder for website design work",
+    alt: "Website design and digital presence work sample.",
+    imageFit: "screenshot",
+    imageType: "screenshot",
   },
   {
     title: "Branding & Graphic Design",
+    category: "Branding",
     description:
       "Flyers, visual identity, event graphics, social media layouts, business cards, and presentation visuals.",
     image: "/images/lomnickpro-work.jpg",
-    alt: "Placeholder for branding and graphic design work",
+    alt: "Lomnick Professional Services website and branding preview.",
+    imageFit: "screenshot",
+    imageType: "screenshot",
   },
   {
     title: "Resume, Bio & Professional Storytelling",
+    category: "Professional Story",
     description:
       "Career documents and personal branding that help people communicate their value clearly.",
-    image: "/images/resume-branding-work.jpg",
-    alt: "Placeholder for resume and professional branding work",
+    visualLabel: "BIO",
+    placeholderVariant: "document",
   },
   {
     title: "Project Planning & Technical Communication",
+    category: "Technical Communication",
     description:
       "Scope narratives, meeting notes, planning documents, and plain-language technical communication.",
+    visualLabel: "SCOPE",
+    placeholderVariant: "engineering",
   },
   {
     title: "Community Program Strategy",
+    category: "Community Strategy",
     description:
       "Support for service programs, mentoring efforts, chapter initiatives, and public-facing campaigns.",
+    visualLabel: "PLAN",
+    placeholderVariant: "community",
   },
   {
     title: "Leadership & Mentoring Support",
+    category: "Mentoring",
     description:
       "Practical coaching, structure, and documentation for emerging leaders and young professionals.",
+    image: "/images/mentoring-work.jpg",
+    alt: "Young men's mentoring program group photo.",
+    imageFit: "group-photo",
+    imageType: "group-photo",
   },
 ];
 
@@ -234,8 +290,9 @@ export const portfolioItems: CardItem[] = [
     description:
       "Personal creative services platform supporting websites, graphics, resumes, and community storytelling.",
     href: "/creative-services",
-    image: "/images/lomnickpro-work.jpg",
-    alt: "Placeholder for LomnickPro creative service samples",
+    visualLabel: "LP",
+    placeholderVariant: "creative",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Omicron Omega / Iota Phi Theta Support",
@@ -243,8 +300,9 @@ export const portfolioItems: CardItem[] = [
     description:
       "Website, graphics, communications, and strategic visibility support for chapter operations and public presence.",
     href: "/leadership",
-    image: "/images/iota-nphc-work.jpg",
-    alt: "Placeholder for Iota Phi Theta digital presence support",
+    visualLabel: "IOTA",
+    placeholderVariant: "leadership",
+    ctaLabel: "Explore related work",
   },
   {
     title: "NPHC of Metro Richmond",
@@ -252,8 +310,9 @@ export const portfolioItems: CardItem[] = [
     description:
       "Digital support and website presence for Richmond-area Divine Nine collaboration.",
     href: "/leadership",
-    image: "/images/iota-nphc-work.jpg",
-    alt: "Placeholder for NPHC of Metro Richmond website support",
+    visualLabel: "NPHC",
+    placeholderVariant: "community",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Third Street Bethel AME Church Media",
@@ -261,8 +320,9 @@ export const portfolioItems: CardItem[] = [
     description:
       "Worship media, event visuals, reports, and digital communication support.",
     href: "/leadership",
-    image: "/images/church-media-work.jpg",
-    alt: "Placeholder for church media and event visuals",
+    visualLabel: "MEDIA",
+    placeholderVariant: "community",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Cathy Lomnick Sepsis Foundation",
@@ -270,16 +330,18 @@ export const portfolioItems: CardItem[] = [
     description:
       "Website and awareness support connected to family legacy and public health advocacy.",
     href: "/creative-services",
-    image: "/images/website-design-work.jpg",
-    alt: "Placeholder for nonprofit website support",
+    visualLabel: "CLSF",
+    placeholderVariant: "creative",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Frills & Finds Consignment",
     category: "Small Business / Website",
     description: "Digital presence support for a small business brand.",
     href: "/creative-services",
-    image: "/images/website-design-work.jpg",
-    alt: "Placeholder for a small business website project",
+    visualLabel: "F&F",
+    placeholderVariant: "creative",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Resume & Professional Development Support",
@@ -287,8 +349,9 @@ export const portfolioItems: CardItem[] = [
     description:
       "Resumes, cover letters, bios, and portfolio support for young professionals and mentees.",
     href: "/creative-services",
-    image: "/images/resume-branding-work.jpg",
-    alt: "Placeholder for resume and career support work",
+    visualLabel: "BIO",
+    placeholderVariant: "document",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Flyers & Community Campaigns",
@@ -296,8 +359,9 @@ export const portfolioItems: CardItem[] = [
     description:
       "Event flyers, service graphics, church visuals, fraternity promotions, and community announcements.",
     href: "/creative-services",
-    image: "/images/cultural-arts.jpg",
-    alt: "Placeholder for community campaign graphics",
+    visualLabel: "ARTS",
+    placeholderVariant: "community",
+    ctaLabel: "Explore related work",
   },
   {
     title: "Lionheart",
@@ -305,8 +369,9 @@ export const portfolioItems: CardItem[] = [
     description:
       "A personal memoir project about survival, family, engineering, faith, identity, mentorship, and reinvention.",
     href: "/lionheart",
-    image: "/images/lionheart-cover.jpg",
-    alt: "Placeholder book cover for the Lionheart memoir project",
+    visualLabel: "LH",
+    placeholderVariant: "story",
+    ctaLabel: "Explore the Story",
   },
 ];
 
@@ -322,7 +387,8 @@ export const lionheartThemes = [
 
 export const leadershipSections: SectionItem[] = [
   {
-    title: "Iota Phi Theta Fraternity, Inc.",
+    title: "Iota Phi Theta / Omicron Omega",
+    category: "Fraternity Leadership",
     description:
       "Fraternity service shaped by scholarship, leadership, citizenship, fidelity, and brotherhood.",
     bullets: [
@@ -332,15 +398,25 @@ export const leadershipSections: SectionItem[] = [
       "Intake leader and compliance-focused mentor",
       "Chapter strategist",
     ],
+    image: "/images/iota-phi-theta.JPG",
+    alt: "Joel Lomnick with Iota Phi Theta fraternity brothers.",
+    imageFit: "group-photo",
+    imageType: "group-photo",
   },
   {
     title: "NPHC of Metro Richmond",
+    category: "Council Service",
     description:
       "Digital support and collaborative representation for Richmond-area Divine Nine work.",
     bullets: ["Webmaster", "Digital support", "Iota representative", "Divine Nine collaboration"],
+    image: "/images/nphc-mr.jpg",
+    alt: "National Pan-Hellenic Council of Metro Richmond group photo.",
+    imageFit: "group-photo",
+    imageType: "group-photo",
   },
   {
     title: "Third Street Bethel AME Church",
+    category: "Church Media",
     description:
       "Church service across media, governance, accountability, and mentorship.",
     bullets: [
@@ -349,21 +425,34 @@ export const leadershipSections: SectionItem[] = [
       "Internal Audit Committee",
       "Young Men's Mentoring Program",
     ],
+    image: "/images/church-media-work.jpg",
+    alt: "Church media production setup for livestream and worship support.",
+    imageFit: "landscape",
+    imageType: "landscape",
   },
   {
     title: "National Society of Black Engineers",
+    category: "STEM Leadership",
     description:
       "STEM leadership and student support rooted in academic excellence and professional readiness.",
     bullets: ["Academic Excellence Chair", "Programs Chair", "Vice President", "STEM mentor"],
+    visualLabel: "NSBE",
+    placeholderVariant: "engineering",
   },
   {
     title: "Cultural Arts & Wellness",
+    category: "Cultural Arts",
     description:
       "Community wellness through cultural expression, movement, rhythm, and shared memory.",
     bullets: ["Break It Down RVA", "West African drum and dance", "Line dancing", "Community wellness"],
+    image: "/images/cultural-arts.jpg",
+    alt: "Joel Lomnick participating in African drum and dance cultural arts.",
+    imageFit: "portrait",
+    imageType: "portrait",
   },
   {
     title: "Mentoring",
+    category: "Mentorship",
     description:
       "Support for young people and emerging professionals learning to name their value and lead with confidence.",
     bullets: [
@@ -373,6 +462,8 @@ export const leadershipSections: SectionItem[] = [
       "Personal branding",
       "Professional confidence",
     ],
+    visualLabel: "MENTOR",
+    placeholderVariant: "leadership",
   },
 ];
 

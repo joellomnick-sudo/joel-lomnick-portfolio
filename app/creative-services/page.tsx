@@ -1,13 +1,13 @@
-import Image from "next/image";
 import { Card } from "@/components/Card";
 import { CTASection } from "@/components/CTASection";
 import { SectionHeading } from "@/components/SectionHeading";
+import { VisualTile } from "@/components/VisualTile";
 import { serviceCards } from "@/data/site";
 
 export default function CreativeServicesPage() {
   return (
     <>
-      <section className="blueprint-panel border-b border-warmIvory/10">
+      <section className="blueprint-panel border-b border-mutedGold/18">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24">
           <p className="text-sm font-bold uppercase text-mutedGold">Creative Services</p>
           <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
@@ -19,32 +19,36 @@ export default function CreativeServicesPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+      <section className="soft-cream-surface">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
         <SectionHeading
           eyebrow="Lomnick Professional Services"
           title="Structure for the message, polish for the public moment."
           body="The goal is not decoration. The goal is to help people understand what you do, why it matters, and how to take the next step."
+          tone="light"
         />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {serviceCards.map((service) => (
             <Card key={service.title} className="overflow-hidden p-0">
-              {service.image ? (
-                <div className="relative aspect-[16/9] overflow-hidden bg-deepBrown">
-                  <Image
-                    src={service.image}
-                    alt={service.alt ?? `${service.title} placeholder image`}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              ) : null}
+              <VisualTile
+                title={service.title}
+                category={service.category}
+                image={service.image}
+                alt={service.alt}
+                imageFit={service.imageFit}
+                imageType={service.imageType}
+                visualLabel={service.visualLabel}
+                placeholderVariant={service.placeholderVariant}
+                aspect="landscape"
+              />
               <div className="p-6">
-                <h3 className="text-xl font-black text-warmIvory">{service.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-warmIvory/70">{service.description}</p>
+                <p className="text-xs font-black uppercase text-mutedBrown">{service.category}</p>
+                <h3 className="mt-3 text-xl font-black text-ink">{service.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-ink/72">{service.description}</p>
               </div>
             </Card>
           ))}
+        </div>
         </div>
       </section>
 

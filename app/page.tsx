@@ -9,7 +9,7 @@ import { featuredWork, homeLanes, identityLabels } from "@/data/site";
 export default function Home() {
   return (
     <>
-      <section className="blueprint-panel border-b border-warmIvory/10">
+      <section className="blueprint-panel border-b border-mutedGold/18">
         <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.03fr_.97fr] lg:py-20">
           <div>
             <p className="circuit-line inline-flex pb-3 text-sm font-bold uppercase text-mutedGold">
@@ -19,7 +19,7 @@ export default function Home() {
               Joel Maurice Lomnick, EIT
             </h1>
             <p className="mt-5 max-w-2xl text-xl font-semibold leading-8 text-warmIvory/84">
-              Electrical Engineer. Creative Strategist. Author. Mentor. Community Builder.
+              Electrical Engineer • Creative Strategist • Author • Mentor • Community Builder
             </p>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-warmIvory/68">
               I help people, projects, and organizations move from scattered ideas to clear systems, polished visuals, and meaningful impact.
@@ -47,11 +47,11 @@ export default function Home() {
               <div className="relative aspect-[4/5]">
                 <Image
                   src="/images/professional-headshot.jpg"
-                  alt="Professional headshot placeholder for Joel Maurice Lomnick"
+                  alt="Joel Maurice Lomnick professional portrait."
                   fill
                   priority
                   sizes="(min-width: 1024px) 38vw, 90vw"
-                  className="object-cover"
+                  className="object-cover object-[center_top]"
                 />
               </div>
               <div className="border-t border-mutedGold/25 bg-richBlack/92 p-4">
@@ -64,37 +64,41 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-label="Professional identity" className="border-b border-warmIvory/10 bg-richBlack">
+      <section aria-label="Professional identity" className="border-b border-deepBrown/10 bg-parchment">
         <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-3 px-5 py-5 sm:px-8">
           {identityLabels.map((label) => (
-            <span key={label} className="rounded-md border border-mutedGold/25 px-4 py-2 text-sm font-bold text-warmIvory/82">
+            <span key={label} className="rounded-md border border-deepBrown/15 bg-paper/70 px-4 py-2 text-sm font-bold text-mutedBrown">
               {label}
             </span>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+      <section className="soft-cream-surface">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
         <SectionHeading
           eyebrow="More than one lane"
           title="Technical discipline, creative communication, and community leadership."
           body="My work sits at the intersection of technical discipline, creative communication, faith-rooted service, cultural memory, and community leadership."
+          tone="light"
         />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {homeLanes.map((lane) => (
             <Card key={lane.title}>
-              <h3 className="text-xl font-black text-warmIvory">{lane.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-warmIvory/70">{lane.description}</p>
+              <h3 className="text-xl font-black text-ink">{lane.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-ink/72">{lane.description}</p>
             </Card>
           ))}
         </div>
+        </div>
       </section>
 
-      <section className="border-y border-warmIvory/10 bg-warmIvory/[0.035]">
+      <section className="paper-surface border-y border-deepBrown/10">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
           <SectionHeading
             eyebrow="Featured work"
             title="Systems, stories, and public presence built with purpose."
+            tone="light"
           />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featuredWork.map((item) => (

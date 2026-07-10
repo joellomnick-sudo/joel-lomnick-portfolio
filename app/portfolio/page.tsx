@@ -5,7 +5,7 @@ import { portfolioCategories, portfolioItems } from "@/data/site";
 export default function PortfolioPage() {
   return (
     <>
-      <section className="blueprint-panel border-b border-warmIvory/10">
+      <section className="blueprint-panel border-b border-mutedGold/18">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24">
           <p className="text-sm font-bold uppercase text-mutedGold">Selected Work</p>
           <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
@@ -17,10 +17,11 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+      <section className="soft-cream-surface">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
         <div className="flex flex-wrap gap-3">
           {portfolioCategories.map((category) => (
-            <span key={category} className="rounded-md border border-mutedGold/25 bg-warmIvory/[0.055] px-4 py-2 text-sm font-bold text-warmIvory/82">
+            <span key={category} className="rounded-md border border-deepBrown/12 bg-paper/80 px-4 py-2 text-sm font-bold text-mutedBrown">
               {category}
             </span>
           ))}
@@ -31,12 +32,14 @@ export default function PortfolioPage() {
           title="Work that makes missions easier to see."
           body="These tiles represent the kinds of systems, visuals, documents, and stories Joel helps build across technical, creative, and community contexts."
           className="mt-12"
+          tone="light"
         />
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {portfolioItems.map((item) => (
             <PortfolioCard key={item.title} item={item} />
           ))}
+        </div>
         </div>
       </section>
     </>

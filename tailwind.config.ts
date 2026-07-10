@@ -9,14 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        richBlack: "#050505",
+        richBlack: "#1E160F",
         warmIvory: "#F7F1E5",
+        parchment: "#EFE4CF",
         deepBrown: "#3A2416",
+        mutedBrown: "#5A3A24",
         mutedGold: "#C9A24A",
+        softGold: "#D7B866",
+        buttonGold: "#C99B3B",
         teal: "#0FA3A3",
         emerald: "#1F6F4A",
         paper: "#FBF6EA",
-        ink: "#15110D",
+        ink: "#1E160F",
       },
       fontFamily: {
         sans: [

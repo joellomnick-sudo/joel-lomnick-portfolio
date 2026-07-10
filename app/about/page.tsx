@@ -6,7 +6,7 @@ import { aboutSections, beliefStatements } from "@/data/site";
 export default function AboutPage() {
   return (
     <>
-      <section className="blueprint-panel border-b border-warmIvory/10">
+      <section className="blueprint-panel border-b border-mutedGold/18">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24">
           <p className="text-sm font-bold uppercase text-mutedGold">About Joel</p>
           <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
@@ -18,14 +18,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+      <section className="soft-cream-surface">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
         <div className="grid gap-5 lg:grid-cols-2">
           {aboutSections.map((section) => (
             <Card key={section.title}>
-              <h2 className="text-2xl font-black text-warmIvory">{section.title}</h2>
-              <p className="mt-4 text-base leading-8 text-warmIvory/72">{section.description}</p>
+              <h2 className="text-2xl font-black text-ink">{section.title}</h2>
+              <p className="mt-4 text-base leading-8 text-ink/72">{section.description}</p>
             </Card>
           ))}
+        </div>
         </div>
       </section>
 
@@ -35,7 +37,7 @@ export default function AboutPage() {
             eyebrow="What I believe"
             title="Good work should be clear, useful, repeatable, and rooted in"
             accent="Purpose."
-            className="[&_h2]:text-ink [&_p]:text-ink/70"
+            tone="light"
           />
           <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {beliefStatements.map((statement) => (
@@ -50,9 +52,9 @@ export default function AboutPage() {
       <CTASection
         headline="Built from survival. Designed with purpose."
         text="Creating systems, stories, and spaces that help people rise."
-        primaryLabel="Explore the Work"
+        primaryLabel="View My Work"
         primaryHref="/portfolio"
-        secondaryLabel="Contact Joel"
+        secondaryLabel="Start a Conversation"
         secondaryHref="/contact"
       />
     </>

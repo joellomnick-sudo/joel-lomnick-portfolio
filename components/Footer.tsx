@@ -3,7 +3,7 @@ import { footerValues, navLinks } from "@/data/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-warmIvory/10 bg-richBlack">
+    <footer className="border-t border-mutedGold/18 bg-richBlack">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <p className="font-serif text-2xl font-bold text-warmIvory">
@@ -44,13 +44,8 @@ export function Footer() {
         <div>
           <p className="text-sm font-bold uppercase text-mutedGold">Values</p>
           <p className="mt-4 text-sm leading-7 text-warmIvory/72">
-            {footerValues.join(" | ")}
+            {footerValues.join(" • ")}
           </p>
-          <div className="mt-5 flex flex-wrap gap-2 text-sm text-warmIvory/75">
-            <span className="rounded-md border border-warmIvory/12 px-3 py-2">LinkedIn</span>
-            <span className="rounded-md border border-warmIvory/12 px-3 py-2">Instagram</span>
-            <span className="rounded-md border border-warmIvory/12 px-3 py-2">Facebook</span>
-          </div>
           <p className="mt-6 text-sm font-semibold text-warmIvory">
             Built with purpose. Refined through service.
           </p>

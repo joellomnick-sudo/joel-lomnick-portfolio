@@ -10,11 +10,11 @@ type ButtonLinkProps = {
 
 const variantClasses = {
   primary:
-    "bg-mutedGold text-richBlack hover:bg-warmIvory focus-visible:ring-mutedGold",
+    "bg-buttonGold text-richBlack hover:bg-softGold focus-visible:ring-mutedGold",
   secondary:
-    "border border-mutedGold/60 bg-warmIvory/10 text-warmIvory hover:border-mutedGold hover:bg-mutedGold/15 focus-visible:ring-mutedGold",
+    "border border-mutedGold/65 bg-warmIvory/10 text-warmIvory hover:border-softGold hover:bg-mutedGold/18 focus-visible:ring-mutedGold",
   ghost:
-    "border border-warmIvory/15 bg-transparent text-warmIvory hover:border-teal hover:text-teal focus-visible:ring-teal",
+    "border border-warmIvory/18 bg-transparent text-warmIvory hover:border-softGold hover:text-softGold focus-visible:ring-mutedGold",
 };
 
 export function ButtonLink({

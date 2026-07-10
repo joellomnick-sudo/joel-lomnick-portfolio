@@ -5,7 +5,7 @@ import { contactCards } from "@/data/site";
 export default function ContactPage() {
   return (
     <>
-      <section className="blueprint-panel border-b border-warmIvory/10">
+      <section className="blueprint-panel border-b border-mutedGold/18">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24">
           <p className="text-sm font-bold uppercase text-mutedGold">Contact</p>
           <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
@@ -17,23 +17,25 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:py-20">
+      <section className="paper-surface">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:py-20">
         <div>
           <SectionHeading
             eyebrow="Reach out"
             title="Consulting, creative work, speaking, mentoring, and project clarity."
             body="Use the contact details below or the form UI to sketch the conversation you want to start."
+            tone="light"
           />
           <div className="mt-8 grid gap-4">
             {contactCards.map((card) => (
               <Card key={card.title}>
                 <p className="text-sm font-bold uppercase text-mutedGold">{card.title}</p>
                 {card.href ? (
-                  <a className="mt-2 block text-xl font-black text-warmIvory underline-offset-4 hover:text-mutedGold hover:underline" href={card.href}>
+                  <a className="mt-2 block text-xl font-black text-ink underline-offset-4 hover:text-mutedBrown hover:underline" href={card.href}>
                     {card.value}
                   </a>
                 ) : (
-                  <p className="mt-2 text-xl font-black text-warmIvory">{card.value}</p>
+                  <p className="mt-2 text-xl font-black text-ink">{card.value}</p>
                 )}
               </Card>
             ))}
@@ -92,14 +94,20 @@ export default function ContactPage() {
                 placeholder="Tell me what you are trying to organize."
               />
             </label>
-            <button
-              type="button"
-              className="min-h-12 rounded-md bg-richBlack px-5 py-3 text-sm font-bold text-warmIvory transition hover:bg-deepBrown focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-            >
-              Submit Inquiry
-            </button>
+            <div>
+              <button
+                type="button"
+                className="min-h-12 w-full rounded-md bg-deepBrown px-5 py-3 text-sm font-bold text-warmIvory transition hover:bg-richBlack focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+              >
+                Submit Inquiry
+              </button>
+              <p className="mt-3 text-sm leading-6 text-ink/68">
+                This form is a contact placeholder. For now, please email or call directly.
+              </p>
+            </div>
           </form>
         </Card>
+        </div>
       </section>
     </>
   );

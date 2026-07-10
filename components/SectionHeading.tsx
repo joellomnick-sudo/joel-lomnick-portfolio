@@ -4,6 +4,7 @@ type SectionHeadingProps = {
   accent?: string;
   body?: string;
   align?: "left" | "center";
+  tone?: "dark" | "light";
   className?: string;
 };
 
@@ -13,21 +14,24 @@ export function SectionHeading({
   accent,
   body,
   align = "left",
+  tone = "dark",
   className = "",
 }: SectionHeadingProps) {
   const centered = align === "center";
+  const headingColor = tone === "light" ? "text-ink" : "text-warmIvory";
+  const bodyColor = tone === "light" ? "text-ink/72" : "text-warmIvory/72";
 
   return (
     <div className={`${centered ? "mx-auto text-center" : ""} max-w-3xl ${className}`}>
       {eyebrow ? (
         <p className="text-sm font-bold uppercase text-mutedGold">{eyebrow}</p>
       ) : null}
-      <h2 className="mt-3 text-3xl font-black text-balance text-warmIvory sm:text-4xl lg:text-5xl">
+      <h2 className={`mt-3 text-3xl font-black text-balance sm:text-4xl lg:text-5xl ${headingColor}`}>
         {title}
         {accent ? <span className="font-serif text-mutedGold"> {accent}</span> : null}
       </h2>
       {body ? (
-        <p className="mt-5 text-base leading-8 text-pretty text-warmIvory/72 sm:text-lg">{body}</p>
+        <p className={`mt-5 text-base leading-8 text-pretty sm:text-lg ${bodyColor}`}>{body}</p>
       ) : null}
     </div>
   );
