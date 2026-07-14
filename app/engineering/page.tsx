@@ -1,99 +1,12 @@
-import { Card } from "@/components/Card";
-import { CTASection } from "@/components/CTASection";
-import { SectionHeading } from "@/components/SectionHeading";
-import { VisualTile } from "@/components/VisualTile";
-import { engineeringCards, engineeringSkills } from "@/data/site";
+import type { Metadata } from "next";
+import { ButtonLink } from "@/components/ButtonLink";
+import { EditorialImage } from "@/components/EditorialImage";
 
-export default function EngineeringPage() {
-  return (
-    <>
-      <section className="blueprint-panel border-b border-mutedGold/18">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24">
-          <p className="text-sm font-bold uppercase text-mutedGold">Engineering & Infrastructure</p>
-          <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
-            I make complex electrical systems understandable, coordinated, and buildable.
-          </h1>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/84 sm:text-xl">
-            The work is real construction documentation: electrical systems coordination, public-sector infrastructure, owner-facing communication, and field-aware technical support.
-          </p>
-        </div>
-      </section>
+export const metadata: Metadata = { title: "Engineering", description: "Electrical engineering coordination, technical communication, and public classroom teaching resources from Joel Maurice Lomnick, EIT." };
 
-      <section className="soft-cream-surface">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:py-20">
-          <div>
-            <SectionHeading
-              eyebrow="Professional proof"
-              title="Code-aware support for projects that have to be built."
-              body="Power, lighting, fire alarm, low-voltage, utility coordination, RFIs, submittals, field documentation, and plain-language owner communication all live inside the same discipline: make the work clear enough to act on."
-              tone="light"
-            />
-            <div className="mt-8 overflow-hidden rounded-lg border border-deepBrown/12 bg-paper shadow-premium">
-              <VisualTile
-                title="Engineering project coordination"
-                category="Electrical Systems"
-                image="/images/engineering-work-innovation.jpg"
-                alt="Engineering innovation and technical coordination visual."
-                imageFit="cover"
-                imageType="cover"
-                aspect="landscape"
-                sizes="(min-width: 1024px) 38vw, 90vw"
-              />
-              <div className="border-t border-deepBrown/10 p-5">
-                <p className="text-sm font-bold text-mutedBrown">
-                  Safe visual anchor only. Sensitive project drawings and private documents are not displayed.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-4">
-            {engineeringCards.map((item) => (
-              <Card key={item.title} className="border-l-4 border-l-mutedGold">
-                <h2 className="text-xl font-black text-ink">{item.title}</h2>
-                <p className="mt-3 text-base leading-8 text-ink/82">{item.description}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="paper-surface border-y border-deepBrown/10">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
-          <SectionHeading
-            eyebrow="Technical vocabulary"
-            title="The coordination habits behind buildable clarity."
-            body="The page should make one thing obvious: this is practical engineering communication grounded in real project delivery."
-            tone="light"
-          />
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {engineeringSkills.map((skill) => (
-              <div key={skill} className="rounded-md border border-deepBrown/12 bg-paper/90 px-4 py-4 text-[0.95rem] font-bold text-mutedBrown shadow-sm">
-                {skill}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-20">
-        <Card tone="outlined" className="text-center">
-          <p className="text-sm font-bold uppercase text-mutedGold">Engineering philosophy</p>
-          <h2 className="mt-4 text-3xl font-black text-warmIvory">
-            The math matters. The explanation matters too.
-          </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-warmIvory/84">
-            I approach engineering as service, risk management, stewardship, and public trust. Good technical work should be coordinated enough for the field and clear enough for the owner.
-          </p>
-        </Card>
-      </section>
-
-      <CTASection
-        headline="Need engineering communication that people can actually use?"
-        text="Bring the coordination problem, public-facing project, or technical story that needs structure."
-        primaryLabel="Connect About Engineering"
-        primaryHref="/contact"
-      />
-    </>
-  );
-}
+export default function EngineeringPage() { return <>
+  <section className="dark-hero editorial-section"><div className="site-container grid items-center gap-12 lg:grid-cols-[1.08fr_.92fr]"><div><p className="eyebrow">Electrical engineering</p><h1 className="display-title mt-5">Complex systems should become clear enough to build.</h1><p className="prose-copy prose-copy-dark mt-7">My engineering work lives where power, lighting, communications, life safety, owners, consultants, and the field have to meet. The drawings matter. So do coordination, judgment, and the plain-language explanation that helps someone act with confidence.</p></div><EditorialImage filename="engineering-work-innovation.jpg" priority /></div></section>
+  <section className="editorial-section"><div className="site-container grid gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow">Engineering practice</p><h2 className="section-title mt-4">Technical work is also communication.</h2></div><div className="prose-copy space-y-5"><p>I support electrical system coordination across power, lighting, controls, fire alarm, communications, utilities, RFIs, submittals, and field documentation. Public-sector and educational work requires attention to code, construction sequence, operations, and the people who will inherit the building.</p><p>No confidential project names, drawings, schedules, specifications, or owner documents are shown here. The public examples focus on the thinking and teaching habits behind responsible project delivery.</p></div></div></section>
+  <section className="editorial-section bg-parchment"><div className="site-container grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]"><div><p className="eyebrow">Public teaching edition</p><h2 className="section-title mt-4">Engineering 101: Designing a Modern Classroom</h2><p className="prose-copy mt-6">A plain-language introduction to how electrical power, lighting controls, communications, life safety, classroom technology, energy requirements, and other building trades come together in one room.</p><p className="mt-5 font-bold text-mutedBrown">Generic examples, not construction documents.</p><div className="button-row mt-7"><ButtonLink href="/documents/engineering-101-modern-classroom.pdf" target="_blank">View guide</ButtonLink><ButtonLink href="/documents/engineering-101-modern-classroom.pdf" download variant="secondary">Download PDF</ButtonLink><ButtonLink href="/engineering/classroom-lab" variant="secondary">Launch interactive classroom</ButtonLink></div></div><div className="border-l-4 border-mutedGold bg-warmIvory p-7"><h3 className="subsection-title">Inside the classroom</h3><p className="mt-4 text-base leading-8 text-mutedBrown">Explore how distinct systems coordinate without becoming interchangeable. Place devices, review practical guidance, and compare a concept layout with your own.</p></div></div></section>
+  <section className="editorial-section bg-richBlack text-warmIvory"><div className="site-container max-w-4xl"><p className="eyebrow">Engineering philosophy</p><blockquote className="pull-quote mt-5">The math matters. The explanation matters too.</blockquote><p className="prose-copy prose-copy-dark mt-7">Good engineering protects people, manages risk, respects public trust, and leaves a trail that the next person can understand.</p></div></section>
+  </>; }

@@ -2,92 +2,143 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { navLinks } from "@/data/site";
+
+function isActive(pathname: string, href: string) {
+  return pathname === href || (href !== "/" && pathname.startsWith(href));
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
+
+  useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    previousFocus.current = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab" || !panelRef.current) return;
+      const focusable = Array.from(
+        panelRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+      previousFocus.current?.focus();
+    };
+  }, [open]);
 
   return (
-    <header className="relative z-50 border-b border-mutedGold/18 bg-richBlack shadow-gold">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 sm:px-8">
-        <Link href="/" className="group min-w-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold">
-          <span className="block font-serif text-xl font-bold leading-none text-warmIvory group-hover:text-mutedGold">
-            Joel Maurice Lomnick, EIT
-          </span>
-          <span className="mt-1 block truncate text-sm font-semibold text-warmIvory/86">
-            Engineer • Creative Strategist • Storyteller
-          </span>
+    <header className="site-header">
+      <div className="site-container flex min-h-[76px] items-center justify-between gap-5 py-3">
+        <Link href="/" className="brand-lockup focus-ring" aria-label="Joel Maurice Lomnick, EIT home">
+          <span className="brand-name">Joel Maurice Lomnick, EIT</span>
+          <span className="brand-subtitle">Engineer | Storyteller | Community Builder</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
-          {navLinks.map((link) => {
-            const active = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`rounded-md px-3 py-2 text-[0.95rem] font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold ${
-                  active ? "bg-warmIvory/10 text-softGold" : "text-warmIvory/90 hover:bg-warmIvory/8 hover:text-warmIvory"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary navigation">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={isActive(pathname, link.href) ? "page" : undefined}
+              className="nav-link focus-ring"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
-        <div className="hidden shrink-0 lg:block">
-          <ButtonLink href="/contact" className="px-4 py-2">
-            Book a Consultation
-          </ButtonLink>
+        <div className="hidden xl:block">
+          <ButtonLink href="/contact" size="compact">Book a Consultation</ButtonLink>
         </div>
 
         <button
           type="button"
-          aria-label="Toggle navigation"
-          aria-controls="mobile-navigation"
+          className="icon-button focus-ring xl:hidden"
+          aria-label="Open navigation menu"
           aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-warmIvory/35 text-warmIvory transition hover:border-softGold hover:text-softGold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold lg:hidden"
+          aria-controls="mobile-navigation"
+          onClick={() => setOpen(true)}
         >
-          <span className="sr-only">Menu</span>
-          <span className="flex h-4 w-5 flex-col justify-between" aria-hidden="true">
-            <span className={`h-0.5 rounded-full bg-current transition ${open ? "translate-y-[7px] rotate-45" : ""}`} />
-            <span className={`h-0.5 rounded-full bg-current transition ${open ? "opacity-0" : ""}`} />
-            <span className={`h-0.5 rounded-full bg-current transition ${open ? "-translate-y-[7px] -rotate-45" : ""}`} />
-          </span>
+          <Menu aria-hidden="true" size={24} />
         </button>
       </div>
 
-      <div
-        id="mobile-navigation"
-        aria-hidden={!open}
-        className={`border-t border-mutedGold/18 bg-richBlack lg:hidden ${open ? "block" : "hidden"}`}
-      >
-        <nav className="mx-auto grid max-w-7xl gap-1 px-5 py-4 sm:px-8" aria-label="Mobile navigation">
-          {navLinks.map((link) => {
-            const active = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
+      {open ? (
+        <div className="fixed inset-0 z-[90] bg-softBlack/70 xl:hidden" aria-hidden="false">
+          <div
+            ref={panelRef}
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
+            className="ml-auto flex h-full w-full max-w-md flex-col overflow-y-auto bg-richBlack px-6 py-5 shadow-2xl"
+          >
+            <div className="flex items-start justify-between gap-4 border-b border-warmIvory/15 pb-5">
+              <div>
+                <p className="font-serif text-2xl font-bold text-warmIvory">LomnickPro</p>
+                <p className="mt-1 text-base text-warmIvory/75">Joel Maurice Lomnick, EIT</p>
+              </div>
+              <button
+                ref={closeRef}
+                type="button"
+                className="icon-button focus-ring"
+                aria-label="Close navigation menu"
                 onClick={() => setOpen(false)}
-                className={`rounded-md px-3 py-3 text-base font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mutedGold ${
-                  active ? "bg-warmIvory/10 text-softGold" : "text-warmIvory/90 hover:bg-warmIvory/8 hover:text-warmIvory"
-                }`}
               >
-                {link.label}
-              </Link>
-            );
-          })}
-          <ButtonLink href="/contact" className="mt-3 w-full" onClick={() => setOpen(false)}>
-            Book a Consultation
-          </ButtonLink>
-        </nav>
-      </div>
+                <X aria-hidden="true" size={26} />
+              </button>
+            </div>
+            <nav className="grid gap-1 py-6" aria-label="Mobile navigation">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive(pathname, link.href) ? "page" : undefined}
+                  className="mobile-nav-link focus-ring"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <ButtonLink href="/contact" className="mt-auto w-full" onClick={() => setOpen(false)}>
+              Book a Consultation
+            </ButtonLink>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

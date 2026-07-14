@@ -1,5 +1,2 @@
 import { redirect } from "next/navigation";
-
-export default function LeadershipRedirect() {
-  redirect("/work");
-}
+export default function Page() { redirect("/community-leadership"); }

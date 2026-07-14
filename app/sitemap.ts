@@ -1,0 +1,2 @@
+import type { MetadataRoute } from "next";
+export default function sitemap(): MetadataRoute.Sitemap { const base = process.env.NEXT_PUBLIC_CANONICAL_URL || "https://lomnickpro.com"; return ["", "/about", "/engineering", "/engineering/classroom-lab", "/lomnickpro", "/community-leadership", "/lionheart", "/contact"].map((path) => ({ url: `${base}${path}`, lastModified: new Date(), changeFrequency: path === "" ? "monthly" : "yearly", priority: path === "" ? 1 : 0.7 })); }

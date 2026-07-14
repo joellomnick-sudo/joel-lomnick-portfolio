@@ -1,5 +1,2 @@
 import { redirect } from "next/navigation";
-
-export default function PortfolioRedirect() {
-  redirect("/work");
-}
+export default function Page() { redirect("/lomnickpro"); }

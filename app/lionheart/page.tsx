@@ -1,83 +1,12 @@
-import Image from "next/image";
-import { ButtonLink } from "@/components/ButtonLink";
-import { Card } from "@/components/Card";
-import { SectionHeading } from "@/components/SectionHeading";
-import { lionheartThemes } from "@/data/site";
+import type { Metadata } from "next";
+import { EditorialImage } from "@/components/EditorialImage";
+import { LionheartPreviews } from "@/components/LionheartPreviews";
 
-export default function LionheartPage() {
-  return (
-    <>
-      <section className="blueprint-panel border-b border-mutedGold/18">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:py-24">
-          <div className="mx-auto w-full max-w-sm">
-            <div className="relative overflow-hidden rounded-lg border border-mutedGold/35 bg-deepBrown shadow-gold">
-              <div className="relative aspect-[2/3]">
-                <Image
-                  src="/images/lionheart-cover.jpg"
-                  alt="Cover of Lionheart: The Joel Lomnick Story, Volume 1."
-                  fill
-                  sizes="(min-width: 1024px) 28vw, 80vw"
-                  className="object-contain p-2"
-                />
-              </div>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm font-bold uppercase text-mutedGold">Lionheart</p>
-            <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
-              This is the story behind the builder.
-            </h1>
-            <p className="mt-5 font-serif text-2xl font-bold text-softGold">
-              Survival. Family. Identity. Career. Faith. Mentorship. Legacy.
-            </p>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-warmIvory/84">
-              Lionheart is a memoir project about becoming whole while still building. It holds Black masculinity, family, faith, engineering, healing, mentorship, and legacy with emotional weight and professional restraint.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/lionheart">Explore the Story</ButtonLink>
-              <ButtonLink href="/contact" variant="secondary">
-                Invite Me to Speak
-              </ButtonLink>
-              <ButtonLink href="/contact" variant="ghost">
-                Discuss a Writing Project
-              </ButtonLink>
-            </div>
-          </div>
-        </div>
-      </section>
+export const metadata: Metadata = { title: "Lionheart", description: "Lionheart is Joel Maurice Lomnick's memoir project about family, survival, identity, faith, engineering, culture, mentorship, and becoming." };
 
-      <section className="soft-cream-surface">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
-          <SectionHeading
-            eyebrow="Memoir themes"
-            title="A literary project with structure, testimony, and room to breathe."
-            body="The page names the themes without trying to tell the whole book online. The deeper work belongs in the manuscript, in conversation, and in the rooms where the story can be held responsibly."
-            tone="light"
-          />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
-            {lionheartThemes.map((theme) => (
-              <Card key={theme} className="flex min-h-28 items-center justify-center border-l-4 border-l-mutedGold text-center">
-                <h2 className="font-serif text-2xl font-bold text-ink">{theme}</h2>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="paper-surface border-y border-deepBrown/10">
-        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-16 text-ink sm:px-8 lg:grid-cols-2 lg:py-20">
-          <blockquote className="rounded-lg border border-deepBrown/12 bg-paper/85 p-8 shadow-premium">
-            <p className="font-serif text-3xl font-bold leading-tight text-balance">
-              "The lion is not just about roaring. It is patience, protection, posture."
-            </p>
-          </blockquote>
-          <blockquote className="rounded-lg border border-deepBrown/12 bg-paper/85 p-8 shadow-premium">
-            <p className="font-serif text-3xl font-bold leading-tight text-balance">
-              "Heart is not weakness. It is resilience with somewhere to go."
-            </p>
-          </blockquote>
-        </div>
-      </section>
-    </>
-  );
-}
+export default function LionheartPage() { return <>
+  <section className="bg-softBlack text-warmIvory"><div className="site-container grid min-h-[80vh] items-center gap-12 py-16 lg:grid-cols-[.7fr_1.3fr]"><EditorialImage filename="lionheart-cover.jpg" priority className="mx-auto w-full max-w-sm" /><div><p className="eyebrow">Lionheart</p><h1 className="display-title mt-5 font-serif">The story behind the builder.</h1><p className="prose-copy prose-copy-dark mt-7">A memoir about survival, family, identity, faith, engineering, Black belonging, culture, reinvention, mentorship, and the unfinished work of becoming.</p></div></div></section>
+  <section className="editorial-section bg-paper"><div className="site-container grid gap-12 lg:grid-cols-[.75fr_1.25fr]"><blockquote className="pull-quote">Memory does not arrive as a neat timeline. It arrives as weather, rhythm, rooms, and the people whose voices stay with us.</blockquote><div className="prose-copy space-y-5"><p>Lionheart holds the private and public parts of a life in the same frame: family and career, grief and humor, Black masculinity and tenderness, faith and doubt, technical ambition and the need to belong.</p><p>The previews below are invitations into the work, not substitutes for the full story.</p></div></div></section>
+  <section className="editorial-section bg-parchment"><div className="site-container"><div className="max-w-4xl"><p className="eyebrow">Reading previews</p><h2 className="section-title mt-4">Two volumes. One life still unfolding.</h2></div><div className="mt-10"><LionheartPreviews /></div></div></section>
+  <section className="editorial-section bg-richBlack text-warmIvory"><div className="site-container grid gap-10 md:grid-cols-2"><div><p className="eyebrow">Volume 1</p><h2 className="subsection-title mt-3 font-serif">Lionheart: The Joel Lomnick Story - Volume 1</h2><p className="mt-4 text-base leading-8 text-warmIvory/80">A completed memoir tracing family, survival, Rochester, RIT, engineering, faith, Black belonging, culture, and the road toward reinvention.</p></div><div><p className="eyebrow">Work in progress</p><h2 className="subsection-title mt-3 font-serif">Lionheart: The Joel Lomnick Story - Volume 2</h2><p className="mt-4 text-base leading-8 text-warmIvory/80">A continuation covering Troy, Albany, Schenectady, Richmond, brotherhood, identity, rebuilding, community service, love, and the unfinished work of becoming.</p></div></div></section>
+  </>; }

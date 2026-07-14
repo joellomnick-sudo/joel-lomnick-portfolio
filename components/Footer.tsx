@@ -1,53 +1,41 @@
 import Link from "next/link";
-import { footerValues, navLinks } from "@/data/site";
+import { navLinks } from "@/data/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-mutedGold/18 bg-richBlack">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="border-t border-mutedGold/25 bg-richBlack text-warmIvory">
+      <div className="site-container grid gap-10 py-14 md:grid-cols-[1.15fr_1fr_1.1fr]">
         <div>
-          <p className="font-serif text-2xl font-bold text-warmIvory">
-            Joel Maurice Lomnick, EIT
-          </p>
-          <p className="mt-3 text-base leading-7 text-warmIvory/84">
-            Lomnick Professional Services / LomnickPro
-            <br />
+          <p className="font-serif text-2xl font-bold">Joel Maurice Lomnick, EIT</p>
+          <p className="mt-4 max-w-sm text-base leading-7 text-warmIvory/80">
+            Lomnick Professional Services / LomnickPro<br />
             Richmond, Virginia
           </p>
-          <div className="mt-5 space-y-2 text-base text-warmIvory/86">
-            <p>
-              Email:{" "}
-              <a className="text-mutedGold underline-offset-4 hover:underline" href="mailto:jlomnick@lomnickpro.com">
-                jlomnick@lomnickpro.com
-              </a>
-            </p>
-            <p>
-              Phone:{" "}
-              <a className="text-mutedGold underline-offset-4 hover:underline" href="tel:+18048850256">
-                (804) 885-0256
-              </a>
-            </p>
-          </div>
+          <a className="mt-4 inline-block text-base font-bold text-softGold underline-offset-4 hover:underline focus-ring" href="https://lomnickpro.com">
+            lomnickpro.com
+          </a>
         </div>
+
         <nav aria-label="Footer navigation">
-          <p className="text-sm font-bold uppercase text-mutedGold">Explore</p>
-          <ul className="mt-4 grid grid-cols-2 gap-2 text-base text-warmIvory/86">
+          <p className="text-base font-bold text-softGold">Explore</p>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-1">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link className="text-warmIvory underline-offset-4 hover:text-mutedGold hover:underline" href={link.href}>
+                <Link className="inline-flex min-h-11 items-center text-base text-warmIvory hover:text-softGold focus-ring" href={link.href}>
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
+
         <div>
-          <p className="text-sm font-bold uppercase text-mutedGold">Values</p>
-          <p className="mt-4 text-base leading-7 text-warmIvory/86">
-            {footerValues.join(" • ")}
+          <p className="text-base font-bold text-softGold">A warm place for useful work</p>
+          <p className="mt-4 text-lg leading-8 text-warmIvory/85">
+            Built with purpose. Rooted in community. Made to help good work travel farther.
           </p>
-          <p className="mt-6 text-base font-semibold text-warmIvory">
-            Built with purpose. Refined through service.
+          <p className="mt-8 text-base text-warmIvory/70">
+            Copyright {new Date().getFullYear()} Joel Maurice Lomnick. All rights reserved.
           </p>
         </div>
       </div>

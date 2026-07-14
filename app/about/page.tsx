@@ -1,117 +1,19 @@
+import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ButtonLink";
-import { Card } from "@/components/Card";
-import { CTASection } from "@/components/CTASection";
-import { SectionHeading } from "@/components/SectionHeading";
-import { VisualTile } from "@/components/VisualTile";
-import { aboutArc, aboutPhotos, beliefStatements } from "@/data/site";
+import { EditorialImage } from "@/components/EditorialImage";
 
-export default function AboutPage() {
-  return (
-    <>
-      <section className="blueprint-panel border-b border-mutedGold/18">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24">
-          <p className="text-sm font-bold uppercase text-mutedGold">About Joel</p>
-          <h1 className="mt-4 max-w-4xl text-4xl font-black text-balance text-warmIvory sm:text-6xl">
-            The Builder Behind the Work
-          </h1>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-warmIvory/84 sm:text-xl">
-            My life has trained me to turn survival, service, and technical discipline into useful systems.
-          </p>
-          <div className="mt-8">
-            <ButtonLink href="/lionheart" variant="secondary">
-              Read the Story Behind the Work
-            </ButtonLink>
-          </div>
-        </div>
-      </section>
+export const metadata: Metadata = { title: "About", description: "The personal story behind Joel Maurice Lomnick's engineering, writing, mentorship, culture, faith, and community service." };
 
-      <section className="soft-cream-surface">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:py-20">
-          <div>
-            <SectionHeading
-              eyebrow="Life arc"
-              title="A public version of the story, told with care."
-              body="This is not the full memoir. It is the thread that helps explain why my work keeps returning to structure, service, communication, and legacy."
-              tone="light"
-            />
-            <blockquote className="mt-8 border-l-4 border-mutedGold bg-paper/72 px-6 py-5 text-ink shadow-sm">
-              <p className="font-serif text-2xl font-bold leading-9">
-                I am interested in work that makes people clearer, stronger, and better held by the systems around them.
-              </p>
-            </blockquote>
-            <div className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-              {aboutPhotos.map((photo) => (
-                <figure key={photo.title} className="overflow-hidden rounded-lg border border-deepBrown/12 bg-paper shadow-premium">
-                  <VisualTile
-                    title={photo.title}
-                    category={photo.category}
-                    image={photo.image}
-                    alt={photo.alt}
-                    imageFit={photo.imageFit}
-                    imageType={photo.imageType}
-                    aspect="landscape"
-                    sizes="(min-width: 1024px) 26vw, (min-width: 640px) 30vw, 90vw"
-                  />
-                  <figcaption className="p-4">
-                    <p className="text-sm font-black uppercase text-mutedBrown">{photo.category}</p>
-                    <p className="mt-1 text-base font-semibold leading-7 text-ink/82">{photo.description}</p>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
+const movements = [
+  { title: "Rochester, family, and learning to read a room", image: "mother-godmother-legacy.jpg", body: "I grew up learning that care is practical. Family, survival, faith, and the example of Cathy Lomnick taught me to notice what a room needed before anyone named it. Responsibility arrived early. So did the instinct to protect, translate, encourage, and make space for someone else to breathe." },
+  { title: "RIT, engineering, NSBE, and Gospel", image: "rit-gospel-ensemble.jpg", body: "Engineering school sharpened my thinking and tested my confidence. At RIT, Black belonging mattered as much as academic preparation. NSBE leadership and Gospel Ensemble helped me understand that technical excellence and community service were not competing identities. They could strengthen one another." },
+  { title: "Troy, Albany, culture, grief, and brotherhood", image: "african-dance-albany-ny.jpg", body: "Leaving Rochester opened a demanding chapter of corporate engineering, grief, church, brotherhood, and reinvention. West African drum and dance returned rhythm to my body. Iota Phi Theta gave service and accountability a living structure. The Capital Region taught me that rebuilding rarely happens in a straight line." },
+  { title: "Richmond and the work of rebuilding", image: "rva-maggie-walker-statue-unveiling.jpg", body: "Richmond became a place to rebuild professional life while finding community and joy again. Engineering work, church media, mentoring, NPHC service, and LomnickPro began to speak to one another. The lesson was not that every part of life had become easy. It was that every part could become useful." },
+] as const;
 
-          <div className="rounded-lg border border-deepBrown/12 bg-paper/88 p-6 shadow-premium sm:p-8">
-            <ol className="grid gap-7">
-              {aboutArc.map((section) => (
-                <li key={section.title} className="grid gap-4 border-b border-deepBrown/10 pb-7 last:border-b-0 last:pb-0 sm:grid-cols-[4rem_1fr]">
-                  <span className="font-serif text-3xl font-black text-mutedGold">{section.category}</span>
-                  <div>
-                    <h2 className="text-2xl font-black text-ink">{section.title}</h2>
-                    <p className="mt-3 text-base leading-8 text-ink/82 sm:text-lg">{section.description}</p>
-                    {section.bullets ? (
-                      <ul className="mt-4 flex flex-wrap gap-2">
-                        {section.bullets.map((bullet) => (
-                          <li key={bullet} className="rounded-md border border-deepBrown/12 bg-parchment/70 px-3 py-1.5 text-sm font-bold text-mutedBrown">
-                            {bullet}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <section className="paper-surface border-y border-deepBrown/10">
-        <div className="mx-auto max-w-7xl px-5 py-16 text-ink sm:px-8 lg:py-20">
-          <SectionHeading
-            eyebrow="What I believe"
-            title="Good work should be clear, useful, repeatable, and rooted in"
-            accent="Purpose."
-            tone="light"
-          />
-          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {beliefStatements.map((statement) => (
-              <Card key={statement} className="border-l-4 border-l-mutedGold">
-                <p className="text-lg font-black leading-7 text-ink">{statement}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CTASection
-        headline="The full story has weight. The public page has structure."
-        text="Lionheart carries the deeper testimony; this portfolio shows how that testimony became systems, service, and leadership."
-        primaryLabel="Read the Story Behind the Work"
-        primaryHref="/lionheart"
-        secondaryLabel="Explore My Work"
-        secondaryHref="/work"
-      />
-    </>
-  );
-}
+export default function AboutPage() { return <>
+  <section className="dark-hero editorial-section"><div className="site-container"><p className="eyebrow">About Joel</p><h1 className="display-title mt-5">I learned early how to read a room.</h1><p className="prose-copy prose-copy-dark mt-7">Later, engineering taught me how to read a system. Most of my life has been the work of bringing those two skills together.</p></div></section>
+  {movements.map((movement, index) => <section key={movement.title} className={`editorial-section ${index % 2 ? "bg-parchment" : "bg-paper"}`}><div className={`site-container grid items-center gap-12 lg:grid-cols-2 ${index % 2 ? "lg:[&>figure]:order-2" : ""}`}><EditorialImage filename={movement.image} /><div><p className="eyebrow">A life in motion</p><h2 className="section-title mt-4">{movement.title}</h2><p className="prose-copy mt-6">{movement.body}</p></div></div></section>)}
+  <section className="editorial-section bg-richBlack text-warmIvory"><div className="site-container grid gap-10 lg:grid-cols-[.8fr_1.2fr]"><p className="eyebrow">Present and future</p><div><blockquote className="pull-quote">I am more interested in becoming than pretending everything is finished.</blockquote><p className="prose-copy prose-copy-dark mt-7">The present work includes professional licensure, Lionheart, teaching, mentoring, and building work that can outlive my direct involvement. The goal is not to become less multidimensional. It is to make those dimensions more honest, disciplined, and generous.</p></div></div></section>
+  <section className="editorial-section"><div className="site-container"><h2 className="section-title">Professional Documents</h2><p className="prose-copy mt-5">Public-safe copies are provided for professional review. Personal contact information has been removed from these editions.</p><div className="mt-8 grid gap-8 md:grid-cols-2"><div><h3 className="subsection-title">Comprehensive resume</h3><div className="button-row mt-4"><ButtonLink href="/documents/joel-lomnick-comprehensive-resume-public.pdf" target="_blank">View resume</ButtonLink><ButtonLink href="/documents/joel-lomnick-comprehensive-resume-public.pdf" download variant="secondary">Download resume</ButtonLink></div></div><div><h3 className="subsection-title">Comprehensive cover letter</h3><div className="button-row mt-4"><ButtonLink href="/documents/joel-lomnick-comprehensive-cover-letter-public.pdf" target="_blank">View cover letter</ButtonLink><ButtonLink href="/documents/joel-lomnick-comprehensive-cover-letter-public.pdf" download variant="secondary">Download cover letter</ButtonLink></div></div></div></div></section>
+  </>; }
