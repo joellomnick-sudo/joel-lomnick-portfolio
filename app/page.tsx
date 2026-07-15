@@ -3,9 +3,51 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { EditorialImage } from "@/components/EditorialImage";
 
 export default function HomePage() {
-  return <>
-    <section className="dark-hero"><div className="site-container grid min-h-[calc(100vh-76px)] items-center gap-12 py-16 lg:grid-cols-[1.15fr_.85fr] lg:py-20"><div><p className="eyebrow">Joel Maurice Lomnick, EIT</p><h1 className="display-title mt-5 lg:max-w-none lg:text-[4.5rem] xl:text-[4.7rem]"><span className="lg:block lg:whitespace-nowrap">I build systems,</span><span className="lg:block lg:whitespace-nowrap"> stories, leaders,</span><span className="lg:block lg:whitespace-nowrap"> and infrastructure.</span></h1><p className="prose-copy prose-copy-dark mt-7">I am an electrical engineer, creative strategist, author, mentor, and community builder. My work moves between engineering offices, church balconies, fraternity meetings, mentoring conversations, creative projects, and cultural spaces. What connects it all is simple: I like helping people turn complicated ideas, hard-earned experience, and meaningful work into something clear, useful, and strong enough to share.</p><div className="button-row mt-8"><ButtonLink href="/lomnickpro">View Case Studies</ButtonLink><ButtonLink href="/contact" variant="quiet">Book a Consultation</ButtonLink></div></div><EditorialImage filename="professional-headshot.jpg" priority className="mx-auto w-full max-w-lg" /></div></section>
-    <section className="editorial-section paper-grid"><div className="site-container grid gap-10 lg:grid-cols-[.78fr_1.22fr]"><p className="pull-quote">Bring the rough idea, the deadline, and what is riding on getting it right.</p><div><h2 className="section-title">The useful part often begins before the brief is polished.</h2><p className="prose-copy mt-6">Some people arrive with a polished brief. Most arrive with a rough idea, a deadline, and a lot riding on getting it right. That is usually where I am most useful. I bring an <Link className="text-link" href="/engineering">engineer&apos;s eye for structure</Link>, a <Link className="text-link" href="/lionheart">storyteller&apos;s ear for meaning</Link>, and a mentor&apos;s instinct to leave people more confident than when we started. That same care shapes <Link className="text-link" href="/lomnickpro">LomnickPro</Link> and my <Link className="text-link" href="/community-leadership">community and leadership work</Link>.</p></div></div></section>
-    <section className="editorial-section bg-parchment"><div className="site-container max-w-4xl text-center"><h2 className="section-title mx-auto">Bring the rough version.</h2><p className="prose-copy mx-auto mt-5">We will sort out what matters, shape it into something useful, and build the next step together.</p><div className="button-row mt-7 justify-center"><ButtonLink href="/lomnickpro">View Case Studies</ButtonLink><ButtonLink href="/contact" variant="secondary">Book a Consultation</ButtonLink></div></div></section>
-  </>;
+  return (
+    <>
+      <section className="dark-hero">
+        <div className="site-container grid min-h-[650px] items-center gap-10 py-14 lg:grid-cols-[1.12fr_.88fr] lg:py-16">
+          <div>
+            <p className="eyebrow">Joel Maurice Lomnick, EIT</p>
+            <h1 className="display-title mt-5 max-w-[18ch] lg:max-w-none lg:text-[4rem]">
+              <span className="lg:block lg:whitespace-nowrap">I build systems,</span>
+              <span className="lg:block lg:whitespace-nowrap"> stories, leaders,</span>
+              <span className="lg:block lg:whitespace-nowrap"> and infrastructure.</span>
+            </h1>
+            <p className="prose-copy prose-copy-dark mt-7">
+              I am an electrical engineer, creative strategist, author, mentor, and community builder. My work moves between engineering offices, church balconies, fraternity meetings, mentoring conversations, creative projects, and cultural spaces. What connects it all is simple: I help people turn complicated ideas, hard-earned experience, and meaningful work into something clear, useful, and strong enough to share.
+            </p>
+            <div className="button-row mt-8">
+              <ButtonLink href="/lomnickpro">View Case Studies</ButtonLink>
+              <ButtonLink href="/contact" variant="quiet">Book a Consultation</ButtonLink>
+            </div>
+          </div>
+          <EditorialImage filename="professional-headshot.jpg" priority className="mx-auto w-full max-w-md lg:max-w-lg" />
+        </div>
+      </section>
+
+      <section className="editorial-section-compact paper-grid">
+        <div className="site-container grid items-start gap-9 lg:grid-cols-[.78fr_1.22fr]">
+          <p className="pull-quote">Bring the rough idea, the deadline, and what is riding on getting it right.</p>
+          <div>
+            <h2 className="section-title">The useful part often begins before the brief is polished.</h2>
+            <p className="prose-copy mt-5">
+              Some people arrive with a polished brief. Most arrive with a rough idea, a deadline, and a lot riding on getting it right. That is usually where I am most useful. I bring an <Link className="text-link" href="/engineering">engineer&apos;s eye for structure</Link>, a <Link className="text-link" href="/lionheart">storyteller&apos;s ear for meaning</Link>, and a mentor&apos;s instinct to leave people more confident than when we started. That same care shapes <Link className="text-link" href="/lomnickpro">LomnickPro</Link> and my <Link className="text-link" href="/community-leadership">community and leadership work</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-section-compact bg-parchment">
+        <div className="site-container max-w-4xl text-center">
+          <h2 className="section-title mx-auto">Bring the rough version.</h2>
+          <p className="prose-copy mx-auto mt-5">We will sort out what matters, shape it into something useful, and build the next step together.</p>
+          <div className="button-row mt-7 justify-center">
+            <ButtonLink href="/lomnickpro">View Case Studies</ButtonLink>
+            <ButtonLink href="/contact" variant="secondary">Book a Consultation</ButtonLink>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

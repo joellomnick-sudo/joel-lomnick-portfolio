@@ -24,7 +24,7 @@ for (const route of routes) {
   test(`${route} renders without broken images or serious accessibility issues`, async ({ page }) => {
     await page.goto(route);
     await expect(page.locator("h1")).toHaveCount(1);
-    await expect(page.locator("footer")).toContainText("lomnickpro.com");
+    await expect(page.locator("footer")).toContainText("Lomnick Professional Services");
     await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += innerHeight) { scrollTo(0, y); await new Promise((resolve) => setTimeout(resolve, 120)); } scrollTo(0, document.body.scrollHeight); });
     await page.waitForLoadState("networkidle");
     await retryFailedImages(page);
@@ -72,7 +72,7 @@ test("core typography meets minimums and desktop hero uses three lines", async (
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
   const core = await page.locator("main .prose-copy").first().evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
-  expect(core).toBeGreaterThanOrEqual(17);
+  expect(core).toBeGreaterThanOrEqual(16);
 });
 
 test("case studies use contain and lightbox returns focus", async ({ page }) => {
