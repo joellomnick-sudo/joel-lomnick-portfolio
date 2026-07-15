@@ -8,8 +8,11 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "playwright test",
-    "test:report": "playwright show-report"
+    "pretest": "next build",
+    "test": "node scripts/run-playwright.mjs",
+    "test:report": "playwright show-report",
+    "audit:site": "node scripts/audit-site.mjs",
+    "screenshots": "node scripts/capture-screenshots.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.24.0",

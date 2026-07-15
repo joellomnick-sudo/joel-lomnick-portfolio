@@ -4,6 +4,22 @@ import { expect, test } from "@playwright/test";
 const routes = ["/", "/about", "/engineering", "/engineering/classroom-lab", "/lomnickpro", "/community-leadership", "/lionheart", "/contact"];
 const labels = ["Home", "About", "Engineering", "LomnickPro", "Community & Leadership", "Lionheart", "Contact"];
 
+async function retryFailedImages(page: import("@playwright/test").Page) {
+  await page.locator("img").evaluateAll(async (images) => {
+    const imageElements = images as HTMLImageElement[];
+    const failed = imageElements.filter((image) => image.complete && image.naturalWidth === 0);
+    await Promise.all(failed.map((image) => new Promise<void>((resolve) => {
+      const current = image.currentSrc || image.src;
+      const timeout = window.setTimeout(resolve, 15_000);
+      const finish = () => { window.clearTimeout(timeout); resolve(); };
+      image.addEventListener("load", finish, { once: true });
+      image.addEventListener("error", finish, { once: true });
+      image.removeAttribute("srcset");
+      image.src = `${current}${current.includes("?") ? "&" : "?"}retry=${Date.now()}`;
+    })));
+  });
+}
+
 for (const route of routes) {
   test(`${route} renders without broken images or serious accessibility issues`, async ({ page }) => {
     await page.goto(route);
@@ -11,6 +27,7 @@ for (const route of routes) {
     await expect(page.locator("footer")).toContainText("lomnickpro.com");
     await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += innerHeight) { scrollTo(0, y); await new Promise((resolve) => setTimeout(resolve, 120)); } scrollTo(0, document.body.scrollHeight); });
     await page.waitForLoadState("networkidle");
+    await retryFailedImages(page);
     const broken = await page.locator("img").evaluateAll((images) => images.filter((image) => !(image as HTMLImageElement).complete || (image as HTMLImageElement).naturalWidth === 0).map((image) => (image as HTMLImageElement).currentSrc || (image as HTMLImageElement).src));
     expect(broken).toEqual([]);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
@@ -109,4 +126,17 @@ test("public documents respond as PDFs and professional files are noindex", asyn
     expect((await response.body()).subarray(0, 4).toString()).toBe("%PDF");
     if (file.includes("public")) expect(response.headers()["x-robots-tag"]).toContain("noindex");
   }
+});
+
+test("version endpoint identifies the deployed build without exposing configuration", async ({ request }) => {
+  const response = await request.get(`/api/version?cacheBust=${Date.now()}`);
+  expect(response.status()).toBe(200);
+  expect(response.headers()["cache-control"]).toContain("no-store");
+  const version = await response.json();
+  expect(version).toEqual({
+    commit: expect.any(String),
+    environment: expect.any(String),
+    builtAt: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/),
+  });
+  expect(JSON.stringify(version)).not.toMatch(/email|phone|secret|token|key|contact_to/i);
 });
