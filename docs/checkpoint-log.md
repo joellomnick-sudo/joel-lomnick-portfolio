@@ -10,22 +10,23 @@ The production SHA is authoritative only when returned by `/api/version` with a 
 
 ## Checkpoint 0 - Compliance And Baseline
 
-- **Status:** In progress
-- **Date and time:** 2026-07-14 (America/New_York)
+- **Status:** Pass in production
+- **Date and time:** 2026-07-15 10:13 EDT
 - **Scope:** Acceptance tracking, visual-audit tracking, production build identity, reusable screenshot tooling, baseline typography/navigation/overflow auditing, and baseline screenshots. No page redesign.
 - **Starting production SHA:** `92b271da4472f32a8dc3b36371a44d75a502977c`
 - **Files changed:** `.gitignore`, `package.json`, `next.config.ts`, `playwright.config.ts`, `eslint.config.mjs`, `app/api/version/route.ts`, `scripts/audit-site.mjs`, `scripts/capture-screenshots.mjs`, `scripts/run-playwright.mjs`, `tests/site.spec.ts`, and three files under `docs/`.
 - **Requirements addressed:** G-02, G-16, G-18-G-21, H-01-H-03, H-05-H-06, F-01, F-05, CT-07, D-01-D-02, D-05, M-03-M-04, AX-01, AX-03, AX-05-AX-09, AX-11-AX-12, P-01-P-06.
-- **Tests run:** `pnpm lint`, `pnpm typecheck`, optimized `pnpm build`, 20 Playwright tests against the optimized server, `pnpm audit:site`, and manual screenshot review.
-- **Results:** Lint pass; typecheck pass; build pass; 20/20 Playwright pass; axe pass on all primary routes; 0 hard audit failures; 26 documented refinement warnings.
-- **Screenshot locations:** Local baseline at `artifacts/screenshots/checkpoint-00/local/{desktop,mobile,states}`. Production capture pending deployment.
-- **Local commit SHA:** Pending.
-- **GitHub commit SHA:** Pending.
-- **Vercel status:** Pending.
-- **Production SHA:** Pending.
+- **Tests run:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, local and production `pnpm audit:site`, production HTTP smoke checks, live PDF response checks, and manual screenshot review.
+- **Results:** Lint pass; typecheck pass; clean build pass; 20/20 Playwright pass; axe pass on all primary routes; local and production audits each report 0 hard failures and 26 documented refinement warnings; all eight production routes and five PDFs return HTTP 200.
+- **Screenshot locations:** `artifacts/screenshots/checkpoint-00/local/{desktop,mobile,states}` and `artifacts/screenshots/checkpoint-00/production/{desktop,mobile,states}`.
+- **Local commit SHA:** `241a77da559d527dd7cb21a9e5484ce1003e9706`
+- **GitHub commit SHA:** `241a77da559d527dd7cb21a9e5484ce1003e9706`
+- **Vercel status:** Ready; exact implementation commit verified through `/api/version`.
+- **Production SHA:** `241a77da559d527dd7cb21a9e5484ce1003e9706`
 - **Routes checked:** `/`, `/about`, `/engineering`, `/engineering/classroom-lab`, `/lomnickpro`, `/community-leadership`, `/lionheart`, `/contact`, `/api/version`, and five public PDFs.
-- **Remaining issues:** Checkpoints 1-7, including all planned visual refinements and controlled production contact delivery.
-- **Rollback information:** Revert the Checkpoint 0 commit if the version route, tests, or tooling causes a production regression.
+- **Remaining issues:** Checkpoints 1-7, beginning with global typography, header, and footer; controlled production contact delivery remains assigned to Checkpoint 6.
+- **Rollback information:** `git revert 241a77da559d527dd7cb21a9e5484ce1003e9706` and push `main` if the Checkpoint 0 infrastructure causes a regression.
+- **Tracking update:** This production-verification record is committed as a Checkpoint 0 documentation follow-up. Its SHA becomes the final Checkpoint 0 production SHA after the required second deployment verification.
 
 ## Checkpoints 1-7
 

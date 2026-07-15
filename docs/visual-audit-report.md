@@ -42,6 +42,16 @@ This report combines computed browser measurements with manual full-page screens
 - **Mobile:** No document-level horizontal overflow or broken images were found. The mobile Lab canvas is the one clear usability concern; other pages stack coherently, though supporting images and long footers will benefit from the planned scale and spacing refinements.
 - **Special states:** Mobile navigation, case-study lightbox, Classroom suggested layout, mocked contact response, and Lionheart preview were captured. The contact capture wait was corrected after the baseline image revealed it had stopped on the sending state.
 
+### Production comparison
+
+- **Implementation commit:** `241a77da559d527dd7cb21a9e5484ce1003e9706`
+- **Version endpoint:** HTTP 200 with commit `241a77da559d527dd7cb21a9e5484ce1003e9706`, environment `production`, and build timestamp `2026-07-15T14:00:12.356Z`.
+- **Route smoke test:** All eight primary routes returned HTTP 200.
+- **Document smoke test:** All five public documents returned HTTP 200 with `%PDF`; public resume and cover-letter responses retained `noindex, noarchive`.
+- **Production audit:** 0 hard failures and the same 26 planned-refinement warnings as local.
+- **Visual review:** Fresh production Home desktop, Home mobile, and contact-success state matched the local baseline. The full production route set was captured for later before-and-after comparison.
+- **Artifacts:** `artifacts/screenshots/checkpoint-00/production/{desktop,mobile,states}` and `artifacts/audits/checkpoint-00-production.json`.
+
 ### Baseline satisfaction scores
 
 These scores describe the unchanged production design before refinement. Scores below 4 are documented exceptions for Checkpoint 0 because this checkpoint changes compliance infrastructure only and introduces no visual regression.

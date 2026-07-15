@@ -9,7 +9,7 @@ Sources use the section letters from the approved refinement brief. Automated ch
 | ID | Requirement | Source | Automated or manual test | Status | Checkpoint | Production verification | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | G-01 | Preserve the approved brown, black, cream, ivory, gold, editorial, personal, and Black-excellence identity. | A | Manual screenshot comparison | Not started | 1-7 | Pending | No redesign from scratch. |
-| G-02 | Keep existing routes, case studies, public PDFs, Classroom Lab, headshot, and privacy-safe client treatment. | A | Route, image, PDF, and interaction tests | In progress | 0-7 | Pending | Baseline inventory complete. |
+| G-02 | Keep existing routes, case studies, public PDFs, Classroom Lab, headshot, and privacy-safe client treatment. | A | Route, image, PDF, and interaction tests | Pass in production | 0 | Verified at `241a77d` | Baseline inventory and production smoke checks pass. |
 | G-03 | Avoid dashboard, tactical, Command Center, Five Lanes, repeated placard, rigid card-grid, and generic consulting language. | A | Text scan and manual review | Not started | 4-7 | Pending | Preserve human storytelling. |
 | G-04 | Use Source Sans 3 for body and interface text with reliable fallbacks. | C | Computed-font audit | Not started | 1 | Pending | Central font token required. |
 | G-05 | Use Fraunces for editorial headings, narrative headings, pull quotes, and reflective text. | C | Computed-font audit and screenshot review | Not started | 1 | Pending | Heavy display face remains limited. |
@@ -23,33 +23,33 @@ Sources use the section letters from the approved refinement brief. Automated ch
 | G-13 | Keep supporting images within the intended small, medium, wide, and narrative ranges. | E | Image geometry audit and screenshots | Not started | 2, 4, 5 | Pending | Hero images may be larger. |
 | G-14 | Use contain for infographics, covers, flyers, business cards, documents, and text-bearing graphics. | E | Computed object-fit audit | Not started | 2, 5, 6 | Pending | No text-bearing graphic may be cropped. |
 | G-15 | Do not crop faces, heads, hands, group edges, titles, signs, or meaningful objects. | E | Manual image review at six widths | Not started | 2-7 | Pending | Custom object position where needed. |
-| G-16 | Define image dimensions, load every image, and provide appropriate alt treatment. | E | Image load and alt tests | In progress | 0-7 | Pending | Baseline hard-failure audit added. |
+| G-16 | Define image dimensions, load every image, and provide appropriate alt treatment. | E | Image load and alt tests | Pass in production | 0 | Verified at `241a77d` | Production audit found no broken images or missing alt attributes. |
 | G-17 | Do not repeat a key photograph on one page or place similar group photos directly together. | E | Duplicate-src audit and manual review | Not started | 2, 4, 5 | Pending | Editorial sequencing check. |
-| G-18 | Do not expose private email, phone, secrets, or unredacted documents. | F, G, R | Repository and rendered-output scans | In progress | 0-7 | Pending | Destination email remains server-only. |
-| G-19 | Every primary route returns HTTP 200 with one H1 and no horizontal overflow. | B, I, P | Playwright route and geometry tests | In progress | 0-7 | Pending | Baseline test coverage exists. |
-| G-20 | Reduced-motion preferences are honored. | I | CSS inspection and browser emulation | In progress | 0, 7 | Pending | Existing media query retained. |
-| G-21 | `/api/version` returns only commit, environment, and build timestamp with no-store caching. | K | API test and production curl | In progress | 0 | Pending | Production SHA must match GitHub. |
+| G-18 | Do not expose private email, phone, secrets, or unredacted documents. | F, G, R | Repository and rendered-output scans | Pass in production | 0 | Verified at `241a77d` | Staged-source and rendered-output scans pass; destination email remains server-only. |
+| G-19 | Every primary route returns HTTP 200 with one H1 and no horizontal overflow. | B, I, P | Playwright route and geometry tests | Pass in production | 0 | Verified at `241a77d` | Eight live routes return 200; production audit found no overflow. |
+| G-20 | Reduced-motion preferences are honored. | I | CSS inspection and browser emulation | Pass in production | 0 | Verified at `241a77d` | Existing media query retained and screenshot contexts use reduced motion. |
+| G-21 | `/api/version` returns only commit, environment, and build timestamp with no-store caching. | K | API test and production curl | Pass in production | 0 | Verified at `241a77d` | Returned exact GitHub SHA and production environment. |
 
 ## Header
 
 | ID | Requirement | Source | Automated or manual test | Status | Checkpoint | Production verification | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| H-01 | Desktop and mobile navigation use Home, About, Engineering, LomnickPro, Community & Leadership, Lionheart, Contact in that order. | B | Role and label tests | In progress | 0-1 | Pending | Shared `navLinks` source. |
-| H-02 | Joel's name links home; no domain, portfolio, or website-address menu item exists. | B, F | DOM test | In progress | 0-1 | Pending | Domain remains in footer metadata only. |
-| H-03 | Every label is visible without hover and active-page state is clear. | B, F, N | Visibility, contrast, and aria-current tests | In progress | 0-1 | Pending | Check 1280 and 1440. |
+| H-01 | Desktop and mobile navigation use Home, About, Engineering, LomnickPro, Community & Leadership, Lionheart, Contact in that order. | B | Role and label tests | Pass in production | 0 | Verified at `241a77d` | Shared `navLinks` source and production audit pass. |
+| H-02 | Joel's name links home; no domain, portfolio, or website-address menu item exists. | B, F | DOM test | Pass in production | 0 | Verified at `241a77d` | Domain remains in footer metadata only. |
+| H-03 | Every label is visible without hover and active-page state is clear. | B, F, N | Visibility, contrast, and aria-current tests | Pass in production | 0 | Verified at `241a77d` | Desktop and mobile production captures reviewed. |
 | H-04 | Header aligns to the main grid and the consultation action remains balanced. | B, F | Screenshot review | Not started | 1 | Pending | Avoid offset nav items. |
-| H-05 | Mobile targets are at least 44px; Escape and route selection close the menu. | B, I | Playwright interaction tests | In progress | 0-1 | Pending | Existing focus return tested. |
-| H-06 | Keyboard focus remains trapped inside an open mobile menu. | B, I | Playwright keyboard test | In progress | 0-1 | Pending | Test forward and reverse tab. |
+| H-05 | Mobile targets are at least 44px; Escape and route selection close the menu. | B, I | Playwright interaction tests | Pass in production | 0 | Verified at `241a77d` | Local interaction suite and production menu audit pass. |
+| H-06 | Keyboard focus remains trapped inside an open mobile menu. | B, I | Playwright keyboard test | Pass locally | 0 | Production panel captured | Forward and reverse focus behavior remains covered locally. |
 
 ## Footer
 
 | ID | Requirement | Source | Automated or manual test | Status | Checkpoint | Production verification | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| F-01 | Footer includes Joel Maurice Lomnick, EIT; LomnickPro; Richmond; nav; lomnickpro.com; copyright; and approved closing statement. | F | DOM text and link test | In progress | 0-1 | Pending | No direct contact details. |
+| F-01 | Footer includes Joel Maurice Lomnick, EIT; LomnickPro; Richmond; nav; lomnickpro.com; copyright; and approved closing statement. | F | DOM text and link test | Pass in production | 0 | Verified at `241a77d` | Production screenshots and DOM audit pass. |
 | F-02 | Footer has balanced desktop columns and a clean mobile stack without overflow. | F | Responsive screenshots and geometry test | Not started | 1, 7 | Pending | Reduce unused space. |
 | F-03 | Footer links and text are at least 15-16px and readable. | F, N | Computed-size and contrast audit | Not started | 1 | Pending | Do not inflate footer height. |
 | F-04 | Footer begins reasonably close to preceding content. | F, N | Geometry audit and screenshots | Not started | 2-7 | Pending | Especially Classroom Lab and Lionheart. |
-| F-05 | No private email or phone appears in the footer or public markup. | F | DOM and bundle scan | In progress | 0-7 | Pending | Repeat after each build. |
+| F-05 | No private email or phone appears in the footer or public markup. | F | DOM and bundle scan | Pass in production | 0 | Verified at `241a77d` | Source and rendered-output scans pass. |
 
 ## Home
 
@@ -163,7 +163,7 @@ Sources use the section letters from the approved refinement brief. Automated ch
 | CT-04 | Labels, controls, help text, button text, and body copy meet approved sizes. | G | Computed-size audit | Not started | 1, 6 | Pending | Controls at least 44px. |
 | CT-05 | Required indicators, labels, focus states, errors, and field spacing are accessible. | G, I | Axe and Playwright validation tests | Not started | 6, 7 | Pending | Errors announced. |
 | CT-06 | Server-side schema validation and input sanitization are applied. | G | API malformed-input tests and code review | Not started | 6 | Pending | Do not log full message. |
-| CT-07 | Honeypot and minimum-completion-time protections reject automated submissions. | G | API tests | In progress | 0, 6 | Pending | Existing baseline honeypot test. |
+| CT-07 | Honeypot and minimum-completion-time protections reject automated submissions. | G | API tests | Pass locally | 0 | Production submission deferred to Checkpoint 6 | Baseline honeypot test passes. |
 | CT-08 | Turnstile is enforced when configured. | G | Mocked verification tests and env review | Not started | 6 | Pending | Optional configuration. |
 | CT-09 | Reasonable rate limiting is applied. | G | Repeated-request API test | Not started | 6 | Pending | Account for serverless runtime. |
 | CT-10 | Destination email stays server-side and visitor email becomes Reply-To. | G | Code review, bundle scan, controlled delivery | Not started | 6 | Pending | Requires production delivery evidence. |
@@ -174,11 +174,11 @@ Sources use the section letters from the approved refinement brief. Automated ch
 
 | ID | Requirement | Source | Automated or manual test | Status | Checkpoint | Production verification | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| D-01 | Engineering 101, both Lionheart previews, public resume, and public cover letter return HTTP 200. | H | PDF response test | In progress | 0-7 | Pending | Five required documents. |
-| D-02 | Each document begins with a PDF header and uses the expected public filename. | H | Binary-header test | In progress | 0-7 | Pending | No broken paths. |
+| D-01 | Engineering 101, both Lionheart previews, public resume, and public cover letter return HTTP 200. | H | PDF response test | Pass in production | 0 | Verified at `241a77d` | All five live documents return 200. |
+| D-02 | Each document begins with a PDF header and uses the expected public filename. | H | Binary-header test | Pass in production | 0 | Verified at `241a77d` | All five live responses begin with `%PDF`. |
 | D-03 | View and download links work on desktop and mobile. | H | Link and mobile-opening test | Not started | 3, 4, 6, 7 | Pending | Browser PDF viewer may vary. |
 | D-04 | No private original or unredacted file is in a public directory. | H, R | Repository and PDF text audit | Not started | 0, 7 | Pending | Public-safe copies only. |
-| D-05 | Public professional documents contain no public email or phone and retain noindex headers. | H | PDF text extraction and header test | In progress | 0, 7 | Pending | Redaction verification required. |
+| D-05 | Public professional documents contain no public email or phone and retain noindex headers. | H | PDF text extraction and header test | Pass locally | 0 | Live noindex headers verified at `241a77d` | Final PDF text re-audit remains at Checkpoint 7. |
 
 ## Mobile And Responsive
 
@@ -186,35 +186,35 @@ Sources use the section letters from the approved refinement brief. Automated ch
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | M-01 | Test all primary routes at 1440, 1280, 1024, 768, 390, and 360px. | P | Responsive Playwright matrix | Not started | 7 | Pending | Changed routes also checked per checkpoint. |
 | M-02 | Mobile images stack with their related text and do not consume several consecutive screens. | E, P | Mobile full-page screenshots | Not started | 2, 4, 5 | Pending | Preserve narrative order. |
-| M-03 | Headings, paragraphs, buttons, form fields, and footers do not clip or overflow. | C, P | Geometry audit and screenshots | In progress | 0-7 | Pending | Hard overflow guard added. |
-| M-04 | Mobile navigation is readable, operable, and at least 44px per target. | B, P | Playwright interaction and geometry tests | In progress | 0-1 | Pending | Test 390 and 360. |
+| M-03 | Headings, paragraphs, buttons, form fields, and footers do not clip or overflow. | C, P | Geometry audit and screenshots | Pass in production | 0 | Verified at `241a77d` | Baseline 390px audit has no document-level overflow. |
+| M-04 | Mobile navigation is readable, operable, and at least 44px per target. | B, P | Playwright interaction and geometry tests | Pass in production | 0 | Verified at `241a77d` | Production mobile panel captured and audited. |
 | M-05 | Classroom, lightbox, Lionheart actions, and form remain usable by touch. | G, P | Mobile interaction tests | Not started | 3, 5, 6, 7 | Pending | No precision drag requirement. |
 
 ## Accessibility
 
 | ID | Requirement | Source | Automated or manual test | Status | Checkpoint | Production verification | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| AX-01 | Every page has exactly one H1 and logical heading order. | I | DOM and heading-order audit | In progress | 0-7 | Pending | One-H1 guard exists. |
+| AX-01 | Every page has exactly one H1 and logical heading order. | I | DOM and heading-order audit | Pass in production | 0 | Verified at `241a77d` | Production audit found exactly one H1 per route. |
 | AX-02 | Skip-to-content link works and visible focus indicators remain. | I | Keyboard test and screenshot | Not started | 1, 7 | Pending | Check dark and light surfaces. |
-| AX-03 | Mobile menu exposes dialog semantics, traps focus, closes with Escape, and returns focus. | I | Playwright keyboard test | In progress | 0-1 | Pending | Route selection also closes it. |
+| AX-03 | Mobile menu exposes dialog semantics, traps focus, closes with Escape, and returns focus. | I | Playwright keyboard test | Pass locally | 0 | Production dialog captured | Complete keyboard behavior passes locally. |
 | AX-04 | Contact form has labels, required semantics, announced errors, and usable focus. | I | Axe and validation tests | Not started | 6-7 | Pending | No placeholder-only labels. |
-| AX-05 | Classroom Lab is keyboard operable. | I | Playwright keyboard test | In progress | 0, 3, 7 | Pending | Pointer and keyboard placement. |
-| AX-06 | Case-study lightbox has dialog semantics, Escape close, and focus return. | I | Playwright test | In progress | 0, 5, 7 | Pending | Every trigger. |
-| AX-07 | Meaningful images have useful alt text and decorative images are marked appropriately. | I | Alt audit and manual review | In progress | 0-7 | Pending | Hard guard catches missing attributes. |
-| AX-08 | Text and controls meet WCAG AA contrast. | I | Axe and manual contrast review | In progress | 0-7 | Pending | Especially gold/brown small text. |
-| AX-09 | No link or information is available only on hover or only by color. | I | Visibility and manual interaction test | In progress | 0-7 | Pending | Active state also uses aria-current. |
+| AX-05 | Classroom Lab is keyboard operable. | I | Playwright keyboard test | Pass locally | 0 | Production Lab route and state captured | Pointer and keyboard placement pass locally. |
+| AX-06 | Case-study lightbox has dialog semantics, Escape close, and focus return. | I | Playwright test | Pass locally | 0 | Production lightbox captured | Escape and focus return pass locally. |
+| AX-07 | Meaningful images have useful alt text and decorative images are marked appropriately. | I | Alt audit and manual review | Pass in production | 0 | Verified at `241a77d` | Production audit found no missing alt attributes. |
+| AX-08 | Text and controls meet WCAG AA contrast. | I | Axe and manual contrast review | Pass locally | 0 | Production screenshots reviewed | No serious or critical local axe violations. |
+| AX-09 | No link or information is available only on hover or only by color. | I | Visibility and manual interaction test | Pass in production | 0 | Verified at `241a77d` | Production navigation visibility audit passes. |
 | AX-10 | Touch targets meet minimum size. | I | Geometry audit | Not started | 1, 3, 6, 7 | Pending | Header, Lab, and form. |
-| AX-11 | Reduced-motion behavior is available. | I | Emulation and CSS test | In progress | 0, 7 | Pending | Screenshots disable motion. |
-| AX-12 | Automated axe checks report no serious or critical WCAG A/AA violations. | I | Axe Playwright suite | In progress | 0-7 | Pending | Manual review still required. |
+| AX-11 | Reduced-motion behavior is available. | I | Emulation and CSS test | Pass in production | 0 | Verified at `241a77d` | Reduced-motion production captures complete. |
+| AX-12 | Automated axe checks report no serious or critical WCAG A/AA violations. | I | Axe Playwright suite | Pass locally | 0 | Exact production artifact verified | Manual review remains required at every checkpoint. |
 
 ## Production Functionality
 
 | ID | Requirement | Source | Automated or manual test | Status | Checkpoint | Production verification | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P-01 | Each checkpoint passes lint, typecheck, Playwright, build, and targeted route checks before push. | M | Command log | In progress | 0-7 | Pending | No broken checkpoint pushes. |
-| P-02 | Every checkpoint has its own commit with the prescribed message and no amendment or squash. | L, R | Git history review | In progress | 0-7 | Pending | Main branch only. |
-| P-03 | Local, GitHub main, and `/api/version` SHAs match before the next checkpoint. | K, R, S | Git and production API checks | In progress | 0-7 | Pending | Cache-busting query required. |
-| P-04 | Fresh local and production screenshots are captured and reviewed for changed routes. | Q, S | Artifact inventory and manual review | In progress | 0-7 | Pending | Artifacts remain gitignored. |
-| P-05 | Production smoke tests pass for each changed route after Vercel is ready. | S | Production Playwright suite | Not started | 0-7 | Pending | Use exact production SHA. |
-| P-06 | Checkpoint log and visual audit report are updated after each verified deployment. | J, S, U, V | Documentation review | In progress | 0-7 | Pending | Include score reasons below 5. |
+| P-01 | Each checkpoint passes lint, typecheck, Playwright, build, and targeted route checks before push. | M | Command log | Pass in production | 0 | Verified at `241a77d` | Lint, typecheck, 20 Playwright tests, clean build, and audit pass. |
+| P-02 | Every checkpoint has its own commit with the prescribed message and no amendment or squash. | L, R | Git history review | Pass in production | 0 | Verified at `241a77d` | Main implementation commit uses the prescribed message. |
+| P-03 | Local, GitHub main, and `/api/version` SHAs match before the next checkpoint. | K, R, S | Git and production API checks | Pass in production | 0 | Verified at `241a77d` | Full 40-character SHAs matched before this tracking update. |
+| P-04 | Fresh local and production screenshots are captured and reviewed for changed routes. | Q, S | Artifact inventory and manual review | Pass in production | 0 | Verified at `241a77d` | Local and production desktop, mobile, and state artifacts exist. |
+| P-05 | Production smoke tests pass for each changed route after Vercel is ready. | S | Production Playwright suite | Pass in production | 0 | Verified at `241a77d` | Eight primary routes return HTTP 200; production audit has 0 hard failures. |
+| P-06 | Checkpoint log and visual audit report are updated after each verified deployment. | J, S, U, V | Documentation review | Pass locally | 0 | Tracking update deployment pending | Includes score reasons below 5. |
 | P-07 | Any production regression is reverted in a dedicated revert commit and documented. | T | Git and log review | Not started | 0-7 | Pending | No mixed emergency fixes. |
