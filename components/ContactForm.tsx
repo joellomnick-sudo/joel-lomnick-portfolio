@@ -30,7 +30,7 @@ export function ContactForm() {
 
   const inputClass = "mt-2 min-h-12 w-full rounded-md border border-deepBrown/30 bg-white px-4 py-3 text-base text-ink focus-ring";
   return (
-    <form className="max-w-3xl" onSubmit={submit} noValidate>
+    <form className="max-w-3xl" onSubmit={submit}>
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="font-bold">Name<span aria-hidden="true"> *</span><input className={inputClass} name="name" autoComplete="name" required minLength={2} /></label>
         <label className="font-bold">Email<span aria-hidden="true"> *</span><input className={inputClass} type="email" name="email" autoComplete="email" required /></label>

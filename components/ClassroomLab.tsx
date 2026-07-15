@@ -84,7 +84,7 @@ export function ClassroomLab() {
 
   return (
     <div className="grid gap-6 xl:grid-cols-[17rem_minmax(0,1fr)]">
-      <aside className="border border-deepBrown/20 bg-warmIvory p-4" aria-label="Device library">
+      <aside className="border border-deepBrown/20 bg-warmIvory p-4 xl:sticky xl:top-4 xl:max-h-[40rem] xl:overflow-y-auto" aria-label="Device library">
         <h2 className="subsection-title">Device library</h2>
         {["26", "27", "28"].map((division) => <section key={division} className="mt-5"><h3 className="text-sm font-black uppercase text-mutedBrown">Division {division}</h3><div className="mt-2 grid gap-2">{devices.filter((item) => item.division === division).map((device) => <button key={device.id} type="button" aria-pressed={selected.id === device.id} onClick={() => { setSelected(device); setFeedback(`${device.label} selected. ${device.note}`); }} className="min-h-12 rounded-md border border-deepBrown/20 px-3 py-2 text-left text-base font-bold aria-pressed:border-emerald aria-pressed:bg-emerald aria-pressed:text-white focus-ring">{device.short} <span className="ml-2 font-normal">{device.label}</span></button>)}</div></section>)}
       </aside>
