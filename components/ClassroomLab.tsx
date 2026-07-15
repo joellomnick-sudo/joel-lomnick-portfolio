@@ -83,7 +83,7 @@ export function ClassroomLab() {
   }
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
+    <div className="grid gap-6 xl:grid-cols-[17rem_minmax(0,1fr)]">
       <aside className="border border-deepBrown/20 bg-warmIvory p-4" aria-label="Device library">
         <h2 className="subsection-title">Device library</h2>
         {["26", "27", "28"].map((division) => <section key={division} className="mt-5"><h3 className="text-sm font-black uppercase text-mutedBrown">Division {division}</h3><div className="mt-2 grid gap-2">{devices.filter((item) => item.division === division).map((device) => <button key={device.id} type="button" aria-pressed={selected.id === device.id} onClick={() => { setSelected(device); setFeedback(`${device.label} selected. ${device.note}`); }} className="min-h-12 rounded-md border border-deepBrown/20 px-3 py-2 text-left text-base font-bold aria-pressed:border-emerald aria-pressed:bg-emerald aria-pressed:text-white focus-ring">{device.short} <span className="ml-2 font-normal">{device.label}</span></button>)}</div></section>)}
@@ -100,9 +100,10 @@ export function ClassroomLab() {
         </div>
         <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2" aria-label="Layer visibility">{Object.entries(layers).map(([layer, shown]) => <button key={layer} type="button" className="inline-flex min-h-11 items-center gap-2 text-base font-bold focus-ring" aria-pressed={shown} onClick={() => setLayers((items) => ({ ...items, [layer]: !shown }))}>{shown ? <Eye size={18} /> : <EyeOff size={18} />}{layerLabels[layer]}</button>)}</div>
 
-        <div className="mt-3 grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_17rem]">
+        <p className="mt-4 text-sm leading-6 text-mutedBrown xl:hidden">For the best placement experience, scroll the plan horizontally or return on a wider screen. All controls remain available below the plan.</p>
+        <div className="mt-3 grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_15rem]">
         <div className="overflow-auto border border-deepBrown/25 bg-white p-3">
-          <div role="application" aria-label="Interactive classroom plan. Use arrow keys to move the placement cursor and Enter to place the selected device." tabIndex={0} onKeyDown={onBoardKey} onPointerDown={onBoardPointer} className="classroom-plan relative mx-auto min-w-[580px] max-w-5xl cursor-crosshair overflow-hidden border-2 border-deepBrown bg-paper focus-ring" data-testid="classroom-plan">
+          <div role="application" aria-label="Interactive classroom plan. Use arrow keys to move the placement cursor and Enter to place the selected device." tabIndex={0} onKeyDown={onBoardKey} onPointerDown={onBoardPointer} className="classroom-plan relative mx-auto min-w-[600px] max-w-none cursor-crosshair overflow-hidden border-2 border-deepBrown bg-paper focus-ring" data-testid="classroom-plan">
             <div className="absolute left-[7%] top-[5%] h-[8%] w-[86%] border-2 border-deepBrown bg-warmIvory text-center text-sm font-bold">TEACHING WALL / DISPLAY ZONE</div>
             <div className="absolute bottom-[8%] left-[4%] h-[19%] w-[18%] border border-mutedBrown/50 bg-parchment p-2 text-center text-xs font-bold">INSTRUCTOR</div>
             <div className="absolute bottom-[5%] right-[28%] h-[16%] w-[19%] border border-mutedBrown/50 bg-parchment p-2 text-center text-xs font-bold">SINK + CABINETRY</div>

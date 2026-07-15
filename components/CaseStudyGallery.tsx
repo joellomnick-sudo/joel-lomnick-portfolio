@@ -28,12 +28,12 @@ export function CaseStudyGallery() {
   }, [active]);
 
   return <>
-    <div className="grid gap-12 md:grid-cols-2">
+    <div className="grid gap-x-10 gap-y-12 md:grid-cols-2">
       {caseStudies.map((study) => <article key={study.id} className="min-w-0">
-        <button type="button" className="group block w-full overflow-hidden rounded-md border border-deepBrown/20 bg-richBlack text-left shadow-premium focus-ring" onClick={(event) => { triggerRef.current = event.currentTarget; setActive(study); }} aria-label={`Enlarge ${study.title}`}>
-          <Image src={study.image} alt={study.alt} width={1103} height={1426} sizes="(min-width: 768px) 45vw, 100vw" className="h-auto w-full object-contain transition duration-300 group-hover:opacity-90" />
+        <button type="button" className="group flex w-full justify-center overflow-hidden rounded-md border border-deepBrown/20 bg-richBlack text-left shadow-premium focus-ring" onClick={(event) => { triggerRef.current = event.currentTarget; setActive(study); }} aria-label={`Enlarge ${study.title}`}>
+          <Image src={study.image} alt={study.alt} width={1103} height={1426} sizes="(min-width: 768px) 43vw, 100vw" className="h-auto max-h-[38rem] w-auto max-w-full object-contain transition duration-300 group-hover:opacity-90" />
         </button>
-        <h2 className="subsection-title mt-6">{study.title}</h2>
+        <h2 className="subsection-title mt-5">{study.title}</h2>
         <p className="mt-3 max-w-2xl text-[1.05rem] leading-8 text-mutedBrown">{study.summary}</p>
         <details className="mt-5 border-t border-deepBrown/20 pt-4"><summary className="cursor-pointer font-bold text-mutedBrown">Read accessible case-study transcript</summary><div className="mt-4 space-y-4 text-base leading-7"><p><strong>The need:</strong> {study.transcript.need}</p><p><strong>What was built:</strong> {study.transcript.built}</p><p><strong>Key deliverables:</strong> {study.transcript.deliverables.join(", ")}.</p><p><strong>Community impact:</strong> {study.transcript.impact}</p></div></details>
       </article>)}
