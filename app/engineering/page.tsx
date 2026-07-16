@@ -29,14 +29,14 @@ export default function EngineeringPage() {
             <p className="prose-copy mt-5">A plain-language introduction to how electrical power, lighting controls, communications, life safety, classroom technology, energy requirements, and other building trades come together in one room.</p>
             <p className="mt-5 font-bold text-mutedBrown">Generic examples, not construction documents.</p>
             <div className="button-row mt-7">
-              <ButtonLink href="/documents/engineering-101-modern-classroom.pdf" target="_blank">View guide</ButtonLink>
+              <ButtonLink href="/documents/engineering-101-modern-classroom.pdf" target="_blank">Open the Engineering 101 Guide</ButtonLink>
               <ButtonLink href="/documents/engineering-101-modern-classroom.pdf" download variant="secondary">Download PDF</ButtonLink>
-              <ButtonLink href="/engineering/classroom-lab" variant="secondary">Launch interactive classroom</ButtonLink>
+              <ButtonLink href="/engineering/classroom-lab" variant="secondary">Enter Classroom Design Quest</ButtonLink>
             </div>
           </div>
           <div className="border-l-4 border-mutedGold bg-warmIvory p-7">
-            <h3 className="subsection-title">Inside the classroom</h3>
-            <p className="mt-4 text-base leading-8 text-mutedBrown">Explore how distinct systems coordinate without becoming interchangeable. Place devices, review practical guidance, and compare a concept layout with your own.</p>
+            <h3 className="subsection-title">Inside the quest</h3>
+            <p className="mt-4 text-base leading-8 text-mutedBrown">Learn to read the room, trace distinct systems, coordinate design layers, and explain the reasoning behind a classroom concept.</p>
           </div>
         </div>
       </section>

@@ -96,26 +96,18 @@ test("contact validates fields and rejects honeypot", async ({ page, request }) 
   expect(html).not.toMatch(/jlomnick@|804.?885.?0256/i);
 });
 
-test("classroom supports pointer, keyboard, undo, layers, and guidance", async ({ page }) => {
+test("classroom quest foundation exposes a guided, educational learning path", async ({ page }) => {
   await page.goto("/engineering/classroom-lab");
-  const plan = page.getByTestId("classroom-plan");
-  await plan.click({ position: { x: 300, y: 200 } });
-  await expect(page.locator(".device-marker")).toHaveCount(1);
-  await page.getByRole("button", { name: "Undo" }).click();
-  await expect(page.locator(".device-marker")).toHaveCount(0);
-  await plan.focus(); await page.keyboard.press("ArrowRight"); await page.keyboard.press("Enter");
-  await expect(page.locator(".device-marker")).toHaveCount(1);
-  await page.getByRole("button", { name: "Suggest layout" }).click();
-  await expect(page.locator(".device-marker")).toHaveCount(6);
-  await page.getByRole("button", { name: "Division 26", exact: true }).click();
-  await expect(page.locator(".layer-26")).toHaveCount(0);
-  await page.getByRole("button", { name: "G GFCI receptacle" }).click();
-  await expect(page.getByRole("status")).toContainText("sink");
-  await page.getByRole("button", { name: "AP Wireless access-point outlet" }).click();
-  await expect(page.getByRole("status")).toContainText("IDF");
-  await page.getByRole("button", { name: "FA Fire-alarm speaker/strobe" }).click();
-  await expect(page.getByRole("status")).toContainText("supervised");
-  await expect(page.getByText(/not a construction document/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Classroom Design Quest" })).toBeVisible();
+  await expect(page.getByText("Learn the map. Build the systems. Explain the design.")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Start Guided Journey" })).toBeVisible();
+  await page.getByRole("button", { name: "Start Guided Journey" }).click();
+  await expect(page.getByText("Guided Journey", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Five stages. One method." })).toBeVisible();
+  await expect(page.locator(".quest-stage-button")).toHaveCount(5);
+  await expect(page.locator(".quest-symbol svg[role='img']")).toHaveCount(4);
+  await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveAttribute("href", "/documents/engineering-101-modern-classroom.pdf");
+  await expect(page.getByText(/Educational concept only/i)).toBeVisible();
 });
 
 test("public documents respond as PDFs and professional files are noindex", async ({ request }) => {
