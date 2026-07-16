@@ -59,11 +59,14 @@ Entries are appended only after their scope begins. Each entry will record the p
 
 ## Controlled Refinement Wave 2 - Page Proportions And Tone
 
-- **Status:** Local quality gate passed; production verification pending
+- **Status:** Pass in production
 - **Date:** 2026-07-16
 - **Scope:** Home heading and spacing, About and Community image/text balance, Engineering teaching priority and sequence, updated Engineering 101 title, and public-language review.
 - **Tests:** Lint pass; typecheck pass; asset audit pass; production build pass; 29/29 Playwright pass; local visual audit reports 0 hard failures and 13 assigned refinement warnings.
 - **Visual review:** Home, About, Engineering, and Community & Leadership pass manual desktop/mobile review with preserved image geometry and no horizontal overflow.
 - **Screenshots:** `artifacts/screenshots/wave-02/local/{desktop,mobile}`.
 - **Local score:** 90/100; the four changed pages each score at least 92.
+- **Implementation commit and verified production SHA:** `ddb0ab7670846a1d8a65c1b5a61e432246a72fdf`
+- **Production verification:** GitHub `main`, Vercel `/api/version`, and the implementation commit matched; the live audit reported 0 hard failures and 13 assigned warnings across all eight routes.
+- **Production screenshots:** `artifacts/screenshots/wave-02/production/{desktop,mobile}`.
 - **Remaining:** Wave 3 mobile Lionheart reading and narration, Wave 4 verified contact delivery, Wave 5 Classroom onboarding, and Wave 6 saved journeys and completion paths.

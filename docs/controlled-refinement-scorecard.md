@@ -60,9 +60,9 @@ Wave 1 local score: **86/100**. Typography and readability now pass 10/10; deplo
 | Lionheart | 76 | Document actions pass; responsive reader and narration remain assigned to Wave 3. |
 | Contact | 62 | Typography and layout pass; production delivery remains a hard blocker. |
 
-## Wave 2 Local Grade
+## Wave 2 Production Grade
 
-Wave 2 local score: **90/100**. Home, About, Engineering, and Community & Leadership now meet the per-page visual threshold. The site-wide release remains blocked by mobile Lionheart reading, verified contact delivery, and cross-browser Classroom journeys.
+Wave 2 production score: **90/100**. Home, About, Engineering, and Community & Leadership now meet the per-page visual threshold. The site-wide release remains blocked by mobile Lionheart reading, verified contact delivery, and cross-browser Classroom journeys.
 
 | Category | Score | Available | Wave 2 finding |
 | --- | ---: | ---: | --- |
@@ -76,7 +76,7 @@ Wave 2 local score: **90/100**. Home, About, Engineering, and Community & Leader
 | Deployment and asset integrity | 5 | 5 | Canonical asset audit remains clean with the verified manifest hash. |
 | **Total** | **90** | **100** | **Wave 2 pages pass locally; site-wide hard gates remain assigned to later waves.** |
 
-| Page | Local score | Wave 2 result |
+| Page | Production score | Wave 2 result |
 | --- | ---: | --- |
 | Home | 93 | Reduced hero scale and section spacing pass desktop and mobile review. |
 | About | 92 | Portrait and landscape media now support the narrative without controlling section height. |
