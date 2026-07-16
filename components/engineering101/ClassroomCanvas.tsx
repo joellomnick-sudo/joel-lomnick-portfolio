@@ -1,11 +1,15 @@
 "use client";
 
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Copy, Eye, EyeOff, Focus, Grip, Layers3, Lock, Minus, Move, Plus, Redo2, RotateCw, Save, Trash2, Undo2, Unlock } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Copy, Eye, EyeOff, Focus, Grip, Layers3, Lightbulb, Lock, Minus, Move, Plus, Redo2, RotateCw, Save, Trash2, Undo2, Unlock } from "lucide-react";
 import { useMemo, useState } from "react";
 import { DeviceSymbol } from "@/components/engineering101/DeviceSymbol";
+import { ClassroomReviewPanel } from "@/components/engineering101/ClassroomReviewPanel";
 import { useClassroomDesign } from "@/components/engineering101/useClassroomDesign";
+import { useClassroomReview } from "@/components/engineering101/useClassroomReview";
+import { runDesignChecks } from "@/data/engineering101/checkRules";
 import { designLayerCatalog, designViews, layerForDevice, placementViewFor, type DesignView } from "@/data/engineering101/design";
 import { engineeringDevices, type EngineeringDevice } from "@/data/engineering101/devices";
+import type { RedlineCategory } from "@/data/engineering101/review";
 
 type ClassroomCanvasProps = {
   selectedDevice: EngineeringDevice;
@@ -72,18 +76,24 @@ function BaseDrawing({ view, coordinationVisible }: { view: DesignView; coordina
 
 export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSelected, onStatus }: ClassroomCanvasProps) {
   const classroom = useClassroomDesign();
+  const reviewTools = useClassroomReview();
   const [activeView, setActiveView] = useState<DesignView>("floor");
   const [selectedPlacementId, setSelectedPlacementId] = useState<string>();
   const [moveArmed, setMoveArmed] = useState(false);
   const [zoom, setZoom] = useState(100);
   const [cursor, setCursor] = useState({ x: 50, y: 50 });
+  const [redlineArmed, setRedlineArmed] = useState(false);
+  const [redlineCategory, setRedlineCategory] = useState<RedlineCategory>("Coordination");
+  const [redlineConsequence, setRedlineConsequence] = useState("");
 
   const selectedPlacement = classroom.design.placements.find((placement) => placement.instanceId === selectedPlacementId);
   const selectedPlacementDevice = selectedPlacement ? engineeringDevices.find((device) => device.id === selectedPlacement.deviceId) : undefined;
-  const visiblePlacements = useMemo(() => classroom.design.placements.filter((placement) => {
-    if (!classroom.design.layers[placement.layer].visible) return false;
+  const displayDesign = reviewTools.compareMode === "before" && reviewTools.review.baselineDesign ? reviewTools.review.baselineDesign : reviewTools.compareMode === "corrected" && reviewTools.review.correctedDesign ? reviewTools.review.correctedDesign : classroom.design;
+  const visiblePlacements = useMemo(() => displayDesign.placements.filter((placement) => {
+    if (!displayDesign.layers[placement.layer].visible) return false;
     return activeView === "composite" || activeView === "system" || placement.view === activeView;
-  }), [activeView, classroom.design.layers, classroom.design.placements]);
+  }), [activeView, displayDesign]);
+  const findings = useMemo(() => runDesignChecks(classroom.design, reviewTools.review, activeView), [activeView, classroom.design, reviewTools.review]);
 
   function coordinateFromClient(clientX: number, clientY: number, element: HTMLDivElement) {
     const rect = element.getBoundingClientRect();
@@ -99,6 +109,7 @@ export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSele
       setMoveArmed(false); onStatus(`${selectedPlacementDevice.name} moved. ${snapped.note}`); return;
     }
     if (!placementEnabled) { onStatus("Device placement unlocks through the Guided Journey, or you can enter Free Build."); return; }
+    reviewTools.setCompareMode("current");
     const deviceToPlace = deviceOverride ?? selectedDevice;
     const layer = layerForDevice(deviceToPlace);
     if (classroom.design.layers[layer].locked) { onStatus(`${designLayerCatalog.find((item) => item.id === layer)?.label} is locked.`); return; }
@@ -114,6 +125,12 @@ export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSele
   function onCanvasPointer(event: React.PointerEvent<HTMLDivElement>) {
     if ((event.target as HTMLElement).closest("button")) return;
     const point = coordinateFromClient(event.clientX, event.clientY, event.currentTarget);
+    if (reviewTools.review.qcActive && redlineArmed) {
+      reviewTools.addRedline(point.x, point.y, activeView, redlineCategory, redlineConsequence);
+      setRedlineConsequence("");
+      onStatus(`${redlineCategory} redline added to the ${activeView} view.`);
+      return;
+    }
     setCursor(point); placeOrMove(point.x, point.y);
   }
 
@@ -208,6 +225,8 @@ export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSele
           })}
         </svg>}
         <span className="canvas-cursor" style={{ left: `${cursor.x}%`, top: `${cursor.y}%` }} aria-hidden="true" />
+        {reviewTools.review.hintLevel === 4 && <span className="mentor-suggestion" style={{ left: selectedDevice.defaultMountingSurface === "wall" ? "7%" : "50%", top: selectedDevice.defaultMountingSurface === "ceiling" ? "32%" : "55%" }} aria-label={`Suggested provisional zone for ${selectedDevice.name}`}><Lightbulb aria-hidden="true" /></span>}
+        {reviewTools.review.qcActive && reviewTools.review.redlines.filter((redline) => activeView === "composite" || redline.view === activeView).map((redline, index) => <button key={redline.id} type="button" className={`redline-marker ${redline.resolved ? "is-resolved" : ""}`} style={{ left: `${redline.x}%`, top: `${redline.y}%` }} onClick={(event) => { event.stopPropagation(); reviewTools.toggleRedline(redline.id); onStatus(`Redline ${index + 1} ${redline.resolved ? "reopened" : "resolved"}.`); }} aria-label={`${redline.resolved ? "Reopen" : "Resolve"} redline ${index + 1}: ${redline.category}`}>{index + 1}</button>)}
         {visiblePlacements.map((placement) => {
           const device = engineeringDevices.find((item) => item.id === placement.deviceId);
           if (!device) return null;
@@ -250,5 +269,20 @@ export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSele
       })}
       <button type="button" className="clear-design" onClick={() => { classroom.clearAll(); setSelectedPlacementId(undefined); onStatus("Unlocked design layers cleared."); }}><Trash2 aria-hidden="true" /> Clear unlocked design</button>
     </div>
+    <ClassroomReviewPanel
+      design={classroom.design}
+      activeView={activeView}
+      selectedPlacement={selectedPlacement}
+      selectedDevice={selectedPlacementDevice ?? selectedDevice}
+      findings={findings}
+      reviewTools={reviewTools}
+      redlineArmed={redlineArmed}
+      setRedlineArmed={setRedlineArmed}
+      redlineCategory={redlineCategory}
+      setRedlineCategory={setRedlineCategory}
+      redlineConsequence={redlineConsequence}
+      setRedlineConsequence={setRedlineConsequence}
+      onStatus={onStatus}
+    />
   </section>;
 }

@@ -65,6 +65,19 @@ async function captureDesktop(browser) {
   await page.screenshot({ path: join(dir, "classroom-builder-composite-desktop.png"), fullPage: true });
   await page.getByRole("button", { name: "System paths", exact: true }).click();
   await page.screenshot({ path: join(dir, "classroom-builder-system-paths-desktop.png"), fullPage: true });
+  await page.getByRole("button", { name: /Select placed Data outlet/ }).click();
+  await page.getByLabel("It is served from").selectOption("Classroom panel branch circuit");
+  await page.getByLabel("It is located here because").fill("It supports the teaching position and remains accessible.");
+  await page.getByLabel("It coordinates with").fill("Furniture, nearby power, and the route toward the IDF.");
+  await page.getByLabel("The remaining assumption is").fill("The owner port count is pending.");
+  await page.getByLabel("It is tested or commissioned by").fill("The technology contractor and owner team.");
+  await page.getByRole("button", { name: "Save teach-back" }).click();
+  await page.getByRole("button", { name: "Enter QC Challenge" }).click();
+  await page.getByLabel("Likely consequence").fill("The conflict could affect access and coordination.");
+  await page.getByRole("button", { name: "Add redline" }).click();
+  await page.getByTestId("classroom-canvas").click({ position: { x: 480, y: 260 } });
+  await settle(page);
+  await page.screenshot({ path: join(dir, "classroom-builder-qc-desktop.png"), fullPage: true });
   await context.close();
 }
 
@@ -78,8 +91,10 @@ async function captureMobile(browser) {
   await place(page, "Data outlet", { x: 235, y: 185 });
   await place(page, "Conditional smoke detector", { x: 185, y: 125 });
   await page.getByRole("button", { name: "Composite", exact: true }).click();
+  await page.getByRole("button", { name: "Open Mentor Hint" }).click();
+  await page.getByRole("button", { name: "Next hint" }).click();
   await settle(page);
-  await page.screenshot({ path: join(dir, "classroom-builder-composite-mobile.png"), fullPage: true });
+  await page.screenshot({ path: join(dir, "classroom-builder-mentor-feedback-mobile.png"), fullPage: true });
   await context.close();
 }
 

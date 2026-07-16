@@ -242,6 +242,74 @@ test("mobile classroom builder supports tap placement without page overflow", as
   expect(overflow).toBe(false);
 });
 
+test("feedback, assumptions, mentor hints, QC redlines, and teach-back persist", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/engineering/classroom-lab");
+  await page.evaluate(() => window.localStorage.clear());
+  await page.reload();
+  await page.getByRole("button", { name: "Enter Free Build" }).click();
+  const canvas = page.getByTestId("classroom-canvas");
+
+  await page.getByRole("button", { name: /Data outlet/ }).click();
+  await canvas.click({ position: { x: 170, y: 180 } });
+  await expect(page.getByText("ASSUMPTION NEEDED", { exact: true })).toBeVisible();
+  await expect(page.getByText("TEACH-BACK INCOMPLETE", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Open Mentor Hint" }).click();
+  await expect(page.getByText(/Hint 1 of 4: Guiding question/)).toBeVisible();
+  await page.getByRole("button", { name: "Next hint" }).click();
+  await expect(page.getByText(/Hint 2 of 4: Relevant zone/)).toBeVisible();
+
+  await page.getByLabel("Design assumption").fill("Owner technology standard is pending confirmation.");
+  await page.locator(".assumption-form select").selectOption("Owner decision");
+  await page.getByRole("button", { name: "Add assumption" }).click();
+  await expect(page.getByText("Owner technology standard is pending confirmation.")).toBeVisible();
+
+  await page.getByLabel("It is served from").selectOption("Classroom panel branch circuit");
+  await page.getByLabel("It is located here because").fill("The connection is useful near the teaching position.");
+  await page.getByLabel("It coordinates with").fill("Furniture, power, and the communications pathway.");
+  await page.getByLabel("The remaining assumption is").fill("The owner port count remains pending.");
+  await page.getByLabel("It is tested or commissioned by").fill("The technology contractor and owner team.");
+  await page.getByRole("button", { name: "Save teach-back" }).click();
+  await expect(page.getByText("SYSTEM-PATH ERROR", { exact: true })).toBeVisible();
+  await expect(page.getByText("Communications source is incorrect")).toBeVisible();
+
+  await page.getByRole("button", { name: /Fire-alarm speaker\/strobe device preview/ }).click();
+  await canvas.click({ position: { x: 260, y: 160 } });
+  await page.getByLabel("It is served from").selectOption("Ordinary branch circuit");
+  await page.getByLabel("It uses this pathway").selectOption("Ordinary branch-circuit conductors");
+  await page.getByLabel("It is located here because").fill("The appliance can be seen and heard from the occupied room.");
+  await page.getByLabel("It coordinates with").fill("Coverage, wall devices, and the selected life-safety system.");
+  await page.getByLabel("The remaining assumption is").fill("Final system criteria remain pending.");
+  await page.getByLabel("It is tested or commissioned by").fill("The responsible life-safety system team.");
+  await page.getByRole("button", { name: "Save teach-back" }).click();
+  await expect(page.getByText("Life-safety pathway is incorrect")).toBeVisible();
+
+  await page.getByRole("button", { name: /Floor box device preview/ }).click();
+  const conflictCanvas = await canvas.boundingBox();
+  expect(conflictCanvas).not.toBeNull();
+  await canvas.click({ position: { x: (conflictCanvas?.width || 500) * .7, y: (conflictCanvas?.height || 300) * .75 } });
+  await expect(page.getByText("Device overlaps sink or casework")).toBeVisible();
+
+  await page.getByRole("button", { name: "Enter QC Challenge" }).click();
+  await expect(page.getByTestId("qc-planted-issue")).toHaveCount(3);
+  await page.getByLabel("Likely consequence").fill("The entry and maintenance access could be blocked.");
+  await page.getByRole("button", { name: "Add redline" }).click();
+  await canvas.click({ position: { x: 420, y: 240 } });
+  await expect(page.locator(".redline-marker")).toHaveCount(1);
+  await page.locator(".redline-marker").click();
+  await expect(page.locator(".redline-marker")).toHaveClass(/is-resolved/);
+  await page.getByRole("button", { name: "Save corrected plan" }).click();
+  await page.getByRole("button", { name: "Before review" }).click();
+  await page.getByRole("button", { name: "Corrected plan", exact: true }).click();
+
+  await page.reload();
+  await expect(page.getByText("Owner technology standard is pending confirmation.")).toBeVisible();
+  await expect(page.locator(".redline-marker")).toHaveCount(1);
+  await expect(page.getByText(/Hint 2 of 4: Relevant zone/)).toBeVisible();
+  expect((await page.locator("main").innerText()).toLowerCase()).not.toMatch(/code approved|code compliant/);
+});
+
 test("public documents respond as PDFs and professional files are noindex", async ({ request }) => {
   const documents = ["engineering-101-modern-classroom.pdf", "lionheart-volume-1-sneak-preview.pdf", "lionheart-volume-2-sneak-preview.pdf", "joel-lomnick-comprehensive-resume-public.pdf", "joel-lomnick-comprehensive-cover-letter-public.pdf"];
   for (const file of documents) {
