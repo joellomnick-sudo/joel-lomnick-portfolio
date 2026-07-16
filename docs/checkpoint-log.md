@@ -41,3 +41,12 @@ Entries are appended only after their scope begins. Each entry will record the p
 - **Baseline screenshots:** `artifacts/screenshots/wave-00/before/{desktop,mobile}`
 - **Baseline score:** 75/100 with contact delivery, cross-browser Classroom journeys, and mobile Lionheart reading recorded as hard blockers.
 - **Production requirement:** This wave passes only when local SHA, GitHub `main`, Vercel production, and the production asset-manifest hash agree.
+
+## Controlled Refinement Wave 1 - Global Identity And Typography
+
+- **Status:** Local quality gate passed; production verification pending
+- **Date:** 2026-07-16
+- **Scope:** Public name consistency, optimized Montserrat/Open Sans/Roboto roles, responsive type scale, one action per document, compact footer, new-tab protection, and rendered image-ratio auditing.
+- **Tests:** Lint pass; typecheck pass; production build pass; 27/27 Playwright pass; local visual audit reports 0 hard failures and 13 assigned refinement warnings.
+- **Screenshots:** `artifacts/screenshots/wave-01/local/{desktop,mobile}`
+- **Local score:** 86/100; hard blockers remain assigned to Waves 3, 4, and 6.

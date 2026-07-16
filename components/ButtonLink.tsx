@@ -27,13 +27,13 @@ export function ButtonLink({
   download,
   target,
 }: ButtonLinkProps) {
-  const styles = `inline-flex min-h-11 items-center justify-center rounded-md border font-bold transition focus-ring ${
+  const styles = `inline-flex min-h-11 items-center justify-center rounded-md border font-heading font-bold transition focus-ring ${
     size === "compact" ? "px-4 py-2 text-[0.95rem]" : "px-5 py-3 text-base"
   } ${variants[variant]} ${className}`;
   const isDocument = href.toLowerCase().endsWith(".pdf") || Boolean(download) || target === "_blank";
 
   if (isDocument) {
-    return <a href={href} onClick={onClick} download={download} target={target} rel={target === "_blank" ? "noreferrer" : undefined} className={styles}>{children}</a>;
+    return <a href={href} onClick={onClick} download={download} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined} className={styles}>{children}</a>;
   }
 
   return (

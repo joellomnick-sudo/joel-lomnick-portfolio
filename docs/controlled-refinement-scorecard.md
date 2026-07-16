@@ -44,3 +44,18 @@ Baseline captured: 2026-07-16 before Wave 0 source changes
 - Critical accessibility failures: no known automated critical violations, with incomplete reader and onboarding behavior tracked above.
 
 Scores are updated after each production wave. A page cannot pass below 90, the site cannot pass below 94, and a hard-gate failure remains a failure regardless of the numeric average.
+
+## Wave 1 Local Grade
+
+Wave 1 local score: **86/100**. Typography and readability now pass 10/10; deployment and asset integrity pass 5/5; responsive layout, accessibility, image integrity, and visual polish improved. The overall release remains blocked by contact delivery, mobile Lionheart reading, and cross-browser Classroom journeys.
+
+| Page | Local score | Wave 1 result |
+| --- | ---: | --- |
+| Home | 90 | Public identity, font roles, image geometry, and compact footer pass. |
+| About | 88 | Document actions pass; photo proportions remain assigned to Wave 2. |
+| Engineering | 88 | Guide action passes; content order and teaching title remain assigned to Wave 2. |
+| Classroom Design Quest | 81 | Three-font role passes; onboarding and 14px technical controls remain assigned to Wave 5. |
+| LomnickPro | 92 | Link safety and case-study image geometry pass. |
+| Community & Leadership | 87 | Link safety passes; narrative proportions remain assigned to Wave 2. |
+| Lionheart | 76 | Document actions pass; responsive reader and narration remain assigned to Wave 3. |
+| Contact | 62 | Typography and layout pass; production delivery remains a hard blocker. |

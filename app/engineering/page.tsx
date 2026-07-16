@@ -5,7 +5,7 @@ import { publicAssetPath } from "@/data/publicAssets";
 
 export const metadata: Metadata = {
   title: "Engineering",
-  description: "Electrical engineering coordination, technical communication, and public classroom teaching resources from Joel Maurice Lomnick, EIT.",
+  description: "Electrical engineering coordination, technical communication, and public classroom teaching resources from Joel M. Lomnick.",
 };
 
 export default function EngineeringPage() {
@@ -31,7 +31,6 @@ export default function EngineeringPage() {
             <p className="mt-5 font-bold text-mutedBrown">Generic examples, not construction documents.</p>
             <div className="button-row mt-7">
               <ButtonLink href={publicAssetPath("engineering-guide")} target="_blank">Open the Engineering 101 Guide</ButtonLink>
-              <ButtonLink href={publicAssetPath("engineering-guide")} download variant="secondary">Download PDF</ButtonLink>
               <ButtonLink href="/engineering/classroom-lab" variant="secondary">Enter Classroom Design Quest</ButtonLink>
             </div>
           </div>

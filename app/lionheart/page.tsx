@@ -4,7 +4,7 @@ import { LionheartPreviews } from "@/components/LionheartPreviews";
 
 export const metadata: Metadata = {
   title: "Lionheart",
-  description: "Lionheart is Joel Maurice Lomnick's memoir project about family, survival, identity, faith, engineering, culture, mentorship, and becoming.",
+  description: "Lionheart is Joel M. Lomnick's memoir project about family, survival, identity, faith, engineering, culture, mentorship, and becoming.",
 };
 
 export default function LionheartPage() {

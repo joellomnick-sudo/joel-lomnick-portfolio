@@ -5,7 +5,7 @@ import { publicAssetPath, type PublicAssetId } from "@/data/publicAssets";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "The personal story behind Joel Maurice Lomnick's engineering, writing, mentorship, culture, faith, and community service.",
+  description: "The personal story behind Joel M. Lomnick's engineering, writing, mentorship, culture, faith, and community service.",
 };
 
 const movements = [
@@ -77,15 +77,13 @@ export default function AboutPage() {
             <div>
               <h3 className="subsection-title">Comprehensive resume</h3>
               <div className="button-row mt-4">
-                <ButtonLink href={publicAssetPath("public-resume")} target="_blank">View resume</ButtonLink>
-                <ButtonLink href={publicAssetPath("public-resume")} download variant="secondary">Download resume</ButtonLink>
+                <ButtonLink href={publicAssetPath("public-resume")} target="_blank">View Resume</ButtonLink>
               </div>
             </div>
             <div className="border-t border-deepBrown/15 pt-8 md:border-l md:border-t-0 md:pl-8 md:pt-0">
               <h3 className="subsection-title">Comprehensive cover letter</h3>
               <div className="button-row mt-4">
-                <ButtonLink href={publicAssetPath("public-cover-letter")} target="_blank">View cover letter</ButtonLink>
-                <ButtonLink href={publicAssetPath("public-cover-letter")} download variant="secondary">Download cover letter</ButtonLink>
+                <ButtonLink href={publicAssetPath("public-cover-letter")} target="_blank">View Cover Letter</ButtonLink>
               </div>
             </div>
           </div>

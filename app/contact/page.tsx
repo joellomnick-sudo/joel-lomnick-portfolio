@@ -3,7 +3,7 @@ import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Start a private conversation with Joel Maurice Lomnick about engineering, LomnickPro, speaking, mentorship, community service, or Lionheart.",
+  description: "Start a private conversation with Joel M. Lomnick about engineering, LomnickPro, speaking, mentorship, community service, or Lionheart.",
 };
 
 export default function ContactPage() {

@@ -29,7 +29,7 @@ export default function CommunityPage() {
               <p className="prose-copy mt-5">{story.body}</p>
               <p className="mt-5 max-w-[35ch] font-serif text-[1.35rem] font-bold leading-8 text-mutedBrown">{story.caption}</p>
               {"href" in story && story.href ? (
-                <a href={story.href} target="_blank" rel="noreferrer" className="mt-6 inline-flex min-h-11 items-center gap-2 text-link focus-ring">
+                <a href={story.href} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center gap-2 text-link focus-ring">
                   {story.linkLabel} <ExternalLink size={18} aria-hidden="true" />
                 </a>
               ) : null}

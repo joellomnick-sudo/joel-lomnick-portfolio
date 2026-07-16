@@ -8,7 +8,7 @@ export default function HomePage() {
       <section className="dark-hero">
         <div className="site-container grid min-h-[650px] items-center gap-10 py-14 lg:grid-cols-[1.12fr_.88fr] lg:py-16">
           <div>
-            <p className="eyebrow">Joel Maurice Lomnick, EIT</p>
+            <p className="eyebrow">Joel M. Lomnick</p>
             <h1 className="display-title mt-5 max-w-[18ch] lg:max-w-none lg:text-[4rem]">
               <span className="lg:block lg:whitespace-nowrap">I build systems,</span>
               <span className="lg:block lg:whitespace-nowrap"> stories, leaders,</span>

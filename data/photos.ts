@@ -15,7 +15,7 @@ export type PhotoRecord = {
 };
 
 export const photoInventory: PhotoRecord[] = [
-  { assetId: "home-headshot", page: "home", alt: "Joel Maurice Lomnick seated in a black suit at a conference table.", caption: "Richmond-based engineer, storyteller, mentor, and community builder.", width: 501, height: 626, aspectRatio: "501 / 626", objectFit: "cover", objectPosition: "50% 32%", mayCrop: true, useContain: false },
+  { assetId: "home-headshot", page: "home", alt: "Joel M. Lomnick seated in a black suit at a conference table.", caption: "Richmond-based engineer, storyteller, mentor, and community builder.", width: 501, height: 626, aspectRatio: "501 / 626", objectFit: "cover", objectPosition: "50% 32%", mayCrop: true, useContain: false },
   { assetId: "about-family-legacy", page: "about", alt: "Joel Lomnick with his mother during a family celebration.", caption: "Family, survival, responsibility, and the people who taught Joel how to care for a room.", width: 415, height: 899, aspectRatio: "415 / 899", objectFit: "contain", objectPosition: "center", mayCrop: false, useContain: true },
   { assetId: "about-gospel-ensemble", page: "about", alt: "RIT Gospel Ensemble members gathered after a performance.", caption: "Faith, Black belonging, and service during the RIT years.", width: 540, height: 405, aspectRatio: "4 / 3", objectFit: "contain", objectPosition: "center", mayCrop: false, useContain: true },
   { assetId: "about-african-dance-albany", page: "about", alt: "Joel Lomnick and a fellow artist in West African attire in Albany, New York.", caption: "Culture, grief, brotherhood, and reinvention in the Capital Region.", width: 767, height: 525, aspectRatio: "767 / 525", objectFit: "contain", objectPosition: "center", mayCrop: false, useContain: true },

@@ -90,7 +90,7 @@ export function EngineeringQuestShell() {
             <button type="button" className="quest-secondary-action" onClick={() => changeMode("free")}>
               <Grid3X3 aria-hidden="true" /> Enter Free Build
             </button>
-            <a className="quest-secondary-action" href={guidePath} target="_blank" rel="noreferrer">
+            <a className="quest-secondary-action" href={guidePath} target="_blank" rel="noopener noreferrer">
               <BookOpen aria-hidden="true" /> Open the Engineering 101 Guide
             </a>
           </div>
@@ -221,7 +221,7 @@ export function EngineeringQuestShell() {
             <h3>Unlock</h3>
             <p>{activeQuest.unlock}</p>
             <blockquote>&ldquo;{progress.completedQuestIds.includes(activeQuest.id) ? activeQuest.mentorCompletion : activeQuest.mentorIntro}&rdquo;</blockquote>
-            <a href={`${guidePath}#page=${activeQuest.guidePage}`} target="_blank" rel="noreferrer"><BookOpen aria-hidden="true" /> Open related guide section</a>
+            <a href={`${guidePath}#page=${activeQuest.guidePage}`} target="_blank" rel="noopener noreferrer"><BookOpen aria-hidden="true" /> Open related guide section</a>
             {progress.completedQuestIds.includes(activeQuest.id) ? <p className="quest-complete-label"><Check aria-hidden="true" /> Educational checkpoint complete</p> : activeQuest.id === nextQuestId ? <button type="button" className="quest-complete-button" onClick={completeActiveQuest}>Complete learning checkpoint <ChevronRight aria-hidden="true" /></button> : <p className="quest-locked-label"><LockKeyhole aria-hidden="true" /> Complete the earlier quests to unlock this one.</p>}
           </section>
 

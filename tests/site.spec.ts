@@ -126,6 +126,53 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await expect(page.getByText(/Educational concept only/i)).toBeVisible();
 });
 
+test("public identity, font roles, document actions, and compact footer are consistent", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1200 });
+  await page.goto("/");
+  await expect(page.getByLabel("Joel M. Lomnick home")).toBeVisible();
+  await expect(page.locator("body")).not.toContainText("Joel Maurice Lomnick");
+  const fontRoles = await page.evaluate(() => ({
+    body: getComputedStyle(document.body).fontFamily,
+    heading: getComputedStyle(document.querySelector("h1")!).fontFamily,
+  }));
+  expect(fontRoles.body).toContain("Open Sans");
+  expect(fontRoles.heading).toContain("Montserrat");
+  const footerHeight = await page.locator("footer").evaluate((footer) => footer.getBoundingClientRect().height);
+  expect(footerHeight).toBeLessThanOrEqual(360);
+
+  await page.goto("/engineering/classroom-lab");
+  const uiFont = await page.locator(".quest-panel-kicker").first().evaluate((element) => getComputedStyle(element).fontFamily);
+  expect(uiFont).toContain("Roboto");
+
+  await page.goto("/about");
+  await expect(page.getByRole("link", { name: "View Resume" })).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "View Cover Letter" })).toHaveCount(1);
+  await page.goto("/engineering");
+  await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveCount(1);
+  await page.goto("/lionheart");
+  await expect(page.getByRole("link", { name: "Read Volume 1 Preview" })).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "Read Volume 2 Preview" })).toHaveCount(1);
+});
+
+test("new-tab links protect the opener and rendered images are not distorted", async ({ page }) => {
+  for (const route of routes) {
+    await page.goto(route);
+    const unsafeLinks = await page.locator('a[target="_blank"]').evaluateAll((links) => links.filter((link) => {
+      const tokens = new Set((link.getAttribute("rel") || "").split(/\s+/));
+      return !tokens.has("noopener") || !tokens.has("noreferrer");
+    }).length);
+    expect(unsafeLinks, route).toBe(0);
+    const distorted = await page.locator("img").evaluateAll((images) => (images as HTMLImageElement[]).filter((image) => {
+      const style = getComputedStyle(image);
+      if (["cover", "contain", "scale-down"].includes(style.objectFit)) return false;
+      const rect = image.getBoundingClientRect();
+      if (!image.naturalWidth || !image.naturalHeight || !rect.width || !rect.height) return false;
+      return Math.abs((rect.width / rect.height) / (image.naturalWidth / image.naturalHeight) - 1) > 0.06;
+    }).length);
+    expect(distorted, route).toBe(0);
+  }
+});
+
 test("twenty-quest progression unlocks once, awards milestones, persists, and resets", async ({ page }) => {
   await page.goto("/engineering/classroom-lab");
   await page.evaluate(() => window.localStorage.clear());

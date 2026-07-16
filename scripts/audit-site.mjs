@@ -103,6 +103,8 @@ for (const [viewportName, viewport] of viewports) {
         complete: image.complete,
         naturalWidth: image.naturalWidth,
         naturalHeight: image.naturalHeight,
+        renderedWidth: image.getBoundingClientRect().width,
+        renderedHeight: image.getBoundingClientRect().height,
         alt: image.getAttribute("alt"),
         objectFit: getComputedStyle(image).objectFit,
       }));
@@ -142,6 +144,13 @@ for (const [viewportName, viewport] of viewports) {
           (image) =>
             /case-studies|lionheart-cover/i.test(image.src) && image.objectFit === "cover",
         ),
+        distortedImages: imageDetails.filter((image) => {
+          if (!image.naturalWidth || !image.naturalHeight || !image.renderedWidth || !image.renderedHeight) return false;
+          if (["contain", "cover", "scale-down"].includes(image.objectFit)) return false;
+          const naturalRatio = image.naturalWidth / image.naturalHeight;
+          const renderedRatio = image.renderedWidth / image.renderedHeight;
+          return Math.abs(renderedRatio / naturalRatio - 1) > 0.06;
+        }),
         duplicateImages: Object.entries(imageCounts)
           .filter(([, count]) => count > 1)
           .map(([src, count]) => ({ src, count })),
@@ -159,6 +168,7 @@ for (const [viewportName, viewport] of viewports) {
     if (snapshot.h1Count !== 1) hardFailures.push(`${viewportName} ${route}: expected one H1`);
     if (snapshot.horizontalOverflow) hardFailures.push(`${viewportName} ${route}: horizontal overflow`);
     if (snapshot.brokenImages.length) hardFailures.push(`${viewportName} ${route}: broken image`);
+    if (snapshot.distortedImages.length) hardFailures.push(`${viewportName} ${route}: distorted image`);
     if (snapshot.imagesWithoutAlt.length) hardFailures.push(`${viewportName} ${route}: image missing alt`);
     if (snapshot.publicContactLinks.length) hardFailures.push(`${viewportName} ${route}: public contact link`);
 
