@@ -97,6 +97,7 @@ test("contact validates fields and rejects honeypot", async ({ page, request }) 
 });
 
 test("classroom quest foundation and SVG device library expose a guided learning path", async ({ page }) => {
+  await page.addInitScript(() => window.localStorage.clear());
   await page.goto("/engineering/classroom-lab");
   await expect(page.getByRole("heading", { name: "Classroom Design Quest" })).toBeVisible();
   await expect(page.getByText("Learn the map. Build the systems. Explain the design.")).toBeVisible();
@@ -108,6 +109,9 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await expect(page.getByTestId("device-library-item")).toHaveCount(31);
   await expect(page.locator(".device-library-button svg[role='img']")).toHaveCount(31);
   await expect(page.locator(".device-tooltip")).toHaveCount(31);
+  await expect(page.locator(".device-library-button[data-locked='true']")).toHaveCount(31);
+  await page.getByRole("button", { name: "Enter Free Build" }).click();
+  await expect(page.locator(".device-library-button[data-locked='true']")).toHaveCount(0);
   const filters = page.getByLabel("Filter device library");
   await filters.getByRole("button", { name: /Division 28/ }).click();
   await expect(page.getByTestId("device-library-item")).toHaveCount(5);
@@ -116,9 +120,59 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await filters.getByRole("button", { name: /Division 27/ }).click();
   await expect(page.getByTestId("device-library-item")).toHaveCount(11);
   await page.getByRole("button", { name: /Data outlet/ }).click();
-  await expect(page.getByLabel("Mentor and device information")).toContainText("not to a classroom branch panel");
+  await expect(page.getByLabel("Mentor, quest, and device information")).toContainText("not to a classroom branch panel");
   await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveAttribute("href", "/documents/engineering-101-modern-classroom.pdf");
   await expect(page.getByText(/Educational concept only/i)).toBeVisible();
+});
+
+test("twenty-quest progression unlocks once, awards milestones, persists, and resets", async ({ page }) => {
+  await page.goto("/engineering/classroom-lab");
+  await page.evaluate(() => window.localStorage.clear());
+  await page.reload();
+  await page.getByRole("button", { name: "Start Guided Journey" }).click();
+  const stageOne = page.getByLabel("Stage 1 quests");
+  await expect(stageOne.getByRole("button", { name: /Joel's Engineering-Learning Testimony/ })).not.toHaveAttribute("aria-disabled", "true");
+  await expect(stageOne.getByRole("button", { name: /What an Electrical Designer Actually Does/ })).toHaveAttribute("aria-disabled", "true");
+
+  for (const title of [
+    "What an Electrical Designer Actually Does",
+    "How to Learn Technical Material Without Drowning",
+    "How to Read a Floor Plan",
+  ]) {
+    await page.getByRole("button", { name: "Complete learning checkpoint" }).click();
+    await expect(page.getByRole("heading", { name: title })).toBeVisible();
+  }
+  await page.getByRole("button", { name: "Complete learning checkpoint" }).click();
+  await expect(page.getByText("Plan Reader", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Earned educational badges")).toContainText("Map Reader");
+  await expect(page.getByRole("progressbar", { name: "Journey progress" })).toHaveAttribute("aria-valuenow", "4");
+
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Continue Journey" })).toBeVisible();
+  await expect(page.getByRole("progressbar", { name: "Journey progress" })).toHaveAttribute("aria-valuenow", "4");
+  await expect(page.getByLabel("Earned educational badges").getByText("Map Reader", { exact: true })).toHaveCount(1);
+
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.getByRole("button", { name: "Reset progress" }).click();
+  await expect(page.getByRole("progressbar", { name: "Journey progress" })).toHaveAttribute("aria-valuenow", "0");
+  await expect(page.getByRole("button", { name: "Start Guided Journey" })).toBeVisible();
+});
+
+test("all twenty quest titles and guide pages match the Engineering 101 map", async ({ page }) => {
+  const expected = [
+    "Joel's Engineering-Learning Testimony", "What an Electrical Designer Actually Does", "How to Learn Technical Material Without Drowning", "How to Read a Floor Plan",
+    "Symbols, Legends, Notes, Schedules, and Details", "Electricity Fundamentals", "Sources, Loads, Circuits, Panels, and Pathways", "Codes, Specifications, and Owner Standards",
+    "Division 26 Fundamentals", "Division 27 Fundamentals", "Division 28 Fundamentals", "Interdisciplinary Coordination",
+    "Small Placement Exercises", "Classroom Requirements and Assumptions", "Separate the Design Layers", "Combine the Layers",
+    "Quality-Control Review", "Suggested Solution and Alternatives", "RFIs, Submittals, Field Changes, Testing, and Commissioning", "Final Teach-Back and Reflection",
+  ];
+  await page.goto("/engineering/classroom-lab");
+  for (let stage = 0; stage < 5; stage += 1) {
+    await page.locator(".quest-stage-button").nth(stage).click();
+    await expect(page.locator(".quest-list-button strong")).toHaveText(expected.slice(stage * 4, stage * 4 + 4));
+    const pages = await page.locator(".quest-list-button small").allTextContents();
+    expect(pages.map((text) => Number(text.match(/Guide page (\d+)/)?.[1]))).toEqual([3, 5, 7, 9].map((offset) => offset + stage * 8));
+  }
 });
 
 test("public documents respond as PDFs and professional files are noindex", async ({ request }) => {
