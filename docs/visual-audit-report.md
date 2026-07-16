@@ -90,3 +90,16 @@ Each verified checkpoint will add its local findings, production comparison, cha
 - **Engineering:** The page now reads in the required order: compact introduction, public teaching guide, separate Classroom Design Quest launch, engineering practice, and philosophy. The public guide and Quest have one unambiguous action each.
 - **Tone:** A route-wide public-language test rejects inappropriate command-center, combat, and pressure language while retaining ordinary technical vocabulary.
 - **Artifacts:** `artifacts/screenshots/wave-02/{local,production}/{desktop,mobile}` and `artifacts/audits/wave-02-{local,production}.json`.
+
+## Controlled Refinement Wave 3
+
+### Local Lionheart reader review
+
+- **Automated result:** 20 route/viewport combinations audited with 0 hard failures and the same 13 deferred warnings as Wave 2.
+- **Reader rendering:** Both PDF.js canvases report ten pages, produce nonblank pixels, preserve page geometry, and expose loading and error states plus an original-PDF fallback.
+- **Desktop:** The PDF tool and narration companion form one focused work surface. Fit-width rendering is intentionally scrollable vertically, controls remain visible, and no page content clips horizontally.
+- **Mobile:** At 390px, the full cover fits above a stacked narration companion; buttons, selects, section navigation, and return action fit without horizontal overflow.
+- **Narration:** Play, Pause, Resume, Stop, previous/next section, speed, and browser voice controls are visible, keyboard accessible, and never autoplay.
+- **Accessibility:** Each canvas has a page-specific accessible label; a visible current section and expandable full text companion provide nonvisual access to the public preview content.
+- **Landing page:** Each volume now has one clear internal reading action. Browser PDF tools remain available once inside the reader.
+- **Artifacts:** `artifacts/screenshots/wave-03/local/{desktop,mobile,states}` and `artifacts/audits/wave-03-local.json`.

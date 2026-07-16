@@ -1,9 +1,8 @@
 import { ButtonLink } from "@/components/ButtonLink";
-import { publicAssetPath } from "@/data/publicAssets";
 
 const volumes = [
-  { title: "Volume 1 sneak preview", action: "Read Volume 1 Preview", href: publicAssetPath("lionheart-volume-1-preview") },
-  { title: "Volume 2 sneak preview", action: "Read Volume 2 Preview", href: publicAssetPath("lionheart-volume-2-preview") },
+  { title: "Volume 1 sneak preview", action: "Read Volume 1 Preview", href: "/lionheart/volume-1-preview" },
+  { title: "Volume 2 sneak preview", action: "Read Volume 2 Preview", href: "/lionheart/volume-2-preview" },
 ] as const;
 
 export function LionheartPreviews() {

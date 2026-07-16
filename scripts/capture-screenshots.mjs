@@ -7,7 +7,8 @@ const outputRoot = process.env.OUTPUT_DIR || "artifacts/screenshots/checkpoint-0
 const audit = process.env.AUDIT_QUERY ? `?audit=${encodeURIComponent(process.env.AUDIT_QUERY)}` : "";
 const routeCatalog = [
   ["home", "/"], ["about", "/about"], ["engineering", "/engineering"], ["classroom-lab", "/engineering/classroom-lab"],
-  ["lomnickpro", "/lomnickpro"], ["community-leadership", "/community-leadership"], ["lionheart", "/lionheart"], ["contact", "/contact"],
+  ["lomnickpro", "/lomnickpro"], ["community-leadership", "/community-leadership"], ["lionheart", "/lionheart"],
+  ["lionheart-volume-1-reader", "/lionheart/volume-1-preview"], ["lionheart-volume-2-reader", "/lionheart/volume-2-preview"], ["contact", "/contact"],
 ];
 const requestedRoutes = new Set((process.env.ROUTES || "").split(",").map((route) => route.trim()).filter(Boolean));
 const routes = requestedRoutes.size ? routeCatalog.filter(([, route]) => requestedRoutes.has(route)) : routeCatalog;
@@ -52,9 +53,9 @@ async function captureStates(browser) {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1200 }, reducedMotion: "reduce" });
   const page = await context.newPage();
   await page.goto(`${baseURL}/engineering/classroom-lab${audit}`); await ready(page); await page.screenshot({ path: join(dir, "classroom-lab-before.png"), fullPage: true });
-  await page.getByRole("button", { name: "Suggest layout" }).click(); await page.screenshot({ path: join(dir, "classroom-lab-sample.png"), fullPage: true });
+  await page.getByRole("button", { name: "Enter Free Build" }).click(); await page.getByRole("button", { name: /Standard duplex receptacle/ }).click(); await page.getByTestId("classroom-canvas").click({ position: { x: 240, y: 220 } }); await page.screenshot({ path: join(dir, "classroom-lab-sample.png"), fullPage: true });
   await page.goto(`${baseURL}/lomnickpro${audit}`); await ready(page); await page.getByRole("button", { name: /Enlarge Real Estate/ }).click(); await page.screenshot({ path: join(dir, "case-study-lightbox.png"), fullPage: true });
-  await page.goto(`${baseURL}/lionheart${audit}`); await ready(page); await page.getByRole("button", { name: /Preview here|Read preview/i }).first().click(); await page.screenshot({ path: join(dir, "lionheart-pdf-selected.png"), fullPage: true });
+  await page.goto(`${baseURL}/lionheart/volume-1-preview${audit}`); await ready(page); await page.getByRole("status").filter({ hasText: /Page 1 of 10 ready/i }).waitFor(); await page.screenshot({ path: join(dir, "lionheart-reader.png"), fullPage: true });
   await page.route("**/api/contact", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ message: "Message sent." }) }));
   await page.goto(`${baseURL}/contact${audit}`); await ready(page); await page.locator('[name="name"]').fill("Visual Audit"); await page.locator('[name="email"]').fill("audit@example.com"); await page.locator('[name="inquiryType"]').selectOption("Other"); await page.locator('[name="message"]').fill("This is a safe mocked screenshot submission for the visual audit."); await page.getByRole("button", { name: "Send message" }).click(); await page.getByRole("status").filter({ hasText: /Message sent|Thank you/i }).waitFor(); await page.screenshot({ path: join(dir, "contact-success.png"), fullPage: true });
   await context.close();

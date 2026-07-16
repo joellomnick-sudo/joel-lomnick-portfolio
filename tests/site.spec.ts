@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { publicAssets, publicAssetPath } from "@/data/publicAssets";
 
-const routes = ["/", "/about", "/engineering", "/engineering/classroom-lab", "/lomnickpro", "/community-leadership", "/lionheart", "/contact"];
+const routes = ["/", "/about", "/engineering", "/engineering/classroom-lab", "/lomnickpro", "/community-leadership", "/lionheart", "/lionheart/volume-1-preview", "/lionheart/volume-2-preview", "/contact"];
 const labels = ["Home", "About", "Engineering", "LomnickPro", "Community & Leadership", "Lionheart", "Contact"];
 
 async function retryFailedImages(page: import("@playwright/test").Page) {
@@ -25,6 +25,7 @@ for (const route of routes) {
   test(`${route} renders without broken images or serious accessibility issues`, async ({ page }) => {
     await page.goto(route);
     await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator("body")).not.toContainText("Joel Maurice Lomnick");
     await expect(page.locator("footer")).toContainText("Lomnick Professional Services");
     await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += innerHeight) { scrollTo(0, y); await new Promise((resolve) => setTimeout(resolve, 120)); } scrollTo(0, document.body.scrollHeight); });
     await page.waitForLoadState("networkidle");
@@ -216,6 +217,86 @@ test("public-facing language stays warm and educational", async ({ page }) => {
     await page.goto(route);
     expect(await page.locator("main").innerText(), route).not.toMatch(disallowed);
   }
+});
+
+test("Lionheart readers render PDFs, navigate accessibly, and expose a text companion", async ({ page }) => {
+  for (const [route, title] of [
+    ["/lionheart/volume-1-preview", "Lionheart Volume 1 Preview"],
+    ["/lionheart/volume-2-preview", "Lionheart Volume 2 Preview"],
+  ] as const) {
+    await page.goto(route);
+    await expect(page.getByRole("heading", { name: title, level: 1 })).toBeVisible();
+    await expect(page.getByRole("status").filter({ hasText: "Page 1 of 10 ready." })).toBeVisible({ timeout: 20_000 });
+    const canvas = page.getByRole("img", { name: new RegExp(`${title.replace(" Preview", "")}, PDF page 1 of 10`) });
+    await expect(canvas).toBeVisible();
+    const canvasMetrics = await canvas.evaluate((element) => {
+      const canvasElement = element as HTMLCanvasElement;
+      const context = canvasElement.getContext("2d");
+      const pixels = context?.getImageData(0, 0, Math.min(canvasElement.width, 32), Math.min(canvasElement.height, 32)).data || [];
+      return { width: canvasElement.width, height: canvasElement.height, hasInk: Array.from(pixels).some((value, index) => index % 4 !== 3 && value < 245) };
+    });
+    expect(canvasMetrics.width).toBeGreaterThan(300);
+    expect(canvasMetrics.height).toBeGreaterThan(300);
+    expect(canvasMetrics.hasInk).toBe(true);
+
+    await page.getByRole("button", { name: "Next", exact: true }).click();
+    await expect(page.getByText("Page 2 of 10", { exact: true })).toBeVisible();
+    await expect(page.getByRole("status").filter({ hasText: "Page 2 of 10 ready." })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText("Before the", { exact: false }).first()).toBeVisible();
+    await page.getByRole("button", { name: "Fit width" }).click();
+    await expect(page.getByRole("button", { name: "Fit width" })).toHaveAttribute("aria-pressed", "true");
+    const fittedScale = Number.parseInt((await page.locator("output").textContent()) || "0", 10);
+    await page.getByRole("button", { name: "Zoom in" }).click();
+    await expect.poll(async () => Number.parseInt((await page.locator("output").textContent()) || "0", 10)).toBeGreaterThan(fittedScale);
+    await expect(page.getByText("Open full accessible text companion")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Open original PDF" }).last()).toHaveAttribute("rel", "noopener noreferrer");
+  }
+});
+
+test("Lionheart narration controls use browser speech without autoplay", async ({ page }) => {
+  await page.addInitScript(() => {
+    class MockUtterance {
+      text: string; rate = 1; voice: SpeechSynthesisVoice | null = null; onend: (() => void) | null = null; onerror: (() => void) | null = null;
+      constructor(text: string) { this.text = text; }
+    }
+    const mockVoice = { default: true, lang: "en-US", localService: true, name: "Test Voice", voiceURI: "test-voice" } as SpeechSynthesisVoice;
+    const speech = {
+      speaking: false, paused: false, pending: false,
+      speak(utterance: MockUtterance) { (window as Window & { __spokenText?: string }).__spokenText = utterance.text; this.speaking = true; },
+      cancel() { this.speaking = false; this.paused = false; },
+      pause() { this.paused = true; }, resume() { this.paused = false; },
+      getVoices() { return [mockVoice]; }, addEventListener() {}, removeEventListener() {}, dispatchEvent() { return true; },
+    };
+    Object.defineProperty(window, "SpeechSynthesisUtterance", { configurable: true, value: MockUtterance });
+    Object.defineProperty(window, "speechSynthesis", { configurable: true, value: speech });
+  });
+  await page.goto("/lionheart/volume-1-preview");
+  expect(await page.evaluate(() => (window as Window & { __spokenText?: string }).__spokenText)).toBeUndefined();
+  await page.getByRole("button", { name: "Play", exact: true }).click();
+  expect(await page.evaluate(() => (window as Window & { __spokenText?: string }).__spokenText)).toContain("Before the Roar");
+  await expect(page.getByRole("button", { name: "Pause" })).toBeEnabled();
+  await page.getByRole("button", { name: "Pause" }).click();
+  await expect(page.getByRole("button", { name: "Resume" })).toBeEnabled();
+  await page.getByRole("button", { name: "Resume" }).click();
+  await page.getByRole("button", { name: "Stop" }).click();
+  await expect(page.getByRole("button", { name: "Stop" })).toBeDisabled();
+  await expect(page.getByLabel("Reading speed")).toHaveValue("1");
+  await expect(page.getByLabel("Voice")).toContainText("Test Voice");
+});
+
+test("Lionheart mobile reader fits the viewport and supports keyboard paging", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/lionheart/volume-2-preview");
+  await expect(page.getByRole("status").filter({ hasText: "Page 1 of 10 ready." })).toBeVisible({ timeout: 20_000 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
+  const viewer = page.getByLabel("PDF canvas. Use Left and Right Arrow keys to change pages.");
+  await viewer.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByText("Page 2 of 10", { exact: true })).toBeVisible();
+  await expect(page.getByText("Before the Road Opens Again").first()).toBeVisible();
+  await page.getByLabel("Reading speed").focus();
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByText("Page 2 of 10", { exact: true })).toBeVisible();
 });
 
 test("twenty-quest progression unlocks once, awards milestones, persists, and resets", async ({ page }) => {

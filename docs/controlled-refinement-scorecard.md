@@ -86,3 +86,27 @@ Wave 2 production score: **90/100**. Home, About, Engineering, and Community & L
 | Community & Leadership | 92 | Alternating narrative widths, image scale, links, and community-centered tone pass. |
 | Lionheart | 76 | Responsive reader and narration remain assigned to Wave 3. |
 | Contact | 62 | Production delivery remains a hard blocker assigned to Wave 4. |
+
+## Wave 3 Local Grade
+
+Wave 3 local score: **94/100**. Both Lionheart preview routes now pass responsive reading, keyboard, canvas-rendering, narration, and accessible-text tests. The numeric release target is met provisionally, but Contact delivery and Classroom onboarding/persistence remain hard blockers and several pages remain below the required 90-point floor.
+
+| Category | Score | Available | Wave 3 finding |
+| --- | ---: | ---: | --- |
+| Functionality | 21 | 25 | Responsive PDF reading and narration pass; verified contact delivery, server progress, and certificates remain. |
+| Responsive layout | 15 | 15 | Reader controls and canvases pass desktop and 390px mobile without document overflow. |
+| Accessibility | 14 | 15 | Keyboard paging, labels, canvas descriptions, no-autoplay speech, and text companions pass; Classroom onboarding remains. |
+| Typography and readability | 10 | 10 | Reader controls and companion copy meet the site scale and minimums. |
+| Image quality | 10 | 10 | PDF canvases preserve page geometry and pass nonblank pixel checks. |
+| Content and tone | 10 | 10 | Narration and companion text remain grounded in the public memoir previews. |
+| Visual polish | 9 | 10 | Desktop and mobile reader composition is cohesive with the existing Lionheart identity. |
+| Deployment and asset integrity | 5 | 5 | Both existing PDFs remain canonical, unchanged, and registry-backed. |
+| **Total** | **94** | **100** | **Numeric target met locally; hard-gate failures still prevent release completion.** |
+
+| Page | Local score | Wave 3 result |
+| --- | ---: | --- |
+| Lionheart | 94 | One internal reading action per volume; no redundant document controls. |
+| Volume 1 Preview Reader | 94 | PDF.js rendering, paging, fit width, zoom, full screen, narration, and text companion pass. |
+| Volume 2 Preview Reader | 94 | PDF.js rendering, paging, fit width, zoom, full screen, narration, and text companion pass. |
+| Classroom Design Quest | 81 | Still below the page threshold; focused onboarding remains assigned to Wave 5. |
+| Contact | 62 | Still below the page threshold; production delivery remains assigned to Wave 4. |

@@ -15,6 +15,8 @@ const routeCatalog = [
   ["lomnickpro", "/lomnickpro"],
   ["community-leadership", "/community-leadership"],
   ["lionheart", "/lionheart"],
+  ["lionheart-volume-1-reader", "/lionheart/volume-1-preview"],
+  ["lionheart-volume-2-reader", "/lionheart/volume-2-preview"],
   ["contact", "/contact"],
 ];
 const requestedRoutes = new Set(

@@ -70,3 +70,16 @@ Entries are appended only after their scope begins. Each entry will record the p
 - **Production verification:** GitHub `main`, Vercel `/api/version`, and the implementation commit matched; the live audit reported 0 hard failures and 13 assigned warnings across all eight routes.
 - **Production screenshots:** `artifacts/screenshots/wave-02/production/{desktop,mobile}`.
 - **Remaining:** Wave 3 mobile Lionheart reading and narration, Wave 4 verified contact delivery, Wave 5 Classroom onboarding, and Wave 6 saved journeys and completion paths.
+
+## Controlled Refinement Wave 3 - Lionheart Reading Experience
+
+- **Status:** Local quality gate passed; production verification pending
+- **Date:** 2026-07-16
+- **Scope:** Two responsive static preview routes, PDF.js canvas rendering, page navigation, fit width, zoom, full-screen support, keyboard paging, original-PDF fallback, browser speech synthesis, voice/speed controls, and accessible text companions.
+- **Dependency:** Mozilla `pdfjs-dist` pinned to `4.10.38` for Node 20 and Next 15 deployment compatibility.
+- **Tests:** Lint pass; typecheck pass; canonical asset audit pass; production build pass; 34/34 Playwright pass; local visual audit reports 0 hard failures and 13 assigned warnings.
+- **PDF verification:** Both unchanged ten-page public PDFs render through PDF.js; canvas dimensions and nonblank pixels are asserted.
+- **Visual review:** Desktop keeps the reader and narration companion together; mobile shows the full cover and usable controls at 390px without document overflow.
+- **Screenshots:** `artifacts/screenshots/wave-03/local/{desktop,mobile,states}`.
+- **Local score:** 94/100; Lionheart and both reader routes score 94, while Contact and Classroom hard gates remain open.
+- **Remaining:** Wave 4 verified contact delivery, Wave 5 Classroom onboarding/blueprints, and Wave 6 persistent saved journeys and completion paths.
