@@ -1,4 +1,6 @@
-export const guidePath = "/documents/engineering-101-modern-classroom.pdf";
+import { publicAssetPath } from "@/data/publicAssets";
+
+export const guidePath = publicAssetPath("engineering-guide");
 
 export const stageOverview = [
   { number: 1, title: "Build the Map", range: "Quests 1-4", description: "Read the room before you place a device." },

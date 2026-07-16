@@ -31,3 +31,13 @@ The production SHA is authoritative only when returned by `/api/version` with a 
 ## Checkpoints 1-7
 
 Entries are appended only after their scope begins. Each entry will record the prescribed scope, files, requirements, test results, artifact paths, Git SHAs, Vercel status, live routes, remaining issues, and rollback commit.
+
+## Controlled Refinement Wave 0 - Public Asset Integrity
+
+- **Status:** Local quality gate in progress
+- **Date:** 2026-07-16
+- **Scope:** Canonical public asset registry, non-public archive, hash and reference audit, PDF validation, deployment manifest identity, baseline screenshots, and baseline scorecard. No visible page redesign.
+- **Starting production SHA:** `044f74d2dd0ccd68030a12232d02ebcf1304feaf`
+- **Baseline screenshots:** `artifacts/screenshots/wave-00/before/{desktop,mobile}`
+- **Baseline score:** 75/100 with contact delivery, cross-browser Classroom journeys, and mobile Lionheart reading recorded as hard blockers.
+- **Production requirement:** This wave passes only when local SHA, GitHub `main`, Vercel production, and the production asset-manifest hash agree.

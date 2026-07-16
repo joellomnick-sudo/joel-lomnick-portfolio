@@ -22,7 +22,7 @@ export default function CommunityPage() {
       {communityStories.map((story, index) => (
         <section key={story.title} className={`editorial-section ${index % 2 ? "bg-parchment" : "bg-paper"}`}>
           <div className={`site-container grid items-center gap-10 lg:grid-cols-[.88fr_1.12fr] ${index % 2 ? "lg:[&>figure]:order-2" : ""}`}>
-            <EditorialImage filename={story.image.replace("/images/", "")} className="mx-auto w-full max-w-md" />
+            <EditorialImage assetId={story.assetId} className="mx-auto w-full max-w-md" />
             <div>
               <p className="eyebrow">A service history</p>
               <h2 className="section-title mt-4">{story.title}</h2>

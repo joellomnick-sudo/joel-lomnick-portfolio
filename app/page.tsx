@@ -22,7 +22,7 @@ export default function HomePage() {
               <ButtonLink href="/contact" variant="quiet">Book a Consultation</ButtonLink>
             </div>
           </div>
-          <EditorialImage filename="professional-headshot.jpg" priority className="mx-auto w-full max-w-md lg:max-w-lg" />
+          <EditorialImage assetId="home-headshot" priority className="mx-auto w-full max-w-md lg:max-w-lg" />
         </div>
       </section>
 

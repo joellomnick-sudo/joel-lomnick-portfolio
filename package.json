@@ -12,6 +12,7 @@
     "test": "node scripts/run-playwright.mjs",
     "test:report": "playwright show-report",
     "audit:site": "node scripts/audit-site.mjs",
+    "audit:assets": "node scripts/audit-public-assets.mjs",
     "screenshots": "node scripts/capture-screenshots.mjs"
   },
   "dependencies": {

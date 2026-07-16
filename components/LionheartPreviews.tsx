@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { ButtonLink } from "@/components/ButtonLink";
+import { publicAssetPath } from "@/data/publicAssets";
 
 const volumes = [
-  { title: "Volume 1 sneak preview", href: "/documents/lionheart-volume-1-sneak-preview.pdf" },
-  { title: "Volume 2 sneak preview", href: "/documents/lionheart-volume-2-sneak-preview.pdf" },
+  { title: "Volume 1 sneak preview", href: publicAssetPath("lionheart-volume-1-preview") },
+  { title: "Volume 2 sneak preview", href: publicAssetPath("lionheart-volume-2-preview") },
 ] as const;
 
 export function LionheartPreviews() {

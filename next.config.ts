@@ -1,10 +1,17 @@
 import type { NextConfig } from "next";
+import publicAssetManifest from "./data/publicAssets.json";
 
 const buildTimestamp = process.env.BUILD_TIMESTAMP || new Date().toISOString();
 
+function manifestPath(id: string) {
+  const asset = publicAssetManifest.assets.find((candidate) => candidate.id === id);
+  if (!asset?.publicPath || asset.status !== "active") throw new Error(`Missing active public asset: ${id}`);
+  return asset.publicPath;
+}
+
 const privateDocumentHeaders = [
-  "/documents/joel-lomnick-comprehensive-resume-public.pdf",
-  "/documents/joel-lomnick-comprehensive-cover-letter-public.pdf",
+  manifestPath("public-resume"),
+  manifestPath("public-cover-letter"),
 ];
 
 const nextConfig: NextConfig = {

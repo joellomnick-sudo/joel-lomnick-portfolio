@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { publicAssetPath } from "@/data/publicAssets";
 
 const canonical = process.env.NEXT_PUBLIC_CANONICAL_URL || "https://lomnickpro.com";
 
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
   creator: "Joel Maurice Lomnick, EIT",
   publisher: "Lomnick Professional Services",
   alternates: { canonical },
-  openGraph: { type: "website", locale: "en_US", url: canonical, siteName: "LomnickPro", title: "Joel Maurice Lomnick, EIT", description: "Engineering, storytelling, creative strategy, mentorship, and community service rooted in Richmond, Virginia.", images: [{ url: "/og.png", width: 1729, height: 910, alt: "Joel Maurice Lomnick, EIT and LomnickPro" }] },
-  twitter: { card: "summary_large_image", title: "Joel Maurice Lomnick, EIT", description: "Engineer, storyteller, mentor, and community builder.", images: ["/og.png"] },
+  openGraph: { type: "website", locale: "en_US", url: canonical, siteName: "LomnickPro", title: "Joel Maurice Lomnick, EIT", description: "Engineering, storytelling, creative strategy, mentorship, and community service rooted in Richmond, Virginia.", images: [{ url: publicAssetPath("social-og"), width: 1729, height: 910, alt: "Joel Maurice Lomnick, EIT and LomnickPro" }] },
+  twitter: { card: "summary_large_image", title: "Joel Maurice Lomnick, EIT", description: "Engineer, storyteller, mentor, and community builder.", images: [publicAssetPath("social-og")] },
 };
 
 const person = { "@context": "https://schema.org", "@type": "Person", name: "Joel Maurice Lomnick, EIT", url: canonical, jobTitle: "Electrical Engineer and Creative Strategist", worksFor: { "@type": "Organization", name: "Lomnick Professional Services" }, homeLocation: { "@type": "Place", name: "Richmond, Virginia" } };

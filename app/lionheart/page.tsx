@@ -12,7 +12,7 @@ export default function LionheartPage() {
     <>
       <section className="bg-softBlack text-warmIvory">
         <div className="site-container grid min-h-[640px] items-center gap-10 py-14 lg:grid-cols-[.7fr_1.3fr] lg:py-16">
-          <EditorialImage filename="lionheart-cover.jpg" priority className="mx-auto w-full max-w-sm" />
+          <EditorialImage assetId="lionheart-cover" priority className="mx-auto w-full max-w-sm" />
           <div>
             <p className="eyebrow">Lionheart</p>
             <h1 className="display-title mt-5 max-w-[16ch] font-serif">The story behind the builder.</h1>

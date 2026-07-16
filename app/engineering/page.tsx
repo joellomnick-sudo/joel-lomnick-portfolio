@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ButtonLink";
 import { EditorialImage } from "@/components/EditorialImage";
+import { publicAssetPath } from "@/data/publicAssets";
 
 export const metadata: Metadata = {
   title: "Engineering",
@@ -17,7 +18,7 @@ export default function EngineeringPage() {
             <h1 className="display-title mt-5 max-w-[17ch]">Complex systems should become clear enough to build.</h1>
             <p className="prose-copy prose-copy-dark mt-7">My engineering work lives where power, lighting, communications, life safety, owners, consultants, and the field have to meet. The drawings matter. So do coordination, judgment, and the plain-language explanation that helps someone act with confidence.</p>
           </div>
-          <EditorialImage filename="engineering-work-innovation.jpg" priority className="mx-auto w-full max-w-xl" />
+          <EditorialImage assetId="engineering-coordination" priority className="mx-auto w-full max-w-xl" />
         </div>
       </section>
 
@@ -29,8 +30,8 @@ export default function EngineeringPage() {
             <p className="prose-copy mt-5">A plain-language introduction to how electrical power, lighting controls, communications, life safety, classroom technology, energy requirements, and other building trades come together in one room.</p>
             <p className="mt-5 font-bold text-mutedBrown">Generic examples, not construction documents.</p>
             <div className="button-row mt-7">
-              <ButtonLink href="/documents/engineering-101-modern-classroom.pdf" target="_blank">Open the Engineering 101 Guide</ButtonLink>
-              <ButtonLink href="/documents/engineering-101-modern-classroom.pdf" download variant="secondary">Download PDF</ButtonLink>
+              <ButtonLink href={publicAssetPath("engineering-guide")} target="_blank">Open the Engineering 101 Guide</ButtonLink>
+              <ButtonLink href={publicAssetPath("engineering-guide")} download variant="secondary">Download PDF</ButtonLink>
               <ButtonLink href="/engineering/classroom-lab" variant="secondary">Enter Classroom Design Quest</ButtonLink>
             </div>
           </div>

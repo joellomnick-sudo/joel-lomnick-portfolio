@@ -1,3 +1,5 @@
+import type { PublicAssetId } from "@/data/publicAssets";
+
 export type NavLink = { label: string; href: string };
 
 export const navLinks: NavLink[] = [
@@ -14,7 +16,7 @@ export const caseStudies = [
   {
     id: "real-estate",
     title: "Real Estate Agent Website & Brand Support",
-    image: "/images/case-studies/real-estate-agent-website-brand-support.png",
+    assetId: "case-study-real-estate" as PublicAssetId,
     alt: "Anonymous real estate website and brand support case-study infographic.",
     summary: "A neighborhood-centered professional needed a public presence that felt credible, warm, and rooted in community trust.",
     transcript: {
@@ -27,7 +29,7 @@ export const caseStudies = [
   {
     id: "church",
     title: "Church Communications & Media System",
-    image: "/images/case-studies/church-communications-media-system.png",
+    assetId: "case-study-church" as PublicAssetId,
     alt: "Anonymous church communications and media system case-study infographic.",
     summary: "A ministry needed one clearer way to welcome people, share service information, and support volunteers behind the scenes.",
     transcript: {
@@ -40,7 +42,7 @@ export const caseStudies = [
   {
     id: "community-business",
     title: "Community Business Brand & Visibility Support",
-    image: "/images/case-studies/community-business-brand-visibility-support.png",
+    assetId: "case-study-community" as PublicAssetId,
     alt: "Anonymous community business brand and visibility support case-study infographic.",
     summary: "Meaningful local work needed branding and communication strong enough to earn attention without losing its community roots.",
     transcript: {
@@ -53,7 +55,7 @@ export const caseStudies = [
   {
     id: "fraternity",
     title: "Fraternal Chapter Digital Rebuild",
-    image: "/images/case-studies/fraternal-chapter-digital-rebuild.png",
+    assetId: "case-study-fraternity" as PublicAssetId,
     alt: "Anonymous fraternal chapter digital rebuild case-study infographic.",
     summary: "A service-centered chapter needed a more dependable digital presence for members, events, outreach, and continuity.",
     transcript: {
@@ -68,7 +70,7 @@ export const caseStudies = [
 export const communityStories = [
   {
     title: "National Society of Black Engineers",
-    image: "/images/nsbe-regional1-board-award.jpg",
+    assetId: "community-nsbe" as PublicAssetId,
     alt: "Joel Lomnick with fellow National Society of Black Engineers leaders at a regional gathering.",
     caption: "Engineering became more human when academic excellence and community responsibility lived in the same room.",
     href: "https://nsbe.org/",
@@ -77,7 +79,7 @@ export const communityStories = [
   },
   {
     title: "Iota Phi Theta Fraternity, Incorporated",
-    image: "/images/omicron-omega-young-professionals.jpg",
+    assetId: "community-iota" as PublicAssetId,
     alt: "Joel Lomnick seated with members of Iota Phi Theta Fraternity at a community event.",
     caption: "Brotherhood is strongest when service, succession, and honest accountability travel together.",
     href: "https://www.rvaiotas.org/",
@@ -86,7 +88,7 @@ export const communityStories = [
   },
   {
     title: "National Pan-Hellenic Council of Metro Richmond",
-    image: "/images/nphc-mr-presidents.jpg",
+    assetId: "community-nphc" as PublicAssetId,
     alt: "Joel Lomnick with a National Pan-Hellenic Council colleague in Richmond.",
     caption: "Coalition work asks for visibility without sacrificing relationships.",
     href: "https://nphcmr.org/",
@@ -95,7 +97,7 @@ export const communityStories = [
   },
   {
     title: "Faith, Media, and Community Service",
-    image: "/images/church-media-work.jpg",
+    assetId: "community-church-media" as PublicAssetId,
     alt: "Church media workstation used by Joel Lomnick to support worship livestreams and communication.",
     caption: "Worship technology can be access, hospitality, memory, and ministry all at once.",
     href: "http://www.thirdstreetbethel.org/",
@@ -104,14 +106,14 @@ export const communityStories = [
   },
   {
     title: "Mentoring and Professional Development",
-    image: "/images/mentorship-anime-convention.jpg",
+    assetId: "community-mentoring" as PublicAssetId,
     alt: "Joel Lomnick encouraging young people during a mentoring outing at an anime convention.",
     caption: "A young person should leave a mentoring conversation more aware of their own value.",
     body: "My mentoring work often begins with practical things: a resume, an interview, a difficult choice, or a goal that still feels too big to say aloud. Underneath those tasks are confidence, emotional intelligence, accountability, and the ability to imagine a future. I want young men to recognize their value before the world tries to price it for them.",
   },
   {
     title: "West African Drum and Dance",
-    image: "/images/joel-djembe-drum-african.jpg",
+    assetId: "community-djembe" as PublicAssetId,
     alt: "Joel Lomnick with a djembe, reflecting his participation in West African drum and dance.",
     caption: "Rhythm has carried culture, memory, discipline, grief, and joy across every city I have called home.",
     href: "https://www.instagram.com/akomadegado/",
@@ -120,7 +122,7 @@ export const communityStories = [
   },
   {
     title: "Break It Down RVA",
-    image: "/images/break-it-down-rva-line-dance.JPG",
+    assetId: "community-line-dance" as PublicAssetId,
     alt: "Joel Lomnick with members of the Break It Down RVA line-dance community outdoors.",
     caption: "Joy is serious community work, especially when movement brings generations into the same rhythm.",
     href: "https://www.breakitdownrva.com/",

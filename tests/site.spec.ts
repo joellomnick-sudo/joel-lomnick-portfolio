@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { publicAssets, publicAssetPath } from "@/data/publicAssets";
 
 const routes = ["/", "/about", "/engineering", "/engineering/classroom-lab", "/lomnickpro", "/community-leadership", "/lionheart", "/contact"];
 const labels = ["Home", "About", "Engineering", "LomnickPro", "Community & Leadership", "Lionheart", "Contact"];
@@ -121,7 +122,7 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await expect(page.getByTestId("device-library-item")).toHaveCount(11);
   await page.getByRole("button", { name: /Data outlet/ }).click();
   await expect(page.getByLabel("Mentor, quest, and device information")).toContainText("not to a classroom branch panel");
-  await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveAttribute("href", "/documents/engineering-101-modern-classroom.pdf");
+  await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveAttribute("href", publicAssetPath("engineering-guide"));
   await expect(page.getByText(/Educational concept only/i)).toBeVisible();
 });
 
@@ -311,12 +312,12 @@ test("feedback, assumptions, mentor hints, QC redlines, and teach-back persist",
 });
 
 test("public documents respond as PDFs and professional files are noindex", async ({ request }) => {
-  const documents = ["engineering-101-modern-classroom.pdf", "lionheart-volume-1-sneak-preview.pdf", "lionheart-volume-2-sneak-preview.pdf", "joel-lomnick-comprehensive-resume-public.pdf", "joel-lomnick-comprehensive-cover-letter-public.pdf"];
-  for (const file of documents) {
-    const response = await request.get(`/documents/${file}`);
+  const documents = publicAssets.filter((asset) => asset.status === "active" && asset.type === "pdf");
+  for (const document of documents) {
+    const response = await request.get(publicAssetPath(document.id));
     expect(response.status()).toBe(200);
     expect((await response.body()).subarray(0, 4).toString()).toBe("%PDF");
-    if (file.includes("public")) expect(response.headers()["x-robots-tag"]).toContain("noindex");
+    if (["public-resume", "public-cover-letter"].includes(document.id)) expect(response.headers()["x-robots-tag"]).toContain("noindex");
   }
 });
 
@@ -329,6 +330,16 @@ test("version endpoint identifies the deployed build without exposing configurat
     commit: expect.any(String),
     environment: expect.any(String),
     builtAt: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/),
+    assetManifest: {
+      version: expect.any(String),
+      hash: expect.stringMatching(/^[a-f0-9]{64}$/),
+      activeCount: 24,
+      documents: expect.arrayContaining([
+        expect.objectContaining({ id: "engineering-guide", pageCount: 43 }),
+        expect.objectContaining({ id: "lionheart-volume-1-preview", pageCount: 10 }),
+        expect.objectContaining({ id: "lionheart-volume-2-preview", pageCount: 10 }),
+      ]),
+    },
   });
   expect(JSON.stringify(version)).not.toMatch(/email|phone|secret|token|key|contact_to/i);
 });
