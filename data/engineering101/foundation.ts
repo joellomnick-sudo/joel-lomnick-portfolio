@@ -1,5 +1,3 @@
-import type { FoundationSymbol } from "@/components/engineering101/DeviceSymbol";
-
 export const guidePath = "/documents/engineering-101-modern-classroom.pdf";
 
 export const stageOverview = [
@@ -9,15 +7,3 @@ export const stageOverview = [
   { number: 4, title: "Build the Classroom", range: "Quests 13-16", description: "Coordinate layers into one defensible concept." },
   { number: 5, title: "Prove the Design", range: "Quests 17-20", description: "Review, revise, compare, and teach it back." },
 ] as const;
-
-export const foundationDevices: Array<{
-  id: FoundationSymbol;
-  name: string;
-  division: "26" | "27" | "28";
-  system: string;
-}> = [
-  { id: "light", name: "2 x 4 LED fixture", division: "26", system: "Lighting" },
-  { id: "receptacle", name: "Duplex receptacle", division: "26", system: "Power" },
-  { id: "data", name: "Data outlet", division: "27", system: "Communications" },
-  { id: "fire-alarm", name: "Speaker / strobe", division: "28", system: "Fire alarm" },
-];
