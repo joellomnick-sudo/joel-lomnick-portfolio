@@ -2,6 +2,7 @@
 
 import { Award, BookOpen, Check, ChevronRight, Compass, Grid3X3, LockKeyhole, RotateCcw, Save, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { ClassroomCanvas } from "@/components/engineering101/ClassroomCanvas";
 import { DeviceSymbol } from "@/components/engineering101/DeviceSymbol";
 import { useQuestProgress, type ExperienceMode } from "@/components/engineering101/useQuestProgress";
 import { badgeDescriptions } from "@/data/engineering101/badges";
@@ -163,27 +164,12 @@ export function EngineeringQuestShell() {
             <div><p className="quest-panel-kicker">Stage {activeStage}</p><h2>{stageOverview[activeStage - 1].title}</h2></div>
             <span className="quest-mode-label">{modeLabel}</span>
           </div>
-          <div className="quest-blueprint" aria-label="Classroom plan preview">
-            <svg viewBox="0 0 760 460" role="img" aria-labelledby="blueprint-title blueprint-description">
-              <title id="blueprint-title">Classroom plan preview</title>
-              <desc id="blueprint-description">A drafting-style classroom with a teaching wall, windows, door swing, furniture, teacher station, and casework.</desc>
-              <path className="plan-wall" d="M54 44H706V416H54V44Z" />
-              <path className="plan-wall" d="M54 112H706M128 44V112" />
-              <path className="plan-window" d="M706 136v62M706 218v62" />
-              <path className="plan-door" d="M602 416v-72M602 344a72 72 0 0 1 72 72" />
-              <rect className="plan-object" x="235" y="64" width="290" height="28" />
-              <rect className="plan-object" x="90" y="294" width="120" height="74" />
-              <rect className="plan-object" x="490" y="315" width="92" height="62" />
-              {[0, 1, 2].flatMap((row) => [0, 1, 2, 3].map((column) => <rect key={`${row}-${column}`} className="plan-furniture" x={244 + column * 78} y={160 + row * 58} width="48" height="26" />))}
-              <text x="380" y="84" textAnchor="middle">TEACHING WALL</text>
-              <text x="150" y="336" textAnchor="middle">TEACHER</text>
-              <text x="536" y="350" textAnchor="middle">SINK</text>
-              <text x="78" y="78">ROOM 101</text>
-              <path className="plan-north" d="M92 182v-42M92 140l-10 18M92 140l10 18" />
-              <text x="92" y="131" textAnchor="middle">N</text>
-            </svg>
-            <p className="quest-blueprint-caption">Start by reading the room. Device placement unlocks after the plan-reading foundation.</p>
-          </div>
+          <ClassroomCanvas
+            selectedDevice={selectedDevice}
+            placementEnabled={progress.currentMode === "free" || selectedDevice.unlockQuest <= nextQuestId}
+            onDeviceSelected={setSelectedDeviceId}
+            onStatus={setAnnouncement}
+          />
 
           <section className="device-toolkit" aria-labelledby="device-library-heading">
             <div className="device-toolkit-heading">
@@ -205,6 +191,13 @@ export function EngineeringQuestShell() {
                     aria-disabled={locked}
                     aria-describedby={`device-tooltip-${device.id}`}
                     data-locked={locked || undefined}
+                    draggable={!locked}
+                    onDragStart={(event) => {
+                      setSelectedDeviceId(device.id);
+                      event.dataTransfer.setData("application/x-engineering-device", device.id);
+                      event.dataTransfer.setData("text/plain", `device:${device.id}`);
+                      event.dataTransfer.effectAllowed = "copy";
+                    }}
                     onClick={() => { if (!locked) setSelectedDeviceId(device.id); }}
                   >
                     <DeviceSymbol kind={device.previewSymbol} view="preview" label={`${device.name} device preview`} />

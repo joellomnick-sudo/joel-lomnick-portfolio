@@ -175,6 +175,73 @@ test("all twenty quest titles and guide pages match the Engineering 101 map", as
   }
 });
 
+test("classroom builder places, edits, layers, saves, and restores devices", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/engineering/classroom-lab");
+  await page.evaluate(() => window.localStorage.clear());
+  await page.reload();
+  await page.getByRole("button", { name: "Enter Free Build" }).click();
+
+  const canvas = page.getByTestId("classroom-canvas");
+  await page.getByRole("button", { name: /2 x 4 LED ceiling fixture/ }).click();
+  await canvas.click({ position: { x: 180, y: 120 } });
+  await expect(page.getByRole("button", { name: /Select placed 2 x 4 LED ceiling fixture/ })).toHaveCount(1);
+
+  const firstPosition = await page.locator(".placed-device").first().getAttribute("style");
+  await page.getByRole("button", { name: "Move" }).click();
+  await canvas.click({ position: { x: 360, y: 220 } });
+  await expect(page.locator(".placed-device").first()).not.toHaveAttribute("style", firstPosition || "");
+  await page.getByRole("button", { name: "Rotate" }).click();
+  await expect(page.locator(".placed-device").first()).toHaveAttribute("style", /rotate\(45deg\)/);
+  await page.getByRole("button", { name: "Duplicate" }).click();
+  await expect(page.locator(".placed-device")).toHaveCount(2);
+  await page.getByRole("button", { name: "Delete" }).click();
+  await expect(page.locator(".placed-device")).toHaveCount(1);
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect(page.locator(".placed-device")).toHaveCount(2);
+  await page.getByRole("button", { name: "Redo" }).click();
+  await expect(page.locator(".placed-device")).toHaveCount(1);
+
+  await page.getByRole("button", { name: "Hide Lighting and controls" }).click();
+  await expect(page.locator(".placed-device")).toHaveCount(0);
+  await page.getByRole("button", { name: "Show Lighting and controls" }).click();
+  await expect(page.locator(".placed-device")).toHaveCount(1);
+
+  await page.getByRole("button", { name: "Floor plan", exact: true }).click();
+  await page.getByLabel("Filter device library").getByRole("button", { name: /Division 27/ }).click();
+  const dataTransfer = await page.evaluateHandle(() => new DataTransfer());
+  await page.getByRole("button", { name: /Data outlet/ }).dispatchEvent("dragstart", { dataTransfer });
+  await canvas.scrollIntoViewIfNeeded();
+  const canvasBox = await canvas.boundingBox();
+  expect(canvasBox).not.toBeNull();
+  const dropPoint = { clientX: (canvasBox?.x || 0) + 480, clientY: (canvasBox?.y || 0) + 260 };
+  await canvas.dispatchEvent("dragover", { dataTransfer, ...dropPoint });
+  await canvas.dispatchEvent("drop", { dataTransfer, ...dropPoint });
+  await expect(page.getByRole("button", { name: /Select placed Data outlet/ })).toHaveCount(1);
+  await page.getByRole("button", { name: "System paths" }).click();
+  await expect(page.locator(".system-path")).toHaveCount(2);
+
+  await page.getByRole("button", { name: "Save design draft" }).click();
+  await page.reload();
+  const savedPlacements = await page.evaluate(() => JSON.parse(window.localStorage.getItem("lomnickpro-engineering-101-design-v1") || "{}").placements?.length);
+  expect(savedPlacements).toBe(2);
+  await page.getByRole("button", { name: "System paths" }).click();
+  await expect(page.locator(".system-path")).toHaveCount(2);
+});
+
+test("mobile classroom builder supports tap placement without page overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/engineering/classroom-lab");
+  await page.evaluate(() => window.localStorage.clear());
+  await page.reload();
+  await page.getByRole("button", { name: "Enter Free Build" }).click();
+  await page.getByRole("button", { name: /Standard duplex receptacle/ }).click();
+  await page.getByTestId("classroom-canvas").click({ position: { x: 130, y: 150 } });
+  await expect(page.getByRole("button", { name: /Select placed Standard duplex receptacle/ })).toHaveCount(1);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+  expect(overflow).toBe(false);
+});
+
 test("public documents respond as PDFs and professional files are noindex", async ({ request }) => {
   const documents = ["engineering-101-modern-classroom.pdf", "lionheart-volume-1-sneak-preview.pdf", "lionheart-volume-2-sneak-preview.pdf", "joel-lomnick-comprehensive-resume-public.pdf", "joel-lomnick-comprehensive-cover-letter-public.pdf"];
   for (const file of documents) {
