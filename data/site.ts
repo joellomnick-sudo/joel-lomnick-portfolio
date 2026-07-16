@@ -71,6 +71,7 @@ export const communityStories = [
   {
     title: "National Society of Black Engineers",
     assetId: "community-nsbe" as PublicAssetId,
+    imageClassName: "max-w-[30rem]",
     alt: "Joel Lomnick with fellow National Society of Black Engineers leaders at a regional gathering.",
     caption: "Engineering became more human when academic excellence and community responsibility lived in the same room.",
     href: "https://nsbe.org/",
@@ -80,6 +81,7 @@ export const communityStories = [
   {
     title: "Iota Phi Theta Fraternity, Incorporated",
     assetId: "community-iota" as PublicAssetId,
+    imageClassName: "max-w-[30rem]",
     alt: "Joel Lomnick seated with members of Iota Phi Theta Fraternity at a community event.",
     caption: "Brotherhood is strongest when service, succession, and honest accountability travel together.",
     href: "https://www.rvaiotas.org/",
@@ -89,15 +91,17 @@ export const communityStories = [
   {
     title: "National Pan-Hellenic Council of Metro Richmond",
     assetId: "community-nphc" as PublicAssetId,
+    imageClassName: "max-w-[20rem]",
     alt: "Joel Lomnick with a National Pan-Hellenic Council colleague in Richmond.",
     caption: "Coalition work asks for visibility without sacrificing relationships.",
     href: "https://nphcmr.org/",
     linkLabel: "Visit NPHC Metro Richmond",
-    body: "Coalition work taught me how much public professionalism depends on private trust. As a webmaster and digital-support volunteer, I have helped Divine Nine organizations communicate across different traditions, protect relationships, and show the public what cooperation can look like when the mission matters more than any one organization.",
+    body: "Coalition work taught me how much public professionalism depends on private trust. As a webmaster and digital-support volunteer, I have helped Divine Nine organizations communicate across different traditions, protect relationships, and show the public what cooperation can look like when our shared purpose matters more than any one organization.",
   },
   {
     title: "Faith, Media, and Community Service",
     assetId: "community-church-media" as PublicAssetId,
+    imageClassName: "max-w-[30rem]",
     alt: "Church media workstation used by Joel Lomnick to support worship livestreams and communication.",
     caption: "Worship technology can be access, hospitality, memory, and ministry all at once.",
     href: "http://www.thirdstreetbethel.org/",
@@ -107,6 +111,7 @@ export const communityStories = [
   {
     title: "Mentoring and Professional Development",
     assetId: "community-mentoring" as PublicAssetId,
+    imageClassName: "max-w-[30rem]",
     alt: "Joel Lomnick encouraging young people during a mentoring outing at an anime convention.",
     caption: "A young person should leave a mentoring conversation more aware of their own value.",
     body: "My mentoring work often begins with practical things: a resume, an interview, a difficult choice, or a goal that still feels too big to say aloud. Underneath those tasks are confidence, emotional intelligence, accountability, and the ability to imagine a future. I want young men to recognize their value before the world tries to price it for them.",
@@ -114,6 +119,7 @@ export const communityStories = [
   {
     title: "West African Drum and Dance",
     assetId: "community-djembe" as PublicAssetId,
+    imageClassName: "max-w-[21rem]",
     alt: "Joel Lomnick with a djembe, reflecting his participation in West African drum and dance.",
     caption: "Rhythm has carried culture, memory, discipline, grief, and joy across every city I have called home.",
     href: "https://www.instagram.com/akomadegado/",
@@ -123,6 +129,7 @@ export const communityStories = [
   {
     title: "Break It Down RVA",
     assetId: "community-line-dance" as PublicAssetId,
+    imageClassName: "max-w-[30rem]",
     alt: "Joel Lomnick with members of the Break It Down RVA line-dance community outdoors.",
     caption: "Joy is serious community work, especially when movement brings generations into the same rhythm.",
     href: "https://www.breakitdownrva.com/",

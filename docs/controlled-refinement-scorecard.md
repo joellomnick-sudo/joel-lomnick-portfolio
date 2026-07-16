@@ -59,3 +59,30 @@ Wave 1 local score: **86/100**. Typography and readability now pass 10/10; deplo
 | Community & Leadership | 87 | Link safety passes; narrative proportions remain assigned to Wave 2. |
 | Lionheart | 76 | Document actions pass; responsive reader and narration remain assigned to Wave 3. |
 | Contact | 62 | Typography and layout pass; production delivery remains a hard blocker. |
+
+## Wave 2 Local Grade
+
+Wave 2 local score: **90/100**. Home, About, Engineering, and Community & Leadership now meet the per-page visual threshold. The site-wide release remains blocked by mobile Lionheart reading, verified contact delivery, and cross-browser Classroom journeys.
+
+| Category | Score | Available | Wave 2 finding |
+| --- | ---: | ---: | --- |
+| Functionality | 18 | 25 | All current routes, navigation, documents, and Classroom behavior pass; later-wave delivery and persistence features remain open. |
+| Responsive layout | 15 | 15 | The affected pages pass desktop/mobile review without overflow, clipping, or dominant supporting images. |
+| Accessibility | 13 | 15 | Axe, heading order, link safety, and accessible action names pass; reader and onboarding work remains. |
+| Typography and readability | 10 | 10 | Approved font roles, minimum sizes, line lengths, and heading scale pass. |
+| Image quality | 10 | 10 | Narrative images preserve aspect ratio and use content-aware maximum widths. |
+| Content and tone | 10 | 10 | Public copy is warm, educational, community rooted, and free of inappropriate tactical language. |
+| Visual polish | 9 | 10 | Page proportions, footer, document actions, and teaching sequence are cohesive; later feature surfaces remain. |
+| Deployment and asset integrity | 5 | 5 | Canonical asset audit remains clean with the verified manifest hash. |
+| **Total** | **90** | **100** | **Wave 2 pages pass locally; site-wide hard gates remain assigned to later waves.** |
+
+| Page | Local score | Wave 2 result |
+| --- | ---: | --- |
+| Home | 93 | Reduced hero scale and section spacing pass desktop and mobile review. |
+| About | 92 | Portrait and landscape media now support the narrative without controlling section height. |
+| Engineering | 93 | Compact intro, public guide, separate Quest launch, practice, and philosophy appear in the required order. |
+| Classroom Design Quest | 81 | Unchanged in this wave; onboarding and technical control sizing remain assigned to Wave 5. |
+| LomnickPro | 92 | Unchanged and passing. |
+| Community & Leadership | 92 | Alternating narrative widths, image scale, links, and community-centered tone pass. |
+| Lionheart | 76 | Responsive reader and narration remain assigned to Wave 3. |
+| Contact | 62 | Production delivery remains a hard blocker assigned to Wave 4. |

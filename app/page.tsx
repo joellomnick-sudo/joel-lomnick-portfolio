@@ -6,10 +6,10 @@ export default function HomePage() {
   return (
     <>
       <section className="dark-hero">
-        <div className="site-container grid min-h-[650px] items-center gap-10 py-14 lg:grid-cols-[1.12fr_.88fr] lg:py-16">
+        <div className="site-container grid min-h-[620px] items-center gap-10 py-14 lg:grid-cols-[1.16fr_.84fr] lg:py-14">
           <div>
             <p className="eyebrow">Joel M. Lomnick</p>
-            <h1 className="display-title mt-5 max-w-[18ch] lg:max-w-none lg:text-[4rem]">
+            <h1 className="display-title mt-5 max-w-[18ch] lg:max-w-none lg:text-[3.625rem]">
               <span className="lg:block lg:whitespace-nowrap">I build systems,</span>
               <span className="lg:block lg:whitespace-nowrap"> stories, leaders,</span>
               <span className="lg:block lg:whitespace-nowrap"> and infrastructure.</span>
@@ -22,11 +22,11 @@ export default function HomePage() {
               <ButtonLink href="/contact" variant="quiet">Book a Consultation</ButtonLink>
             </div>
           </div>
-          <EditorialImage assetId="home-headshot" priority className="mx-auto w-full max-w-md lg:max-w-lg" />
+          <EditorialImage assetId="home-headshot" priority className="mx-auto w-full max-w-md" />
         </div>
       </section>
 
-      <section className="editorial-section-compact paper-grid">
+      <section className="paper-grid py-12">
         <div className="site-container grid items-start gap-9 lg:grid-cols-[.78fr_1.22fr]">
           <p className="pull-quote">Bring the rough idea, the deadline, and what is riding on getting it right.</p>
           <div>
@@ -38,7 +38,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="editorial-section-compact bg-parchment">
+      <section className="bg-parchment py-12">
         <div className="site-container max-w-4xl text-center">
           <h2 className="section-title mx-auto">Bring the rough version.</h2>
           <p className="prose-copy mx-auto mt-5">We will sort out what matters, shape it into something useful, and build the next step together.</p>

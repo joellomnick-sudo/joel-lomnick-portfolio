@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 export default function EngineeringPage() {
   return (
     <>
-      <section className="dark-hero editorial-section">
-        <div className="site-container grid items-center gap-10 lg:grid-cols-[1.08fr_.92fr]">
+      <section className="dark-hero editorial-section-compact">
+        <div className="site-container grid items-center gap-10 lg:grid-cols-[1.18fr_.82fr]">
           <div>
             <p className="eyebrow">Electrical engineering</p>
             <h1 className="display-title mt-5 max-w-[17ch]">Complex systems should become clear enough to build.</h1>
             <p className="prose-copy prose-copy-dark mt-7">My engineering work lives where power, lighting, communications, life safety, owners, consultants, and the field have to meet. The drawings matter. So do coordination, judgment, and the plain-language explanation that helps someone act with confidence.</p>
           </div>
-          <EditorialImage assetId="engineering-coordination" priority className="mx-auto w-full max-w-xl" />
+          <EditorialImage assetId="engineering-coordination" priority className="mx-auto w-full max-w-[30rem]" />
         </div>
       </section>
 
@@ -26,17 +26,36 @@ export default function EngineeringPage() {
         <div className="site-container grid items-center gap-9 lg:grid-cols-[1.08fr_.92fr]">
           <div>
             <p className="eyebrow">Public Teaching Edition</p>
-            <h2 className="section-title mt-4">Engineering 101: Designing a Modern Classroom</h2>
+            <h2 className="section-title mt-4">
+              Engineering 101:{" "}
+              <span className="block">From Beginner to Modern Classroom Designer</span>
+            </h2>
             <p className="prose-copy mt-5">A plain-language introduction to how electrical power, lighting controls, communications, life safety, classroom technology, energy requirements, and other building trades come together in one room.</p>
             <p className="mt-5 font-bold text-mutedBrown">Generic examples, not construction documents.</p>
             <div className="button-row mt-7">
-              <ButtonLink href={publicAssetPath("engineering-guide")} target="_blank">Open the Engineering 101 Guide</ButtonLink>
-              <ButtonLink href="/engineering/classroom-lab" variant="secondary">Enter Classroom Design Quest</ButtonLink>
+              <ButtonLink href={publicAssetPath("engineering-guide")} target="_blank">View the Engineering 101 Guide</ButtonLink>
             </div>
           </div>
           <div className="border-l-4 border-mutedGold bg-warmIvory p-7">
-            <h3 className="subsection-title">Inside the quest</h3>
-            <p className="mt-4 text-base leading-8 text-mutedBrown">Learn to read the room, trace distinct systems, coordinate design layers, and explain the reasoning behind a classroom concept.</p>
+            <h3 className="subsection-title">What the guide helps you see</h3>
+            <p className="mt-4 text-base leading-8 text-mutedBrown">A classroom is not one drawing or one discipline. It is a coordinated set of systems, decisions, standards, and people working toward a room that is safe, useful, and ready to teach.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-section-compact paper-grid">
+        <div className="site-container grid items-center gap-9 lg:grid-cols-[.82fr_1.18fr]">
+          <div>
+            <p className="eyebrow">Classroom Design Quest</p>
+            <h2 className="section-title mt-4">Learn the room one system at a time.</h2>
+            <p className="prose-copy mt-5">Use a guided journey or an open design workspace to recognize devices, separate design layers, coordinate a classroom concept, and explain why each decision belongs.</p>
+            <div className="button-row mt-7">
+              <ButtonLink href="/engineering/classroom-lab">Launch Classroom Design Quest</ButtonLink>
+            </div>
+          </div>
+          <div className="border-l border-deepBrown/20 pl-7">
+            <h3 className="subsection-title">Built to support the learning process</h3>
+            <p className="prose-copy mt-4">Start with the vocabulary. Follow the systems. Make a first attempt. The workspace is designed to make engineering judgment easier to practice and easier to explain.</p>
           </div>
         </div>
       </section>

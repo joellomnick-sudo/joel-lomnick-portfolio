@@ -34,19 +34,36 @@ Entries are appended only after their scope begins. Each entry will record the p
 
 ## Controlled Refinement Wave 0 - Public Asset Integrity
 
-- **Status:** Local quality gate in progress
+- **Status:** Pass in production
 - **Date:** 2026-07-16
 - **Scope:** Canonical public asset registry, non-public archive, hash and reference audit, PDF validation, deployment manifest identity, baseline screenshots, and baseline scorecard. No visible page redesign.
 - **Starting production SHA:** `044f74d2dd0ccd68030a12232d02ebcf1304feaf`
 - **Baseline screenshots:** `artifacts/screenshots/wave-00/before/{desktop,mobile}`
 - **Baseline score:** 75/100 with contact delivery, cross-browser Classroom journeys, and mobile Lionheart reading recorded as hard blockers.
-- **Production requirement:** This wave passes only when local SHA, GitHub `main`, Vercel production, and the production asset-manifest hash agree.
+- **Commit and production SHA:** `8bfbc13421c567aa9d78e7252447205e49a21665`
+- **Asset manifest hash:** `b6708647c8ca20bbc4e9979cb0bd9d2b32539242e83b073c89085ff639f5cca2`; 24 active and 24 archived assets; five PDFs validated.
+- **Tests:** Lint, typecheck, production build, 25/25 Playwright, local/production audit, and all eight production routes passed.
+- **Screenshots:** `artifacts/screenshots/wave-00/{before,local,production}/{desktop,mobile}`.
 
 ## Controlled Refinement Wave 1 - Global Identity And Typography
 
-- **Status:** Local quality gate passed; production verification pending
+- **Status:** Pass in production
 - **Date:** 2026-07-16
 - **Scope:** Public name consistency, optimized Montserrat/Open Sans/Roboto roles, responsive type scale, one action per document, compact footer, new-tab protection, and rendered image-ratio auditing.
 - **Tests:** Lint pass; typecheck pass; production build pass; 27/27 Playwright pass; local visual audit reports 0 hard failures and 13 assigned refinement warnings.
 - **Screenshots:** `artifacts/screenshots/wave-01/local/{desktop,mobile}`
 - **Local score:** 86/100; hard blockers remain assigned to Waves 3, 4, and 6.
+- **Commit and production SHA:** `70f5d915c9ef6126668f3cbc56319822a874cc6a`
+- **Production verification:** GitHub `main`, Vercel `/api/version`, and the local commit matched; all eight routes passed smoke testing.
+- **Production screenshots:** `artifacts/screenshots/wave-01/production/{desktop,mobile}`.
+
+## Controlled Refinement Wave 2 - Page Proportions And Tone
+
+- **Status:** Local quality gate passed; production verification pending
+- **Date:** 2026-07-16
+- **Scope:** Home heading and spacing, About and Community image/text balance, Engineering teaching priority and sequence, updated Engineering 101 title, and public-language review.
+- **Tests:** Lint pass; typecheck pass; asset audit pass; production build pass; 29/29 Playwright pass; local visual audit reports 0 hard failures and 13 assigned refinement warnings.
+- **Visual review:** Home, About, Engineering, and Community & Leadership pass manual desktop/mobile review with preserved image geometry and no horizontal overflow.
+- **Screenshots:** `artifacts/screenshots/wave-02/local/{desktop,mobile}`.
+- **Local score:** 90/100; the four changed pages each score at least 92.
+- **Remaining:** Wave 3 mobile Lionheart reading and narration, Wave 4 verified contact delivery, Wave 5 Classroom onboarding, and Wave 6 saved journeys and completion paths.

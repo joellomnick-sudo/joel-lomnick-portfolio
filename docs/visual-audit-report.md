@@ -70,3 +70,22 @@ These scores describe the unchanged production design before refinement. Scores 
 ## Checkpoint Reviews
 
 Each verified checkpoint will add its local findings, production comparison, changed-page score table, resolved issues, and any documented deferrals here.
+
+## Controlled Refinement Waves 1-2
+
+### Wave 1 production review
+
+- GitHub `main` and Vercel production matched `70f5d915c9ef6126668f3cbc56319822a874cc6a`.
+- Montserrat, Open Sans, and Roboto render in their assigned roles; the public identity is consistently Joel M. Lomnick.
+- Document actions are consolidated, opener protection passes, image distortion checks pass, and the desktop footer remains within 360px.
+- Production screenshots: `artifacts/screenshots/wave-01/production/{desktop,mobile}`.
+
+### Wave 2 local review
+
+- **Automated result:** 16 route/viewport combinations audited, 0 hard failures, and 13 warnings reserved for later Classroom and long-form mobile work.
+- **Home:** The desktop H1 is 58px or smaller, the portrait is capped at 448px, and reduced section spacing preserves a visible narrative rhythm. Mobile content stacks without crowding or overflow.
+- **About:** Content-aware image maximums keep family and Richmond portraits compact while allowing group and landscape images more width. The alternating narrative remains easy to scan.
+- **Community & Leadership:** Portraits and landscapes use distinct maximum widths, text columns remain consistent, external actions stay readable, and the coalition copy is warmer and community centered.
+- **Engineering:** The page now reads in the required order: compact introduction, public teaching guide, separate Classroom Design Quest launch, engineering practice, and philosophy. The public guide and Quest have one unambiguous action each.
+- **Tone:** A route-wide public-language test rejects inappropriate command-center, combat, and pressure language while retaining ordinary technical vocabulary.
+- **Artifacts:** `artifacts/screenshots/wave-02/local/{desktop,mobile}` and `artifacts/audits/wave-02-local.json`.

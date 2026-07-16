@@ -20,10 +20,10 @@ export default function CommunityPage() {
       </section>
 
       {communityStories.map((story, index) => (
-        <section key={story.title} className={`editorial-section ${index % 2 ? "bg-parchment" : "bg-paper"}`}>
-          <div className={`site-container grid items-center gap-10 lg:grid-cols-[.88fr_1.12fr] ${index % 2 ? "lg:[&>figure]:order-2" : ""}`}>
-            <EditorialImage assetId={story.assetId} className="mx-auto w-full max-w-md" />
-            <div>
+        <section key={story.title} className={`py-16 ${index % 2 ? "bg-parchment" : "bg-paper"}`}>
+          <div className={`site-container grid items-center gap-10 lg:grid-cols-[.78fr_1.22fr] ${index % 2 ? "lg:[&>figure]:order-2" : ""}`}>
+            <EditorialImage assetId={story.assetId} className={`mx-auto w-full ${story.imageClassName}`} />
+            <div className="max-w-2xl">
               <p className="eyebrow">A service history</p>
               <h2 className="section-title mt-4">{story.title}</h2>
               <p className="prose-copy mt-5">{story.body}</p>

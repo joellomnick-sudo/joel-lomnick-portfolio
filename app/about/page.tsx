@@ -12,21 +12,25 @@ const movements = [
   {
     title: "Rochester, family, and learning to read a room",
     assetId: "about-family-legacy",
+    imageClassName: "max-w-[22rem]",
     body: "I grew up learning that care is practical. Family, survival, faith, and the example of Cathy Lomnick taught me to notice what a room needed before anyone named it. Responsibility arrived early. So did the instinct to protect, translate, encourage, and make space for someone else to breathe.",
   },
   {
     title: "RIT, engineering, NSBE, and Gospel",
     assetId: "about-gospel-ensemble",
+    imageClassName: "max-w-[30rem]",
     body: "Engineering school sharpened my thinking and tested my confidence. At RIT, Black belonging mattered as much as academic preparation. NSBE leadership and Gospel Ensemble helped me understand that technical excellence and community service were not competing identities. They could strengthen one another.",
   },
   {
     title: "Troy, Albany, culture, grief, and brotherhood",
     assetId: "about-african-dance-albany",
+    imageClassName: "max-w-[30rem]",
     body: "Leaving Rochester opened a demanding chapter of corporate engineering, grief, church, brotherhood, and reinvention. West African drum and dance returned rhythm to my body. Iota Phi Theta gave service and accountability a living structure. The Capital Region taught me that rebuilding rarely happens in a straight line.",
   },
   {
     title: "Richmond and the work of rebuilding",
     assetId: "about-richmond-rebuild",
+    imageClassName: "max-w-[22rem]",
     body: "Richmond became a place to rebuild professional life while finding community and joy again. Engineering work, church media, mentoring, NPHC service, and LomnickPro began to speak to one another. The lesson was not that every part of life had become easy. It was that every part could become useful.",
   },
 ] as const;
@@ -45,10 +49,10 @@ export default function AboutPage() {
       </section>
 
       {movements.map((movement, index) => (
-        <section key={movement.title} className={`editorial-section ${index % 2 ? "bg-parchment" : "bg-paper"}`}>
-          <div className={`site-container grid items-center gap-10 lg:grid-cols-[.9fr_1.1fr] ${index % 2 ? "lg:[&>figure]:order-2" : ""}`}>
-            <EditorialImage assetId={movement.assetId as PublicAssetId} className="mx-auto w-full max-w-md" />
-            <div>
+        <section key={movement.title} className={`py-16 ${index % 2 ? "bg-parchment" : "bg-paper"}`}>
+          <div className={`site-container grid items-center gap-10 lg:grid-cols-[.72fr_1.28fr] ${index % 2 ? "lg:[&>figure]:order-2" : ""}`}>
+            <EditorialImage assetId={movement.assetId as PublicAssetId} className={`mx-auto w-full ${movement.imageClassName}`} />
+            <div className="max-w-2xl">
               <p className="eyebrow">A life in motion</p>
               <h2 className="section-title mt-4">{movement.title}</h2>
               <p className="prose-copy mt-5">{movement.body}</p>

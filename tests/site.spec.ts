@@ -148,7 +148,7 @@ test("public identity, font roles, document actions, and compact footer are cons
   await expect(page.getByRole("link", { name: "View Resume" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "View Cover Letter" })).toHaveCount(1);
   await page.goto("/engineering");
-  await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "View the Engineering 101 Guide" })).toHaveCount(1);
   await page.goto("/lionheart");
   await expect(page.getByRole("link", { name: "Read Volume 1 Preview" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "Read Volume 2 Preview" })).toHaveCount(1);
@@ -170,6 +170,51 @@ test("new-tab links protect the opener and rendered images are not distorted", a
       return Math.abs((rect.width / rect.height) / (image.naturalWidth / image.naturalHeight) - 1) > 0.06;
     }).length);
     expect(distorted, route).toBe(0);
+  }
+});
+
+test("page proportions and engineering learning path stay intentional", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+
+  await page.goto("/");
+  const homeMetrics = await page.evaluate(() => ({
+    titleSize: Number.parseFloat(getComputedStyle(document.querySelector("h1")!).fontSize),
+    portraitWidth: document.querySelector("main figure")!.getBoundingClientRect().width,
+  }));
+  expect(homeMetrics.titleSize).toBeLessThanOrEqual(58);
+  expect(homeMetrics.portraitWidth).toBeLessThanOrEqual(448);
+
+  await page.goto("/about");
+  const aboutWidths = await page.locator("main figure").evaluateAll((figures) => figures.map((figure) => Math.round(figure.getBoundingClientRect().width)));
+  expect(aboutWidths).toHaveLength(4);
+  expect(aboutWidths[0]).toBeLessThanOrEqual(352);
+  expect(aboutWidths[3]).toBeLessThanOrEqual(352);
+  expect(Math.max(...aboutWidths)).toBeLessThanOrEqual(480);
+
+  await page.goto("/community-leadership");
+  const communityWidths = await page.locator("main figure").evaluateAll((figures) => figures.map((figure) => Math.round(figure.getBoundingClientRect().width)));
+  expect(communityWidths).toHaveLength(7);
+  expect(communityWidths[2]).toBeLessThanOrEqual(320);
+  expect(communityWidths[5]).toBeLessThanOrEqual(336);
+  expect(Math.max(...communityWidths)).toBeLessThanOrEqual(480);
+
+  await page.goto("/engineering");
+  const sectionHeadings = await page.locator("main section").evaluateAll((sections) => sections.map((section) => section.querySelector("h1, h2")?.textContent?.replace(/\s+/g, " ").trim()).filter(Boolean));
+  expect(sectionHeadings).toEqual([
+    "Complex systems should become clear enough to build.",
+    "Engineering 101: From Beginner to Modern Classroom Designer",
+    "Learn the room one system at a time.",
+    "Technical work is also communication.",
+  ]);
+  await expect(page.getByRole("link", { name: "View the Engineering 101 Guide" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Launch Classroom Design Quest" })).toBeVisible();
+});
+
+test("public-facing language stays warm and educational", async ({ page }) => {
+  const disallowed = /\b(command center|mission control|tactical|weapon|battle|dominate|war room|prove yourself)\b/i;
+  for (const route of routes) {
+    await page.goto(route);
+    expect(await page.locator("main").innerText(), route).not.toMatch(disallowed);
   }
 });
 
