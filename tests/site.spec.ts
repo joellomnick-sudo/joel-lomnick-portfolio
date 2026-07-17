@@ -127,6 +127,35 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await expect(page.getByText(/Educational concept only/i)).toBeVisible();
 });
 
+test("desktop header stays balanced without wrapping or collisions", async ({ page }) => {
+  for (const width of [1280, 1366, 1440, 1920]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/lomnickpro");
+    const metrics = await page.locator("header").evaluate((header) => {
+      const brand = header.querySelector<HTMLElement>(".brand-lockup")!;
+      const navigation = header.querySelector<HTMLElement>('nav[aria-label="Primary navigation"]')!;
+      const consultation = header.querySelector<HTMLElement>(".header-consultation")!;
+      const links = [...navigation.querySelectorAll<HTMLElement>("a")];
+      const boxes = [brand, navigation, consultation].map((element) => element.getBoundingClientRect());
+      return {
+        headerHeight: header.getBoundingClientRect().height,
+        brandLines: brand.getClientRects().length,
+        navigationVisible: getComputedStyle(navigation).display !== "none",
+        wrappedLinks: links.some((link) => link.getClientRects().length !== 1 || link.scrollWidth > link.clientWidth + 1),
+        collisions: boxes.some((box, index) => boxes.slice(index + 1).some((other) => box.right > other.left && other.right > box.left && box.bottom > other.top && other.bottom > box.top)),
+        consultationHeight: consultation.getBoundingClientRect().height,
+      };
+    });
+    expect(metrics.navigationVisible).toBe(true);
+    expect(metrics.headerHeight).toBeGreaterThanOrEqual(72);
+    expect(metrics.headerHeight).toBeLessThanOrEqual(76);
+    expect(metrics.brandLines).toBe(1);
+    expect(metrics.wrappedLinks).toBe(false);
+    expect(metrics.collisions).toBe(false);
+    expect(metrics.consultationHeight).toBeGreaterThanOrEqual(44);
+  }
+});
+
 test("public identity, font roles, document actions, and compact footer are consistent", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1200 });
   await page.goto("/");

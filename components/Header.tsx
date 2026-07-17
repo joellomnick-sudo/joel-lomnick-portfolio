@@ -60,13 +60,13 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <div className="site-container flex min-h-[80px] items-center justify-between gap-4 py-3">
+      <div className="site-container flex min-h-[74px] items-center justify-between gap-3 py-2">
         <Link href="/" className="brand-lockup focus-ring" aria-label="Joel M. Lomnick home">
           <span className="brand-name">Joel M. Lomnick</span>
           <span className="brand-subtitle">Engineer | Storyteller | Community Builder</span>
         </Link>
 
-        <nav className="hidden min-w-0 items-center justify-end gap-0.5 xl:flex" aria-label="Primary navigation">
+        <nav className="hidden min-w-0 items-center justify-end xl:flex" aria-label="Primary navigation">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -80,7 +80,7 @@ export function Header() {
         </nav>
 
         <div className="hidden shrink-0 xl:block">
-          <ButtonLink href="/contact" size="compact">Book a Consultation</ButtonLink>
+          <ButtonLink href="/contact" size="compact" className="header-consultation">Book a Consultation</ButtonLink>
         </div>
 
         <button

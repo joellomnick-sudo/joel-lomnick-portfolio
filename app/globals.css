@@ -55,11 +55,12 @@ img { max-width: 100%; height: auto; }
 
 .site-header { position: relative; z-index: 60; border-bottom: 1px solid rgba(201, 162, 74, 0.26); background: var(--rich-black); color: var(--warm-ivory); }
 .brand-lockup { min-width: 0; border-radius: 0.25rem; }
-.brand-name { display: block; font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; line-height: 1.08; }
-.brand-subtitle { display: block; margin-top: 0.3rem; color: rgba(247, 241, 229, 0.78); font-size: 0.875rem; font-weight: 600; }
-.nav-link { display: inline-flex; min-height: 44px; align-items: center; border-radius: 0.3rem; padding: 0.45rem 0.58rem; color: rgba(247, 241, 229, 0.93); font-family: var(--font-heading); font-size: 1rem; font-weight: 700; line-height: 1.2; }
+.brand-name { display: block; font-family: var(--font-heading); font-size: 1.18rem; font-weight: 700; line-height: 1.08; }
+.brand-subtitle { display: block; margin-top: 0.25rem; color: rgba(247, 241, 229, 0.78); font-size: 0.78rem; font-weight: 500; line-height: 1.25; }
+.nav-link { display: inline-flex; min-height: 44px; align-items: center; border-radius: 0.3rem; padding: 0.45rem 0.48rem; color: rgba(247, 241, 229, 0.93); font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
 .nav-link:hover { color: var(--soft-gold); }
 .nav-link[aria-current="page"] { background: rgba(247, 241, 229, 0.1); color: var(--soft-gold); }
+.header-consultation { padding-inline: 0.85rem; font-size: 0.875rem; font-weight: 700; white-space: nowrap; }
 .mobile-nav-link { display: flex; min-height: 52px; align-items: center; border-radius: 0.35rem; padding: 0.7rem 0.85rem; color: var(--warm-ivory); font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; }
 .mobile-nav-link:hover, .mobile-nav-link[aria-current="page"] { background: rgba(247, 241, 229, 0.1); color: var(--soft-gold); }
 .icon-button { display: inline-flex; width: 48px; height: 48px; flex: 0 0 auto; align-items: center; justify-content: center; border: 1px solid rgba(247, 241, 229, 0.36); border-radius: 0.35rem; color: var(--warm-ivory); }
