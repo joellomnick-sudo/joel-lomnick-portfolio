@@ -299,7 +299,7 @@ test("new-tab links protect the opener and rendered images are not distorted", a
   }
 });
 
-test("page proportions and engineering learning path stay intentional", async ({ page }) => {
+test("page proportions and public engineering page stay intentional", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
 
   await page.goto("/");
@@ -325,15 +325,35 @@ test("page proportions and engineering learning path stay intentional", async ({
   expect(Math.max(...communityWidths)).toBeLessThanOrEqual(480);
 
   await page.goto("/engineering");
+  await expect(page.locator("main > section")).toHaveCount(4);
   const sectionHeadings = await page.locator("main section").evaluateAll((sections) => sections.map((section) => section.querySelector("h1, h2")?.textContent?.replace(/\s+/g, " ").trim()).filter(Boolean));
   expect(sectionHeadings).toEqual([
     "Complex systems should become clear enough to build.",
     "Engineering 101: From Beginner to Modern Classroom Designer",
-    "Learn the room one system at a time.",
     "Technical work is also communication.",
   ]);
   await expect(page.getByRole("link", { name: "View the Engineering 101 Guide" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Launch Classroom Design Quest" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Download PDF" })).toHaveAttribute("download", "engineering-101-modern-classroom.pdf");
+  await expect(page.getByText("Classroom Design Quest", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Launch Classroom Design Quest" })).toHaveCount(0);
+});
+
+test("classroom research route is functional but unlisted and excluded from indexing", async ({ page, request }) => {
+  for (const route of routes.filter((route) => route !== "/engineering/classroom-lab")) {
+    await page.goto(route);
+    await expect(page.locator('a[href="/engineering/classroom-lab"]'), route).toHaveCount(0);
+  }
+
+  await page.goto("/engineering/classroom-lab");
+  await expect(page.getByRole("heading", { name: "Classroom Design Quest" })).toBeVisible();
+  const robots = await page.locator('meta[name="robots"]').getAttribute("content");
+  expect(robots).toContain("noindex");
+  expect(robots).toContain("nofollow");
+  expect(robots).toContain("noarchive");
+
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.status()).toBe(200);
+  expect(await sitemap.text()).not.toContain("/engineering/classroom-lab");
 });
 
 test("public-facing language stays warm and educational", async ({ page }) => {

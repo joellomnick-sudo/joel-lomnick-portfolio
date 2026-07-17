@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function EngineeringPage() {
+  const classroomQuestPublic = process.env.CLASSROOM_QUEST_PUBLIC === "true";
+
   return (
     <>
       <section className="dark-hero editorial-section-compact">
@@ -34,6 +36,7 @@ export default function EngineeringPage() {
             <p className="mt-5 font-bold text-mutedBrown">Generic examples, not construction documents.</p>
             <div className="button-row mt-7">
               <ButtonLink href={publicAssetPath("engineering-guide")} target="_blank">View the Engineering 101 Guide</ButtonLink>
+              <ButtonLink href={publicAssetPath("engineering-guide")} variant="secondary" download="engineering-101-modern-classroom.pdf">Download PDF</ButtonLink>
             </div>
           </div>
           <div className="border-l-4 border-mutedGold bg-warmIvory p-7">
@@ -43,7 +46,8 @@ export default function EngineeringPage() {
         </div>
       </section>
 
-      <section className="editorial-section-compact paper-grid">
+      {/* The Classroom Design Quest remains available for private development but is temporarily removed from public promotion. */}
+      {classroomQuestPublic ? <section className="editorial-section-compact paper-grid">
         <div className="site-container grid items-center gap-9 lg:grid-cols-[.82fr_1.18fr]">
           <div>
             <p className="eyebrow">Classroom Design Quest</p>
@@ -58,7 +62,7 @@ export default function EngineeringPage() {
             <p className="prose-copy mt-4">Start with the vocabulary. Follow the systems. Make a first attempt. The workspace is designed to make engineering judgment easier to practice and easier to explain.</p>
           </div>
         </div>
-      </section>
+      </section> : null}
 
       <section className="editorial-section-compact">
         <div className="site-container grid gap-9 lg:grid-cols-[.8fr_1.2fr]">

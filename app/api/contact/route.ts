@@ -48,21 +48,38 @@ export async function POST(request: NextRequest) {
 
   const destination = process.env.CONTACT_TO_EMAIL;
   const apiKey = process.env.RESEND_API_KEY;
-  if (!destination || !apiKey) return NextResponse.json({ message: "Messaging is temporarily unavailable. Please try again later." }, { status: 503 });
+  if (!destination || !apiKey) {
+    console.error("contact_configuration_missing", {
+      hasResendKey: Boolean(apiKey),
+      hasDestination: Boolean(destination),
+      hasSender: Boolean(process.env.CONTACT_FROM_EMAIL),
+    });
+    return NextResponse.json({ message: "Messaging is temporarily unavailable. Please try again later." }, { status: 503 });
+  }
 
   const { name, email, organization, inquiryType, message } = parsed.data;
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.CONTACT_FROM_EMAIL || "LomnickPro Website <onboarding@resend.dev>",
-      to: [destination],
-      reply_to: email,
-      subject: `LomnickPro inquiry: ${inquiryType}`,
-      text: `Name: ${name}\nEmail: ${email}\nOrganization: ${organization || "Not provided"}\nInquiry: ${inquiryType}\n\n${message}`,
-      html: `<h2>New LomnickPro inquiry</h2><p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Organization:</strong> ${escapeHtml(organization || "Not provided")}</p><p><strong>Inquiry:</strong> ${escapeHtml(inquiryType)}</p><p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>`,
-    }),
-  });
-  if (!response.ok) return NextResponse.json({ message: "Your message could not be delivered. Please try again later." }, { status: 502 });
+  let response: Response;
+  try {
+    response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: process.env.CONTACT_FROM_EMAIL || "LomnickPro Website <onboarding@resend.dev>",
+        to: [destination],
+        reply_to: email,
+        subject: `LomnickPro inquiry: ${inquiryType}`,
+        text: `Name: ${name}\nEmail: ${email}\nOrganization: ${organization || "Not provided"}\nInquiry: ${inquiryType}\n\n${message}`,
+        html: `<h2>New LomnickPro inquiry</h2><p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Organization:</strong> ${escapeHtml(organization || "Not provided")}</p><p><strong>Inquiry:</strong> ${escapeHtml(inquiryType)}</p><p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>`,
+      }),
+    });
+  } catch {
+    console.error("contact_provider_rejected", { category: "network_failure" });
+    return NextResponse.json({ message: "Your message could not be delivered. Please try again later." }, { status: 502 });
+  }
+  if (!response.ok) {
+    console.error("contact_provider_rejected", { category: "provider_response", status: response.status });
+    return NextResponse.json({ message: "Your message could not be delivered. Please try again later." }, { status: 502 });
+  }
+  console.info("contact_provider_accepted", { category: "accepted", status: response.status });
   return NextResponse.json({ message: "Message sent." });
 }
