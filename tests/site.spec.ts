@@ -123,14 +123,34 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await expect(page.getByRole("heading", { name: "Classroom Design Quest" })).toBeVisible();
   await expect(page.getByText("Learn the map. Build the systems. Explain the design.")).toBeVisible();
   await expect(page.getByRole("button", { name: "Start Guided Journey" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveAttribute("href", publicAssetPath("engineering-guide"));
   await page.getByRole("button", { name: "Start Guided Journey" }).click();
-  await expect(page.getByText("Guided Journey", { exact: true })).toBeVisible();
+  await expect(page.getByText("Guided Journey", { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Learning starts with an honest baseline." })).toBeVisible();
+  await expect(page.getByLabel(/How confident/)).toBeVisible();
+  await expect(page.getByLabel(/technical skill feels most intimidating/)).toBeVisible();
+  await expect(page.getByTestId("classroom-canvas")).toHaveCount(0);
+  await expect(page.getByTestId("device-library-item")).toHaveCount(0);
+  await expect(page.getByText("Design layers", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("QC Challenge", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("Assumption log", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("Teach-back prompts", { exact: true })).toHaveCount(0);
+
+  await page.getByRole("button", { name: "Quest Map" }).click();
   await expect(page.getByRole("heading", { name: "Five stages. One method." })).toBeVisible();
   await expect(page.locator(".quest-stage-button")).toHaveCount(5);
+  await page.getByRole("button", { name: "Close Quest Map" }).click();
+  await page.getByLabel(/How confident/).selectOption("Some familiarity");
+  await page.getByLabel(/technical skill feels most intimidating/).fill("Reading floor plans");
+  await page.getByRole("button", { name: "Complete Learning Checkpoint" }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "What an Electrical Designer Actually Does" })).toBeVisible();
   await expect(page.getByTestId("device-library-item")).toHaveCount(31);
   await expect(page.locator(".device-library-button svg[role='img']")).toHaveCount(31);
   await expect(page.locator(".device-tooltip")).toHaveCount(31);
   await expect(page.locator(".device-library-button[data-locked='true']")).toHaveCount(31);
+
+  await page.evaluate(() => window.localStorage.clear());
+  await page.reload();
   await page.getByRole("button", { name: "Enter Free Build" }).click();
   await expect(page.locator(".device-library-button[data-locked='true']")).toHaveCount(0);
   const filters = page.getByLabel("Filter device library");
@@ -141,8 +161,8 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await filters.getByRole("button", { name: /Division 27/ }).click();
   await expect(page.getByTestId("device-library-item")).toHaveCount(11);
   await page.getByRole("button", { name: /Data outlet/ }).click();
-  await expect(page.getByLabel("Mentor, quest, and device information")).toContainText("not to a classroom branch panel");
-  await expect(page.getByRole("link", { name: "Open the Engineering 101 Guide" })).toHaveAttribute("href", publicAssetPath("engineering-guide"));
+  await page.getByRole("tab", { name: "Device" }).click();
+  await expect(page.getByLabel("Current lesson context")).toContainText("not to a classroom branch panel");
   await expect(page.getByText(/Educational concept only/i)).toBeVisible();
 });
 
@@ -190,7 +210,7 @@ test("public identity, font roles, document actions, and compact footer are cons
   expect(footerHeight).toBeLessThanOrEqual(360);
 
   await page.goto("/engineering/classroom-lab");
-  const uiFont = await page.locator(".quest-panel-kicker").first().evaluate((element) => getComputedStyle(element).fontFamily);
+  const uiFont = await page.locator(".quest-kicker").first().evaluate((element) => getComputedStyle(element).fontFamily);
   expect(uiFont).toContain("Roboto");
 
   await page.goto("/lomnickpro");
@@ -418,9 +438,13 @@ test("twenty-quest progression unlocks once, awards milestones, persists, and re
   await page.evaluate(() => window.localStorage.clear());
   await page.reload();
   await page.getByRole("button", { name: "Start Guided Journey" }).click();
+  await page.getByRole("button", { name: "Quest Map" }).click();
   const stageOne = page.getByLabel("Stage 1 quests");
   await expect(stageOne.getByRole("button", { name: /Joel's Engineering-Learning Testimony/ })).not.toHaveAttribute("aria-disabled", "true");
   await expect(stageOne.getByRole("button", { name: /What an Electrical Designer Actually Does/ })).toHaveAttribute("aria-disabled", "true");
+  await page.getByRole("button", { name: "Close Quest Map" }).click();
+  await page.getByLabel(/How confident/).selectOption("Some familiarity");
+  await page.getByLabel(/technical skill feels most intimidating/).fill("Reading floor plans");
 
   for (const title of [
     "What an Electrical Designer Actually Does",
@@ -428,16 +452,19 @@ test("twenty-quest progression unlocks once, awards milestones, persists, and re
     "How to Read a Floor Plan",
   ]) {
     await page.getByRole("button", { name: "Complete learning checkpoint" }).click();
-    await expect(page.getByRole("heading", { name: title })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: title })).toBeVisible();
   }
   await page.getByRole("button", { name: "Complete learning checkpoint" }).click();
+  await page.getByRole("button", { name: "Quest Map" }).click();
   await expect(page.getByText("Plan Reader", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Earned educational badges")).toContainText("Map Reader");
-  await expect(page.getByRole("progressbar", { name: "Journey progress" })).toHaveAttribute("aria-valuenow", "4");
+  await expect(page.locator(".quest-stage-button").first()).toContainText("4 / 4 complete");
+  await page.getByRole("button", { name: "Close Quest Map" }).click();
 
   await page.reload();
-  await expect(page.getByRole("button", { name: "Continue Journey" })).toBeVisible();
-  await expect(page.getByRole("progressbar", { name: "Journey progress" })).toHaveAttribute("aria-valuenow", "4");
+  await expect(page.getByText("Guided Journey", { exact: true }).first()).toBeVisible();
+  await page.getByRole("button", { name: "Quest Map" }).click();
+  await expect(page.locator(".quest-stage-button").first()).toContainText("4 / 4 complete");
   await expect(page.getByLabel("Earned educational badges").getByText("Map Reader", { exact: true })).toHaveCount(1);
 
   page.once("dialog", (dialog) => dialog.accept());
@@ -455,6 +482,8 @@ test("all twenty quest titles and guide pages match the Engineering 101 map", as
     "Quality-Control Review", "Suggested Solution and Alternatives", "RFIs, Submittals, Field Changes, Testing, and Commissioning", "Final Teach-Back and Reflection",
   ];
   await page.goto("/engineering/classroom-lab");
+  await page.getByRole("button", { name: "Start Guided Journey" }).click();
+  await page.getByRole("button", { name: "Quest Map" }).click();
   for (let stage = 0; stage < 5; stage += 1) {
     await page.locator(".quest-stage-button").nth(stage).click();
     await expect(page.locator(".quest-list-button strong")).toHaveText(expected.slice(stage * 4, stage * 4 + 4));
@@ -595,7 +624,7 @@ test("feedback, assumptions, mentor hints, QC redlines, and teach-back persist",
   await expect(page.getByText("Owner technology standard is pending confirmation.")).toBeVisible();
   await expect(page.locator(".redline-marker")).toHaveCount(1);
   await expect(page.getByText(/Hint 2 of 4: Relevant zone/)).toBeVisible();
-  expect((await page.locator("main").innerText()).toLowerCase()).not.toMatch(/code approved|code compliant/);
+  expect((await page.locator("#main-content").innerText()).toLowerCase()).not.toMatch(/code approved|code compliant/);
 });
 
 test("public documents respond as PDFs and professional files are noindex", async ({ request }) => {
