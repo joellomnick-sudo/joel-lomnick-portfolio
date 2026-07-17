@@ -77,15 +77,34 @@ test("core typography meets minimums and desktop hero uses three lines", async (
   expect(core).toBeGreaterThanOrEqual(16);
 });
 
-test("case studies use contain and lightbox returns focus", async ({ page }) => {
+test("case studies use natural proportions without black sidebars and lightbox returns focus", async ({ page }) => {
   await page.goto("/lomnickpro");
   const trigger = page.getByRole("button", { name: /Enlarge Real Estate/ });
+  const cards = await page.locator(".case-study-trigger").evaluateAll((buttons) => buttons.map((button) => {
+    const image = button.querySelector<HTMLImageElement>("img")!;
+    const buttonBox = button.getBoundingClientRect();
+    const imageBox = image.getBoundingClientRect();
+    return {
+      background: getComputedStyle(button).backgroundColor,
+      buttonWidth: Math.round(buttonBox.width),
+      imageWidth: Math.round(imageBox.width),
+      imageHeight: Math.round(imageBox.height),
+      maxHeight: getComputedStyle(image).maxHeight,
+      objectFit: getComputedStyle(image).objectFit,
+      shadow: getComputedStyle(image).boxShadow,
+      ratioDelta: Math.abs((imageBox.width / imageBox.height) - (image.naturalWidth / image.naturalHeight)),
+    };
+  }));
+  expect(cards).toHaveLength(4);
+  expect(cards.every((card) => card.background === "rgba(0, 0, 0, 0)" || card.background === "transparent")).toBe(true);
+  expect(cards.every((card) => Math.abs(card.buttonWidth - card.imageWidth) <= 1)).toBe(true);
+  expect(new Set(cards.map((card) => card.imageWidth)).size).toBe(1);
+  expect(cards.every((card) => card.maxHeight === "none" && card.objectFit === "contain")).toBe(true);
+  expect(cards.every((card) => card.shadow !== "none" && card.ratioDelta < 0.01)).toBe(true);
   await trigger.click();
   await expect(page.getByRole("dialog", { name: /Real Estate.*full resolution/ })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(trigger).toBeFocused();
-  const fits = await page.locator('img[src*="case-studies"]').evaluateAll((images) => images.map((image) => getComputedStyle(image).objectFit));
-  expect(fits.every((fit) => fit === "contain")).toBe(true);
 });
 
 test("contact validates fields and rejects honeypot", async ({ page, request }) => {

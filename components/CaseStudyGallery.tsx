@@ -31,8 +31,8 @@ export function CaseStudyGallery() {
   return <>
     <div className="grid gap-x-10 gap-y-12 md:grid-cols-2">
       {caseStudies.map((study) => <article key={study.id} className="min-w-0">
-        <button type="button" className="group flex w-full justify-center overflow-hidden rounded-md border border-deepBrown/20 bg-richBlack text-left shadow-premium focus-ring" onClick={(event) => { triggerRef.current = event.currentTarget; setActive(study); }} aria-label={`Enlarge ${study.title}`}>
-          <Image src={publicAssetPath(study.assetId)} alt={study.alt} width={1103} height={1426} sizes="(min-width: 768px) 43vw, 100vw" className="h-auto max-h-[38rem] w-auto max-w-full object-contain transition duration-300 group-hover:opacity-90" />
+        <button type="button" className="case-study-trigger focus-ring" onClick={(event) => { triggerRef.current = event.currentTarget; setActive(study); }} aria-label={`Enlarge ${study.title}`}>
+          <Image src={publicAssetPath(study.assetId)} alt={study.alt} width={1103} height={1426} sizes="(min-width: 768px) 43vw, 100vw" className="case-study-image object-contain" />
         </button>
         <h2 className="subsection-title mt-5">{study.title}</h2>
         <p className="mt-3 max-w-2xl text-[1.05rem] leading-8 text-mutedBrown">{study.summary}</p>
