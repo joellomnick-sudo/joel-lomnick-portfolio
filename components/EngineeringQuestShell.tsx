@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Award, BookOpen, Check, ChevronRight, CircleHelp, Compass, Grid3X3, LockKeyhole, Map, RotateCcw, Save, Sparkles, X } from "lucide-react";
+import { Award, BookOpen, Check, ChevronRight, CircleHelp, Compass, Grid3X3, LockKeyhole, Map, RotateCcw, Save, Search, Sparkles, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ClassroomCanvas } from "@/components/engineering101/ClassroomCanvas";
 import { DeviceSymbol } from "@/components/engineering101/DeviceSymbol";
@@ -13,12 +13,22 @@ import { categoryTotals, engineeringQuests, questById } from "@/data/engineering
 
 const disclaimer = "Educational concept only. Actual device requirements, locations, ratings, pathways, responsibilities, and testing vary by adopted codes, owner standards, project specifications, equipment, and the Authority Having Jurisdiction.";
 
+function devicesForLesson(mode: ExperienceMode, questId: number) {
+  if (mode === "free") return engineeringDevices;
+  if (questId === 9) return engineeringDevices.filter((device) => device.division === "26");
+  if (questId === 10) return engineeringDevices.filter((device) => device.division === "27");
+  if (questId === 11) return engineeringDevices.filter((device) => device.division === "28");
+  if ([13, 15, 16, 18].includes(questId)) return engineeringDevices.filter((device) => device.unlockQuest <= questId);
+  return [];
+}
+
 export function EngineeringQuestShell() {
   const questProgress = useQuestProgress();
   const { progress } = questProgress;
   const [activeStage, setActiveStage] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [activeQuestId, setActiveQuestId] = useState(1);
   const [deviceFilter, setDeviceFilter] = useState<Division | "all">("all");
+  const [deviceSearch, setDeviceSearch] = useState("");
   const [selectedDeviceId, setSelectedDeviceId] = useState(engineeringDevices[0].id);
   const [announcement, setAnnouncement] = useState("Choose a quest to review its learning goal.");
   const [questMapOpen, setQuestMapOpen] = useState(false);
@@ -48,9 +58,14 @@ export function EngineeringQuestShell() {
     };
   }, [questMapOpen]);
 
-  const filteredDevices = useMemo(() => engineeringDevices.filter((device) => deviceFilter === "all" || device.division === deviceFilter), [deviceFilter]);
   const selectedDevice = engineeringDevices.find((device) => device.id === selectedDeviceId) ?? engineeringDevices[0];
   const activeQuest = questById.get(activeQuestId) ?? engineeringQuests[0];
+  const lessonDevices = useMemo(() => devicesForLesson(progress.currentMode, activeQuest.id), [activeQuest.id, progress.currentMode]);
+  const filteredDevices = useMemo(() => lessonDevices.filter((device) => {
+    const matchesDivision = deviceFilter === "all" || device.division === deviceFilter;
+    const query = deviceSearch.trim().toLowerCase();
+    return matchesDivision && (!query || `${device.name} ${device.category} Division ${device.division}`.toLowerCase().includes(query));
+  }), [deviceFilter, deviceSearch, lessonDevices]);
   const stageQuests = engineeringQuests.filter((quest) => quest.stage === activeStage);
   const nextQuestId = questProgress.nextQuest?.id ?? engineeringQuests.length + 1;
   const lastCompletedQuest = [...engineeringQuests].reverse().find((quest) => progress.completedQuestIds.includes(quest.id));
@@ -97,6 +112,49 @@ export function EngineeringQuestShell() {
 
   const modeLabel = progress.currentMode === "guided" ? "Guided Journey" : progress.currentMode === "free" ? "Free Build" : "Map Preview";
   const introQuest = progress.currentMode === "guided" && activeQuest.id === 1;
+  const placementEnabled = lessonDevices.length > 0;
+  const hasPlacementFeedback = /\b(?:selected|placed|moved|deleted|rotated|saved|restored|locked|snapped|drawing|view)\b/i.test(announcement);
+  const placementStatus = placementEnabled
+    ? hasPlacementFeedback
+      ? announcement
+      : "Select a device to begin. Dragging is available on desktop; tap placement is available on touch screens."
+    : activeQuest.id === 17
+      ? "Use the review tools to inspect the design and record redlines. Standard device placement is paused."
+      : "This lesson does not use device placement yet.";
+
+  useEffect(() => {
+    if (!lessonDevices.length) return;
+    if (!lessonDevices.some((device) => device.id === selectedDeviceId)) setSelectedDeviceId(lessonDevices[0].id);
+    if (progress.currentMode !== "free") {
+      setDeviceFilter("all");
+      setDeviceSearch("");
+    }
+  }, [lessonDevices, progress.currentMode, selectedDeviceId]);
+
+  const deviceTray = placementEnabled ? <section className="device-toolkit device-toolkit-docked" aria-labelledby="device-library-heading">
+    <div className="device-toolkit-heading"><div><p className="quest-panel-kicker">Active device tray</p><h2 id="device-library-heading">{progress.currentMode === "free" ? "Choose a device to place." : "Devices for this lesson."}</h2></div><p>{filteredDevices.length} of {lessonDevices.length} devices</p></div>
+    {progress.currentMode === "free" ? <div className="device-library-controls">
+      <label className="device-search"><Search aria-hidden="true" /><span className="sr-only">Search device library</span><input type="search" value={deviceSearch} onChange={(event) => setDeviceSearch(event.target.value)} placeholder="Search devices" /></label>
+      <div className="device-filter" aria-label="Filter device library">
+        <button type="button" aria-pressed={deviceFilter === "all"} onClick={() => setDeviceFilter("all")}>All <span>{engineeringDevices.length}</span></button>
+        {(["26", "27", "28"] as const).map((division) => <button key={division} type="button" aria-pressed={deviceFilter === division} onClick={() => setDeviceFilter(division)}>Division {division} <span>{deviceCounts[division]}</span></button>)}
+      </div>
+    </div> : <p className="device-tray-scope">Quest {activeQuest.id} focuses this tray on Division {lessonDevices[0].division} devices introduced by the lesson.</p>}
+    <div className="device-library-grid" aria-live="polite">
+      {filteredDevices.map((device) => {
+        const locked = progress.currentMode !== "free" && device.unlockQuest > nextQuestId;
+        return <div key={device.id} className="device-library-item" data-testid="device-library-item">
+          <button type="button" className={`device-library-button device-color-${device.systemColor}`} aria-pressed={!locked && selectedDevice.id === device.id} aria-disabled={locked} aria-describedby={`device-tooltip-${device.id}`} data-locked={locked || undefined} draggable={!locked} onDragStart={(event) => { setSelectedDeviceId(device.id); setActiveContext("device"); setAnnouncement(`${device.name} selected. Drag it onto the active drawing view.`); event.dataTransfer.setData("application/x-engineering-device", device.id); event.dataTransfer.setData("text/plain", `device:${device.id}`); event.dataTransfer.effectAllowed = "copy"; }} onClick={() => { if (!locked) { setSelectedDeviceId(device.id); setActiveContext("device"); setAnnouncement(`${device.name} selected. Tap the drawing to place it.`); } }}>
+            <DeviceSymbol kind={device.previewSymbol} view="preview" label={`${device.name} device preview`} />
+            <span><strong>{device.name}</strong><small>Division {device.division} &middot; {device.category}</small></span>
+            {(locked || device.conditional) && <em>{locked ? `Unlocks at Quest ${device.unlockQuest}` : "Conditional"}</em>}
+          </button>
+          <span id={`device-tooltip-${device.id}`} role="tooltip" className="device-tooltip">{locked ? `Locked until Quest ${device.unlockQuest}. ` : ""}{device.description}</span>
+        </div>;
+      })}
+    </div>
+    {filteredDevices.length === 0 ? <p className="device-empty-state">No devices match this search and filter.</p> : null}
+  </section> : undefined;
 
   if (progress.currentMode === "landing") {
     return <div className="quest-experience">
@@ -168,28 +226,7 @@ export function EngineeringQuestShell() {
     </main> : <main className="quest-workspace quest-workspace-focused" aria-label="Classroom Design Quest workspace">
       <div className="quest-canvas-panel">
         <div className="quest-canvas-header"><div><p className="quest-panel-kicker">Active workspace</p><h2>{stageOverview[activeStage - 1].title}</h2></div><span className="quest-mode-label">{modeLabel}</span></div>
-        <ClassroomCanvas selectedDevice={selectedDevice} placementEnabled={progress.currentMode === "free" || selectedDevice.unlockQuest <= nextQuestId} onDeviceSelected={setSelectedDeviceId} onStatus={setAnnouncement} />
-
-        <section className="device-toolkit" aria-labelledby="device-library-heading">
-          <div className="device-toolkit-heading"><div><p className="quest-panel-kicker">Device toolkit</p><h2 id="device-library-heading">Learn the symbol. Trace the system.</h2></div><p>{engineeringDevices.length} educational devices</p></div>
-          <div className="device-filter" aria-label="Filter device library">
-            <button type="button" aria-pressed={deviceFilter === "all"} onClick={() => setDeviceFilter("all")}>All <span>{engineeringDevices.length}</span></button>
-            {(["26", "27", "28"] as const).map((division) => <button key={division} type="button" aria-pressed={deviceFilter === division} onClick={() => setDeviceFilter(division)}>Division {division} <span>{deviceCounts[division]}</span></button>)}
-          </div>
-          <div className="device-library-grid" aria-live="polite">
-            {filteredDevices.map((device) => {
-              const locked = progress.currentMode !== "free" && device.unlockQuest > nextQuestId;
-              return <div key={device.id} className="device-library-item" data-testid="device-library-item">
-                <button type="button" className={`device-library-button device-color-${device.systemColor}`} aria-pressed={!locked && selectedDevice.id === device.id} aria-disabled={locked} aria-describedby={`device-tooltip-${device.id}`} data-locked={locked || undefined} draggable={!locked} onDragStart={(event) => { setSelectedDeviceId(device.id); setActiveContext("device"); event.dataTransfer.setData("application/x-engineering-device", device.id); event.dataTransfer.setData("text/plain", `device:${device.id}`); event.dataTransfer.effectAllowed = "copy"; }} onClick={() => { if (!locked) { setSelectedDeviceId(device.id); setActiveContext("device"); } }}>
-                  <DeviceSymbol kind={device.previewSymbol} view="preview" label={`${device.name} device preview`} />
-                  <span><strong>{device.name}</strong><small>Division {device.division} &middot; {device.category}</small></span>
-                  {(locked || device.conditional) && <em>{locked ? `Unlocks at Quest ${device.unlockQuest}` : "Conditional"}</em>}
-                </button>
-                <span id={`device-tooltip-${device.id}`} role="tooltip" className="device-tooltip">{locked ? `Locked until Quest ${device.unlockQuest}. ` : ""}{device.description}</span>
-              </div>;
-            })}
-          </div>
-        </section>
+        <ClassroomCanvas selectedDevice={selectedDevice} placementEnabled={placementEnabled} placementStatus={placementStatus} deviceTray={deviceTray} onDeviceSelected={setSelectedDeviceId} onStatus={setAnnouncement} />
       </div>
 
       <aside className="quest-context-panel" aria-label="Current lesson context">

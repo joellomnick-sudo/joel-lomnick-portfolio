@@ -144,15 +144,23 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await page.getByLabel(/technical skill feels most intimidating/).fill("Reading floor plans");
   await page.getByRole("button", { name: "Complete Learning Checkpoint" }).click();
   await expect(page.getByRole("heading", { level: 1, name: "What an Electrical Designer Actually Does" })).toBeVisible();
-  await expect(page.getByTestId("device-library-item")).toHaveCount(31);
-  await expect(page.locator(".device-library-button svg[role='img']")).toHaveCount(31);
-  await expect(page.locator(".device-tooltip")).toHaveCount(31);
-  await expect(page.locator(".device-library-button[data-locked='true']")).toHaveCount(31);
+  await expect(page.getByTestId("classroom-canvas")).toBeVisible();
+  await expect(page.getByTestId("device-library-item")).toHaveCount(0);
+  await expect(page.getByText("This lesson does not use device placement yet.")).toBeVisible();
+  await expect(page.locator(".canvas-instruction")).toHaveCount(0);
+  await expect(page.locator(".active-view-description")).toContainText("Place wall-mounted and floor-level equipment");
+  await page.getByRole("button", { name: "Reflected ceiling", exact: true }).click();
+  await expect(page.locator(".active-view-description")).toContainText("Coordinate lighting and ceiling-mounted devices");
 
   await page.evaluate(() => window.localStorage.clear());
   await page.reload();
   await page.getByRole("button", { name: "Enter Free Build" }).click();
+  await expect(page.getByTestId("device-library-item")).toHaveCount(31);
   await expect(page.locator(".device-library-button[data-locked='true']")).toHaveCount(0);
+  await expect(page.getByLabel("Search device library")).toBeVisible();
+  await page.getByLabel("Search device library").fill("speaker");
+  await expect(page.getByTestId("device-library-item")).toHaveCount(2);
+  await page.getByLabel("Search device library").fill("");
   const filters = page.getByLabel("Filter device library");
   await filters.getByRole("button", { name: /Division 28/ }).click();
   await expect(page.getByTestId("device-library-item")).toHaveCount(5);
@@ -164,6 +172,30 @@ test("classroom quest foundation and SVG device library expose a guided learning
   await page.getByRole("tab", { name: "Device" }).click();
   await expect(page.getByLabel("Current lesson context")).toContainText("not to a classroom branch panel");
   await expect(page.getByText(/Educational concept only/i)).toBeVisible();
+});
+
+test("classroom device tray follows lesson scope and stays adjacent to placement status", async ({ page }) => {
+  const progressFor = (quest: number) => ({
+    completedQuestIds: Array.from({ length: quest - 1 }, (_, index) => index + 1),
+    xpByCategory: { Exploration: 0, Systems: 0, Coordination: 0, Communication: 0, "Quality Control": 0 },
+    badges: [], currentMode: "guided", lastOpenQuest: quest, hintUsage: 0,
+  });
+
+  for (const [quest, division, count] of [[9, "26", 15], [10, "27", 11], [11, "28", 5]] as const) {
+    await page.goto("/engineering/classroom-lab");
+    await page.evaluate((progress) => window.localStorage.setItem("lomnickpro-engineering-101-progress-v1", JSON.stringify(progress)), progressFor(quest));
+    await page.reload();
+    await expect(page.getByTestId("device-library-item")).toHaveCount(count);
+    expect(await page.locator(".device-library-button small").allTextContents()).toEqual(Array(count).fill(expect.stringContaining(`Division ${division}`)));
+    await expect(page.getByLabel("Filter device library")).toHaveCount(0);
+    await expect(page.locator(".placement-status")).toContainText("Select a device to begin");
+    await expect(page.locator(".classroom-canvas-scroll + .placement-status + .canvas-instruction + .device-toolkit-docked")).toHaveCount(1);
+  }
+
+  await page.evaluate((progress) => window.localStorage.setItem("lomnickpro-engineering-101-progress-v1", JSON.stringify(progress)), progressFor(17));
+  await page.reload();
+  await expect(page.getByTestId("device-library-item")).toHaveCount(0);
+  await expect(page.getByText(/Standard device placement is paused/)).toBeVisible();
 });
 
 test("desktop header stays balanced without wrapping or collisions", async ({ page }) => {

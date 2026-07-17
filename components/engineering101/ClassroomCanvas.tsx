@@ -2,6 +2,7 @@
 
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Copy, Eye, EyeOff, Focus, Grip, Layers3, Lightbulb, Lock, Minus, Move, Plus, Redo2, RotateCw, Save, Trash2, Undo2, Unlock } from "lucide-react";
 import { useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { DeviceSymbol } from "@/components/engineering101/DeviceSymbol";
 import { ClassroomReviewPanel } from "@/components/engineering101/ClassroomReviewPanel";
 import { useClassroomDesign } from "@/components/engineering101/useClassroomDesign";
@@ -14,8 +15,18 @@ import type { RedlineCategory } from "@/data/engineering101/review";
 type ClassroomCanvasProps = {
   selectedDevice: EngineeringDevice;
   placementEnabled: boolean;
+  placementStatus: string;
+  deviceTray?: ReactNode;
   onDeviceSelected: (deviceId: string) => void;
   onStatus: (message: string) => void;
+};
+
+const viewDescriptions: Record<DesignView, string> = {
+  floor: "Place wall-mounted and floor-level equipment while coordinating with doors, furniture, casework, and circulation.",
+  ceiling: "Coordinate lighting and ceiling-mounted devices with the ceiling grid, HVAC, sprinklers, and other overhead systems.",
+  elevation: "Coordinate the display, power, data, instructional audio, controls, whiteboards, and nearby casework.",
+  system: "Trace each device back to the correct source, panel, IDF, control system, or life-safety system.",
+  composite: "Review completed layers together and identify coordination conflicts.",
 };
 
 function snapPosition(device: EngineeringDevice, x: number, y: number, view: "floor" | "ceiling" | "elevation") {
@@ -74,7 +85,7 @@ function BaseDrawing({ view, coordinationVisible }: { view: DesignView; coordina
   </svg>;
 }
 
-export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSelected, onStatus }: ClassroomCanvasProps) {
+export function ClassroomCanvas({ selectedDevice, placementEnabled, placementStatus, deviceTray, onDeviceSelected, onStatus }: ClassroomCanvasProps) {
   const classroom = useClassroomDesign();
   const reviewTools = useClassroomReview();
   const [activeView, setActiveView] = useState<DesignView>("floor");
@@ -176,6 +187,7 @@ export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSele
     <div className="canvas-view-tabs" aria-label="Classroom drawing view">
       {designViews.map((view) => <button key={view.id} type="button" aria-pressed={activeView === view.id} onClick={() => { setActiveView(view.id); onStatus(`${view.label} opened.`); }}>{view.label}</button>)}
     </div>
+    <p className="active-view-description"><strong>{designViews.find((view) => view.id === activeView)?.label}:</strong> {viewDescriptions[activeView]}</p>
 
     <div className="canvas-toolbar" aria-label="Canvas tools">
       <button type="button" onClick={classroom.undo} disabled={!classroom.canUndo} aria-label="Undo"><Undo2 /></button>
@@ -210,7 +222,7 @@ export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSele
         style={{ width: `${zoom}%` }}
         role="application"
         tabIndex={0}
-        aria-label="Interactive classroom drawing. Select a device and tap the plan, or drag a device here. Use arrow keys to move the cursor and Enter to place."
+        aria-label={placementEnabled ? "Interactive classroom drawing. Select a device and tap the plan, or drag a device here. Use arrow keys to move the cursor and Enter to place." : "Classroom drawing for the active lesson. Device placement is not used in this lesson."}
         data-testid="classroom-canvas"
         onPointerDown={onCanvasPointer}
         onDragOver={(event) => event.preventDefault()}
@@ -251,7 +263,9 @@ export function ClassroomCanvas({ selectedDevice, placementEnabled, onDeviceSele
       </div>
     </div>
 
-    <p className="canvas-instruction"><Grip aria-hidden="true" /> Desktop: drag a device or placed symbol. Touch: select a device, then tap the drawing. Keyboard: move the cursor with arrow keys and press Enter.</p>
+    <div className={`placement-status ${placementEnabled ? "is-active" : ""}`} role="status"><strong>Placement status</strong><span>{placementStatus}</span></div>
+    {placementEnabled ? <p className="canvas-instruction"><Grip aria-hidden="true" /> Desktop: drag a device or placed symbol. Touch: select a device, then tap the drawing. Keyboard: move the cursor with arrow keys and press Enter.</p> : null}
+    {deviceTray}
 
     <div className="layer-manager" aria-labelledby="layer-manager-heading">
       <div className="layer-manager-heading"><div><Layers3 aria-hidden="true" /><h3 id="layer-manager-heading">Design layers</h3></div><button type="button" onClick={classroom.showAllLayers}>Show all</button></div>
