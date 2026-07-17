@@ -174,7 +174,7 @@ test("public identity, font roles, document actions, and compact footer are cons
   const uiFont = await page.locator(".quest-panel-kicker").first().evaluate((element) => getComputedStyle(element).fontFamily);
   expect(uiFont).toContain("Roboto");
 
-  await page.goto("/about");
+  await page.goto("/lomnickpro");
   await expect(page.getByRole("link", { name: "View Resume" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "View Cover Letter" })).toHaveCount(1);
   await page.goto("/engineering");
@@ -182,6 +182,31 @@ test("public identity, font roles, document actions, and compact footer are cons
   await page.goto("/lionheart");
   await expect(page.getByRole("link", { name: "Read Volume 1 Preview" })).toHaveCount(1);
   await expect(page.getByRole("link", { name: "Read Volume 2 Preview" })).toHaveCount(1);
+});
+
+test("professional documents belong near the top of LomnickPro only", async ({ page }) => {
+  await page.goto("/about");
+  await expect(page.getByRole("heading", { name: "Professional Documents" })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /View (Resume|Cover Letter)/ })).toHaveCount(0);
+
+  await page.goto("/lomnickpro");
+  const sections = page.locator("main > section");
+  await expect(sections).toHaveCount(4);
+  await expect(sections.nth(1).getByRole("heading", { name: "A closer look at my experience." })).toBeVisible();
+  await expect(sections.nth(2).getByRole("heading", { name: "Four ways clarity can strengthen public trust." })).toBeVisible();
+  for (const name of ["View Resume", "View Cover Letter"]) {
+    const action = page.getByRole("link", { name, exact: true });
+    await expect(action).toHaveCount(1);
+    await expect(action).toHaveAttribute("target", "_blank");
+    await expect(action).toHaveAttribute("rel", /noopener/);
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.reload();
+  const documentCards = sections.nth(1).locator(".border-t > div");
+  const boxes = await documentCards.evaluateAll((elements) => elements.map((element) => element.getBoundingClientRect()));
+  expect(boxes[1].top).toBeGreaterThan(boxes[0].bottom);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
 });
 
 test("new-tab links protect the opener and rendered images are not distorted", async ({ page }) => {

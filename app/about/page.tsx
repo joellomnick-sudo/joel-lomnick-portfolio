@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { ButtonLink } from "@/components/ButtonLink";
 import { EditorialImage } from "@/components/EditorialImage";
-import { publicAssetPath, type PublicAssetId } from "@/data/publicAssets";
+import type { PublicAssetId } from "@/data/publicAssets";
 
 export const metadata: Metadata = {
   title: "About",
@@ -69,27 +68,6 @@ export default function AboutPage() {
             <p className="prose-copy prose-copy-dark mt-6">
               The present work includes professional licensure, Lionheart, teaching, mentoring, and building work that can outlive my direct involvement. The goal is not to become less multidimensional. It is to make those dimensions more honest, disciplined, and generous.
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="editorial-section-compact">
-        <div className="site-container">
-          <h2 className="section-title">Professional Documents</h2>
-          <p className="prose-copy mt-5">Public-safe copies are provided for professional review. Personal contact information has been removed from these editions.</p>
-          <div className="mt-8 grid gap-8 border-t border-deepBrown/15 pt-8 md:grid-cols-2">
-            <div>
-              <h3 className="subsection-title">Comprehensive resume</h3>
-              <div className="button-row mt-4">
-                <ButtonLink href={publicAssetPath("public-resume")} target="_blank">View Resume</ButtonLink>
-              </div>
-            </div>
-            <div className="border-t border-deepBrown/15 pt-8 md:border-l md:border-t-0 md:pl-8 md:pt-0">
-              <h3 className="subsection-title">Comprehensive cover letter</h3>
-              <div className="button-row mt-4">
-                <ButtonLink href={publicAssetPath("public-cover-letter")} target="_blank">View Cover Letter</ButtonLink>
-              </div>
-            </div>
           </div>
         </div>
       </section>
