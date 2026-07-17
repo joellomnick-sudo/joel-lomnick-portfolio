@@ -292,10 +292,10 @@ test("public-facing language stays warm and educational", async ({ page }) => {
   }
 });
 
-test("Lionheart readers render PDFs, navigate accessibly, and expose a text companion", async ({ page }) => {
-  for (const [route, title] of [
-    ["/lionheart/volume-1-preview", "Lionheart Volume 1 Preview"],
-    ["/lionheart/volume-2-preview", "Lionheart Volume 2 Preview"],
+test("Lionheart readers render PDFs, navigate accessibly, and keep duplicate text visually hidden", async ({ page }) => {
+  for (const [route, title, excerpt] of [
+    ["/lionheart/volume-1-preview", "Lionheart Volume 1 Preview", "This ten-page edition presents selected first-person excerpts"],
+    ["/lionheart/volume-2-preview", "Lionheart Volume 2 Preview", "This ten-page edition presents selected first-person excerpts"],
   ] as const) {
     await page.goto(route);
     await expect(page.getByRole("heading", { name: title, level: 1 })).toBeVisible();
@@ -321,7 +321,20 @@ test("Lionheart readers render PDFs, navigate accessibly, and expose a text comp
     const fittedScale = Number.parseInt((await page.locator("output").textContent()) || "0", 10);
     await page.getByRole("button", { name: "Zoom in" }).click();
     await expect.poll(async () => Number.parseInt((await page.locator("output").textContent()) || "0", 10)).toBeGreaterThan(fittedScale);
-    await expect(page.getByText("Open full accessible text companion")).toBeVisible();
+    const source = page.getByTestId("lionheart-accessible-source");
+    await expect(source).toContainText("PDF page 2");
+    await expect(source).toContainText(excerpt);
+    const accessibleSourceStyle = await source.evaluate((element) => {
+      const style = getComputedStyle(element);
+      const box = element.getBoundingClientRect();
+      return { width: box.width, height: box.height, overflow: style.overflow, clip: style.clip };
+    });
+    expect(accessibleSourceStyle.width).toBeLessThanOrEqual(1);
+    expect(accessibleSourceStyle.height).toBeLessThanOrEqual(1);
+    expect(accessibleSourceStyle.overflow).toBe("hidden");
+    expect(accessibleSourceStyle.clip).not.toBe("auto");
+    await expect(page.getByText("Open full accessible text companion")).toHaveCount(0);
+    expect(await page.locator('aside[aria-label="Read-aloud controls"]').innerText()).not.toContain(excerpt);
     await expect(page.getByRole("link", { name: "Open original PDF" }).last()).toHaveAttribute("rel", "noopener noreferrer");
   }
 });
@@ -358,10 +371,23 @@ test("Lionheart narration controls use browser speech without autoplay", async (
 });
 
 test("Lionheart mobile reader fits the viewport and supports keyboard paging", async ({ page }) => {
+  for (const viewport of [{ width: 390, height: 844 }, { width: 430, height: 932 }, { width: 768, height: 1024 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/lionheart/volume-2-preview");
+    await expect(page.getByRole("status").filter({ hasText: "Page 1 of 10 ready." })).toBeVisible({ timeout: 20_000 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
+    const order = await page.evaluate(() => ({
+      controls: document.querySelector<HTMLElement>('aside[aria-label="Read-aloud controls"]')!.getBoundingClientRect().top,
+      viewer: document.querySelector<HTMLElement>('article[aria-label="PDF preview reader"]')!.getBoundingClientRect().top,
+      back: document.querySelector<HTMLElement>('[data-testid="lionheart-return"]')!.getBoundingClientRect().top,
+    }));
+    expect(order.controls).toBeLessThan(order.viewer);
+    expect(order.viewer).toBeLessThan(order.back);
+  }
+
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/lionheart/volume-2-preview");
   await expect(page.getByRole("status").filter({ hasText: "Page 1 of 10 ready." })).toBeVisible({ timeout: 20_000 });
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
   const viewer = page.getByLabel("PDF canvas. Use Left and Right Arrow keys to change pages.");
   await viewer.focus();
   await page.keyboard.press("ArrowRight");
@@ -370,6 +396,21 @@ test("Lionheart mobile reader fits the viewport and supports keyboard paging", a
   await page.getByLabel("Reading speed").focus();
   await page.keyboard.press("ArrowDown");
   await expect(page.getByText("Page 2 of 10", { exact: true })).toBeVisible();
+});
+
+test("Lionheart desktop reader gives the PDF about three quarters of the workspace", async ({ page }) => {
+  for (const viewport of [{ width: 1366, height: 768 }, { width: 1440, height: 1200 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/lionheart/volume-1-preview");
+    await expect(page.getByRole("status").filter({ hasText: "Page 1 of 10 ready." })).toBeVisible({ timeout: 20_000 });
+    const ratio = await page.getByTestId("lionheart-reader-layout").evaluate((layout) => {
+      const pdf = layout.querySelector<HTMLElement>('article[aria-label="PDF preview reader"]')!.getBoundingClientRect();
+      const controls = layout.querySelector<HTMLElement>('aside[aria-label="Read-aloud controls"]')!.getBoundingClientRect();
+      return pdf.width / (pdf.width + controls.width);
+    });
+    expect(ratio).toBeGreaterThanOrEqual(0.72);
+    expect(ratio).toBeLessThanOrEqual(0.78);
+  }
 });
 
 test("twenty-quest progression unlocks once, awards milestones, persists, and resets", async ({ page }) => {

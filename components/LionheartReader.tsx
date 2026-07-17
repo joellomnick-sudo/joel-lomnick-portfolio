@@ -217,17 +217,16 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
       if (event.key === "ArrowRight") moveToPage(pageNumber + 1);
     }}>
       <div className="site-container">
-        <div className="flex flex-wrap items-start justify-between gap-5 border-b border-deepBrown/20 pb-6">
+        <div className="border-b border-deepBrown/20 pb-6">
           <div>
             <p className="eyebrow">Lionheart responsive reader</p>
             <h1 className="section-title mt-3">{volume.title} Preview</h1>
             <p className="prose-copy mt-3">{volume.description}</p>
           </div>
-          <Link href="/lionheart" className="reader-tool focus-ring"><ChevronLeft size={18} aria-hidden="true" /> Return to Lionheart</Link>
         </div>
 
-        <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(21rem,.65fr)]">
-          <article className="overflow-hidden rounded-md bg-richBlack text-warmIvory shadow-premium" aria-label="PDF preview reader">
+        <div data-testid="lionheart-reader-layout" className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(18rem,1fr)]">
+          <article className="order-2 overflow-hidden rounded-md bg-richBlack text-warmIvory shadow-premium xl:order-1" aria-label="PDF preview reader">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-warmIvory/15 p-3">
               <div className="flex flex-wrap items-center gap-2" aria-label="Page navigation">
                 <button type="button" className={toolClass} onClick={() => moveToPage(pageNumber - 1)} disabled={pageNumber <= 1} title="Previous PDF page"><ChevronLeft size={18} aria-hidden="true" /> Previous</button>
@@ -250,16 +249,15 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
             {readerError ? <div className="border-t border-alertRed bg-warmIvory p-5 text-ink" role="alert"><p className="font-semibold">The embedded reader could not load this preview.</p><p className="mt-2 text-base text-mutedBrown">{readerError}</p><a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="reader-tool focus-ring mt-4">Open original PDF <ExternalLink size={18} aria-hidden="true" /></a></div> : null}
           </article>
 
-          <aside className="border-t-4 border-mutedGold bg-warmIvory p-5 shadow-premium" aria-label="Read-aloud and text companion">
+          <aside className="order-1 border-t-4 border-mutedGold bg-warmIvory p-5 shadow-premium xl:order-2" aria-label="Read-aloud controls">
             <div className="flex items-center gap-3"><Volume2 size={24} aria-hidden="true" /><h2 className="subsection-title">Listen to this preview</h2></div>
-            <p className="mt-3 text-base leading-7 text-mutedBrown">Narration uses a voice already available in your browser. It never starts automatically.</p>
             <div className="mt-5 grid grid-cols-2 gap-2">
               <button type="button" className={toolClass} onClick={playNarration} disabled={!speechSupported} title="Play current section"><Play size={18} aria-hidden="true" /> Play</button>
               <button type="button" className={toolClass} onClick={pauseNarration} disabled={speechState !== "playing"} title="Pause narration"><Pause size={18} aria-hidden="true" /> Pause</button>
               <button type="button" className={toolClass} onClick={resumeNarration} disabled={speechState !== "paused"} title="Resume narration"><Play size={18} aria-hidden="true" /> Resume</button>
               <button type="button" className={toolClass} onClick={stopNarration} disabled={speechState === "idle"} title="Stop narration"><Square size={17} aria-hidden="true" /> Stop</button>
             </div>
-            {!speechSupported ? <p className="mt-3 text-sm text-alertRed" role="status">Read-aloud is not available in this browser. The full text companion remains available below.</p> : null}
+            {!speechSupported ? <p className="mt-3 text-sm text-alertRed">Read-aloud is not available in this browser. The structured preview text remains available to assistive technology.</p> : null}
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
               <label className="font-ui text-base font-semibold text-mutedBrown">Reading speed
@@ -276,29 +274,27 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
             </div>
 
             <div className="mt-6 border-t border-deepBrown/15 pt-5">
-              <div className="flex items-center justify-between gap-3">
-                <button type="button" className={toolClass} onClick={() => moveToSection(sectionIndex - 1)} disabled={sectionIndex === 0} title="Previous text section"><ChevronLeft size={18} aria-hidden="true" /><span className="sr-only">Previous section</span></button>
-                <p className="text-center font-ui text-sm font-semibold">Section {sectionIndex + 1} of {volume.sections.length}</p>
-                <button type="button" className={toolClass} onClick={() => moveToSection(sectionIndex + 1)} disabled={sectionIndex === volume.sections.length - 1} title="Next text section"><span className="sr-only">Next section</span><ChevronRight size={18} aria-hidden="true" /></button>
+              <p className="font-ui text-sm font-semibold text-mutedBrown">Section {sectionIndex + 1} of {volume.sections.length}</p>
+              <h3 className="mt-2 font-heading text-xl font-bold leading-tight">{currentSection.title}</h3>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <button type="button" className={toolClass} onClick={() => moveToSection(sectionIndex - 1)} disabled={sectionIndex === 0} title="Previous text section"><ChevronLeft size={18} aria-hidden="true" /> Previous section</button>
+                <button type="button" className={toolClass} onClick={() => moveToSection(sectionIndex + 1)} disabled={sectionIndex === volume.sections.length - 1} title="Next text section">Next section <ChevronRight size={18} aria-hidden="true" /></button>
               </div>
-              <p className="eyebrow mt-5">{currentSection.kicker}</p>
-              <h3 className="mt-2 font-heading text-2xl font-bold leading-tight">{currentSection.title}</h3>
-              <div className="mt-4 space-y-4 text-base leading-7 text-mutedBrown">{currentSection.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              <p className="mt-4 text-sm leading-6 text-mutedBrown" role="status" aria-live="polite">{announcement || "Narration is ready and will not start automatically."}</p>
             </div>
           </aside>
         </div>
 
-        <details className="mt-6 border-t border-deepBrown/20 py-5">
-          <summary className="cursor-pointer font-heading text-xl font-bold focus-ring">Open full accessible text companion</summary>
-          <div className="mt-6 grid gap-8 lg:grid-cols-2">
-            {volume.sections.map((section) => <article key={section.page} aria-labelledby={`section-${section.page}`} className="border-l-2 border-mutedGold pl-5"><p className="eyebrow">PDF page {section.page}</p><h2 id={`section-${section.page}`} className="mt-2 font-heading text-2xl font-bold">{section.title}</h2><div className="mt-4 space-y-4 text-base leading-7 text-mutedBrown">{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></article>)}
-          </div>
-        </details>
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-deepBrown/20 pt-5">
-          <p className="text-base text-mutedBrown">Prefer your browser&apos;s own PDF tools?</p>
-          <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="reader-tool focus-ring">Open original PDF <ExternalLink size={18} aria-hidden="true" /></a>
+        <div className="sr-only" data-testid="lionheart-accessible-source" aria-label={`${volume.title} accessible preview text`}>
+          {volume.sections.map((section) => <section key={section.page} aria-labelledby={`section-${section.page}`}><p>PDF page {section.page}</p><h2 id={`section-${section.page}`}>{section.title}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
         </div>
-        <p className="sr-only" aria-live="polite">{announcement}</p>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-deepBrown/20 pt-5">
+          <div>
+            <p className="text-base text-mutedBrown">Prefer your browser&apos;s own PDF tools?</p>
+            <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="reader-tool focus-ring mt-3">Open original PDF <ExternalLink size={18} aria-hidden="true" /></a>
+          </div>
+          <Link href="/lionheart" data-testid="lionheart-return" className="reader-tool focus-ring"><ChevronLeft size={18} aria-hidden="true" /> Return to Lionheart</Link>
+        </div>
       </div>
     </div>
   );
