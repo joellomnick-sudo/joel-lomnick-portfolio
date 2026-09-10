@@ -1,2 +1,2 @@
 import { redirect } from "next/navigation";
-export default function Page() { redirect("/community-leadership"); }
+export default function Page() { redirect("/my-community"); }

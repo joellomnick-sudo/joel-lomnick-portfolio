@@ -3,13 +3,12 @@ import type { PublicAssetId } from "@/data/publicAssets";
 export type NavLink = { label: string; href: string };
 
 export const navLinks: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+  { label: "My Story", href: "/my-story" },
   { label: "Engineering", href: "/engineering" },
-  { label: "LomnickPro", href: "/lomnickpro" },
-  { label: "Community & Leadership", href: "/community-leadership" },
+  { label: "My Community", href: "/my-community" },
+  { label: "I Build Things", href: "/i-build-things" },
   { label: "Lionheart", href: "/lionheart" },
-  { label: "Contact", href: "/contact" },
+  { label: "Connect", href: "/connect" },
 ];
 
 export const caseStudies = [
@@ -75,7 +74,7 @@ export const communityStories = [
     alt: "Joel Lomnick with fellow National Society of Black Engineers leaders at a regional gathering.",
     caption: "Engineering became more human when academic excellence and community responsibility lived in the same room.",
     href: "https://nsbe.org/",
-    linkLabel: "Visit NSBE",
+    linkLabel: "Step into NSBE",
     body: "At RIT, NSBE gave me more than a professional network. It gave me a place to practice leadership while carrying the pressure of engineering school. I served as Academic Excellence Chair, Programs Chair, and Vice President, helped with STEM outreach, and learned that supporting Black engineering students means caring about confidence, preparation, belonging, and the next person coming behind you.",
   },
   {
@@ -85,7 +84,7 @@ export const communityStories = [
     alt: "Joel Lomnick seated with members of Iota Phi Theta Fraternity at a community event.",
     caption: "Brotherhood is strongest when service, succession, and honest accountability travel together.",
     href: "https://www.rvaiotas.org/",
-    linkLabel: "Visit Richmond Iotas",
+    linkLabel: "Step into Richmond Iotas",
     body: "Iota taught me to build for continuity, not applause. Through Omicron Omega leadership, Vice Polaris service, chapter technology and communications, advising, and intake leadership, I have tried to leave clearer systems and more prepared brothers behind. Scholarship, Leadership, Citizenship, Fidelity, and Brotherhood are not footer words to me; they are habits that have to survive a change in title.",
   },
   {
@@ -95,7 +94,7 @@ export const communityStories = [
     alt: "Joel Lomnick with a National Pan-Hellenic Council colleague in Richmond.",
     caption: "Coalition work asks for visibility without sacrificing relationships.",
     href: "https://nphcmr.org/",
-    linkLabel: "Visit NPHC Metro Richmond",
+    linkLabel: "Step into NPHC Metro Richmond",
     body: "Coalition work taught me how much public professionalism depends on private trust. As a webmaster and digital-support volunteer, I have helped Divine Nine organizations communicate across different traditions, protect relationships, and show the public what cooperation can look like when our shared purpose matters more than any one organization.",
   },
   {
@@ -105,7 +104,7 @@ export const communityStories = [
     alt: "Church media workstation used by Joel Lomnick to support worship livestreams and communication.",
     caption: "Worship technology can be access, hospitality, memory, and ministry all at once.",
     href: "http://www.thirdstreetbethel.org/",
-    linkLabel: "Visit Third Street Bethel AME Church",
+    linkLabel: "Step into Third Street Bethel",
     body: "Church service has placed me in the balcony, behind the switcher, at trustee meetings, inside internal-audit work, and beside young men who needed steady adults. Media ministry and livestream support are not separate from care. Clear audio, a readable announcement, and a reliable broadcast can help someone participate who could not otherwise be in the room.",
   },
   {
@@ -123,7 +122,7 @@ export const communityStories = [
     alt: "Joel Lomnick with a djembe, reflecting his participation in West African drum and dance.",
     caption: "Rhythm has carried culture, memory, discipline, grief, and joy across every city I have called home.",
     href: "https://www.instagram.com/akomadegado/",
-    linkLabel: "Visit Akoma de Gado",
+    linkLabel: "Step into Akoma de Gado",
     body: "From Rochester to Albany and Troy to Richmond, West African drum and dance has helped me understand community through the body. Rhythm is not decoration. It is listening, timing, memory, discipline, and joy practiced with other people. It has been one of the places where grief could move and belonging could return.",
   },
   {
@@ -133,14 +132,14 @@ export const communityStories = [
     alt: "Joel Lomnick with members of the Break It Down RVA line-dance community outdoors.",
     caption: "Joy is serious community work, especially when movement brings generations into the same rhythm.",
     href: "https://www.breakitdownrva.com/",
-    linkLabel: "Visit Break It Down RVA",
+    linkLabel: "Step into Break It Down RVA",
     body: "Line dance gives people a reason to move, laugh, learn, and come back. In Black community spaces, that kind of intergenerational connection matters. Break It Down RVA reminds me that wellness can be social, movement can be memory, and leadership sometimes looks like helping the person beside you find the count.",
   },
 ] as const;
 
 export const contactInquiryTypes = [
   "Electrical engineering or technical communication",
-  "LomnickPro website or branding",
+  "Website, branding, or I Build Things project",
   "Flyer, proposal, or presentation",
   "Speaking or workshop",
   "Mentoring or professional development",

@@ -12,15 +12,15 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "600"], varia
 
 export const metadata: Metadata = {
   metadataBase: new URL(canonical),
-  title: { default: "Joel M. Lomnick | Engineer, Storyteller, Community Builder", template: "%s | Joel M. Lomnick" },
-  description: "The portfolio of Richmond-based electrical engineer, creative strategist, author, mentor, and community builder Joel M. Lomnick.",
+  title: { default: "Joel M. Lomnick | Engineering, Story, and Community", template: "%s | Joel M. Lomnick" },
+  description: "My first-person portfolio as a Richmond-based electrical engineer, storyteller, builder, mentor, and proud Black community man.",
   applicationName: "LomnickPro",
   authors: [{ name: "Joel M. Lomnick", url: canonical }],
   creator: "Joel M. Lomnick",
   publisher: "Lomnick Professional Services",
   alternates: { canonical },
-  openGraph: { type: "website", locale: "en_US", url: canonical, siteName: "LomnickPro", title: "Joel M. Lomnick", description: "Engineering, storytelling, creative strategy, mentorship, and community service rooted in Richmond, Virginia.", images: [{ url: publicAssetPath("social-og"), width: 1729, height: 910, alt: "Joel M. Lomnick and LomnickPro" }] },
-  twitter: { card: "summary_large_image", title: "Joel M. Lomnick", description: "Engineer, storyteller, mentor, and community builder.", images: [publicAssetPath("social-og")] },
+  openGraph: { type: "website", locale: "en_US", url: canonical, siteName: "LomnickPro", title: "Joel M. Lomnick", description: "A first-person walk through my engineering, storytelling, building, mentorship, Black community, faith, culture, and service.", images: [{ url: publicAssetPath("social-og"), width: 1729, height: 910, alt: "Joel M. Lomnick and LomnickPro" }] },
+  twitter: { card: "summary_large_image", title: "Joel M. Lomnick", description: "Engineering, story, building, mentorship, and community in my own voice.", images: [publicAssetPath("social-og")] },
 };
 
 const person = { "@context": "https://schema.org", "@type": "Person", name: "Joel M. Lomnick", url: canonical, jobTitle: "Electrical Engineer and Creative Strategist", worksFor: { "@type": "Organization", name: "Lomnick Professional Services" }, homeLocation: { "@type": "Place", name: "Richmond, Virginia" } };

@@ -80,7 +80,7 @@ export function Header() {
         </nav>
 
         <div className="hidden shrink-0 xl:block">
-          <ButtonLink href="/contact" size="compact" className="header-consultation">Book a Consultation</ButtonLink>
+          <ButtonLink href="/connect" size="compact" className="header-consultation">Connect with me</ButtonLink>
         </div>
 
         <button
@@ -107,8 +107,8 @@ export function Header() {
           >
             <div className="flex items-start justify-between gap-4 border-b border-warmIvory/15 pb-5">
               <div>
-                <p className="font-serif text-2xl font-bold text-warmIvory">LomnickPro</p>
-                <p className="mt-1 text-base text-warmIvory/75">Joel M. Lomnick</p>
+                <p className="font-serif text-2xl font-bold text-warmIvory">Joel M. Lomnick</p>
+                <p className="mt-1 text-base text-warmIvory/75">Step into my world</p>
               </div>
               <button
                 ref={closeRef}
@@ -133,8 +133,8 @@ export function Header() {
                 </Link>
               ))}
             </nav>
-            <ButtonLink href="/contact" className="mt-auto w-full" onClick={() => setOpen(false)}>
-              Book a Consultation
+            <ButtonLink href="/connect" className="mt-auto w-full" onClick={() => setOpen(false)}>
+              Connect with me
             </ButtonLink>
           </div>
         </div>

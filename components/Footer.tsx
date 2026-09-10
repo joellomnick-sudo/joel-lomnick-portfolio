@@ -8,7 +8,7 @@ export function Footer() {
         <div>
           <p className="font-heading text-xl font-bold">Joel M. Lomnick</p>
           <p className="mt-2 max-w-sm text-[0.95rem] leading-6 text-warmIvory/80">
-            Lomnick Professional Services / LomnickPro<br />
+            Engineer, storyteller, builder, and proud Black community man<br />
             Richmond, Virginia
           </p>
         </div>
@@ -27,9 +27,9 @@ export function Footer() {
         </nav>
 
         <div>
-          <p className="text-base font-bold text-softGold">A warm place for useful work</p>
+          <p className="text-base font-bold text-softGold">A map of my world</p>
           <p className="mt-2 text-base leading-7 text-warmIvory/85">
-            Built with purpose. Rooted in community. Made to help good work travel farther.
+            Built with purpose. Rooted in Black community, engineering clarity, faith, culture, service, and story.
           </p>
           <p className="mt-4 text-sm text-warmIvory/70">
             Copyright {new Date().getFullYear()} Joel M. Lomnick. All rights reserved.

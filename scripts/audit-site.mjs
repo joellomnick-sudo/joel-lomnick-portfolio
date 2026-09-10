@@ -9,15 +9,15 @@ const outputFile = resolve(
 const strict = process.env.STRICT_AUDIT === "1";
 const routeCatalog = [
   ["home", "/"],
-  ["about", "/about"],
+  ["my-story", "/my-story"],
   ["engineering", "/engineering"],
   ["classroom-lab", "/engineering/classroom-lab"],
-  ["lomnickpro", "/lomnickpro"],
-  ["community-leadership", "/community-leadership"],
+  ["my-community", "/my-community"],
+  ["i-build-things", "/i-build-things"],
   ["lionheart", "/lionheart"],
   ["lionheart-volume-1-reader", "/lionheart/volume-1-preview"],
   ["lionheart-volume-2-reader", "/lionheart/volume-2-preview"],
-  ["contact", "/contact"],
+  ["connect", "/connect"],
 ];
 const requestedRoutes = new Set(
   (process.env.ROUTES || "")
@@ -33,13 +33,12 @@ const viewports = [
   ["mobile", { width: 390, height: 844 }],
 ];
 const navLabels = [
-  "Home",
-  "About",
+  "My Story",
   "Engineering",
-  "LomnickPro",
-  "Community & Leadership",
+  "My Community",
+  "I Build Things",
   "Lionheart",
-  "Contact",
+  "Connect",
 ];
 
 async function settle(page) {
