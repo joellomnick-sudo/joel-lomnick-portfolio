@@ -129,19 +129,24 @@ async function listTable<T>(tableId: string): Promise<Array<AirtableRecord<T>> |
     url.searchParams.set("pageSize", "100");
     if (offset) url.searchParams.set("offset", offset);
 
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-      cache: "no-store",
-    });
+    try {
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      });
 
-    if (!response.ok) {
-      console.error("Lionheart Airtable read failed", tableId, response.status);
+      if (!response.ok) {
+        console.error("Lionheart Airtable read failed", tableId, response.status);
+        return null;
+      }
+
+      const data = (await response.json()) as AirtableListResponse<T>;
+      records.push(...data.records);
+      offset = data.offset;
+    } catch (error) {
+      console.error("Lionheart Airtable request failed", tableId, error);
       return null;
     }
-
-    const data = (await response.json()) as AirtableListResponse<T>;
-    records.push(...data.records);
-    offset = data.offset;
   } while (offset);
 
   return records;
