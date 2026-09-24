@@ -27,14 +27,16 @@ export default async function LionheartLayout({ children }: Readonly<{ children:
   const configured = isLionheartConfigured();
   const authorized = configured && verifyLionheartSessionToken(cookieStore.get(LIONHEART_SESSION_COOKIE)?.value);
 
-  if (!authorized) {
-    return (
-      <LionheartLogin
-        configured={configured}
-        error={cookieStore.get(LIONHEART_ERROR_COOKIE)?.value}
-      />
-    );
-  }
-
-  return <LionheartShell>{children}</LionheartShell>;
+  return (
+    <div className="lionheart-theme">
+      {authorized ? (
+        <LionheartShell>{children}</LionheartShell>
+      ) : (
+        <LionheartLogin
+          configured={configured}
+          error={cookieStore.get(LIONHEART_ERROR_COOKIE)?.value}
+        />
+      )}
+    </div>
+  );
 }
