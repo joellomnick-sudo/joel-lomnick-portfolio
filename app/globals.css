@@ -753,3 +753,393 @@ body:has(.lionheart-theme) ::selection {
   background: rgba(31, 94, 153, 0.2);
   color: var(--lionheart-black);
 }
+
+
+/* Lionheart Studio experience */
+body:has(.lionheart-theme) .site-header,
+body:has(.lionheart-theme) > footer {
+  display: none !important;
+}
+
+.lionheart-studio-header {
+  border-bottom: 1px solid rgba(31, 94, 153, 0.24);
+  background: linear-gradient(180deg, #f5f9fd 0%, #eaf3fb 100%);
+}
+
+.lionheart-kicker {
+  margin: 0;
+  color: var(--lionheart-blue-deep);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.lionheart-lock-button {
+  min-height: 42px;
+  border: 1px solid rgba(107, 74, 47, 0.45);
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  background: #fff;
+  color: var(--lionheart-black);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.lionheart-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+}
+
+.lionheart-nav-link {
+  flex: 0 0 auto;
+  border: 1px solid rgba(31, 94, 153, 0.25);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  background: #fff;
+  color: var(--lionheart-black);
+  font-size: 0.83rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.lionheart-nav-link:hover,
+.lionheart-nav-link.is-active {
+  border-color: var(--lionheart-blue);
+  background: var(--lionheart-blue);
+  color: #fff !important;
+}
+
+.lionheart-dashboard {
+  min-height: 70vh;
+  padding: 3rem 1.5rem 4rem;
+  background: var(--lionheart-white);
+}
+
+.lionheart-dashboard-hero {
+  display: grid;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.lionheart-dashboard-hero > div:first-child {
+  padding: 1.5rem 0;
+}
+
+.lionheart-dashboard-hero h1 {
+  max-width: 15ch;
+  margin: 0.55rem 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.lionheart-dashboard-hero > div:first-child > p:last-child {
+  max-width: 66ch;
+  margin: 1.2rem 0 0;
+  color: rgba(17,17,17,0.72);
+  line-height: 1.7;
+}
+
+.lionheart-continue-card {
+  display: flex;
+  min-height: 220px;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid rgba(31, 94, 153, 0.22);
+  border-top: 5px solid var(--lionheart-blue);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background: var(--lionheart-blue-soft);
+  color: var(--lionheart-black);
+  text-decoration: none;
+}
+
+.lionheart-continue-card h2 {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+}
+
+.lionheart-continue-card p:not(.lionheart-kicker) {
+  margin: 0.45rem 0 0;
+  color: rgba(17,17,17,0.65);
+  font-size: 0.9rem;
+}
+
+.lionheart-continue-card span,
+.lionheart-card-link {
+  margin-top: 1rem;
+  color: var(--lionheart-blue-deep);
+  font-weight: 800;
+}
+
+.lionheart-stats-grid {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 2.25rem;
+}
+
+.lionheart-stats-grid article {
+  border: 1px solid rgba(31, 94, 153, 0.18);
+  border-radius: 0.9rem;
+  padding: 1.2rem;
+  background: #fff;
+}
+
+.lionheart-stats-grid article p,
+.lionheart-stats-grid article span {
+  margin: 0;
+  color: rgba(17,17,17,0.62);
+  font-size: 0.8rem;
+}
+
+.lionheart-stats-grid article strong {
+  display: block;
+  margin: 0.25rem 0;
+  color: var(--lionheart-blue-deep);
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+}
+
+.lionheart-volume-grid,
+.lionheart-work-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.lionheart-volume-card,
+.lionheart-panel-link {
+  display: block;
+  border: 1px solid rgba(31, 94, 153, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background: #fff;
+  color: var(--lionheart-black);
+  text-decoration: none;
+}
+
+.lionheart-volume-card {
+  border-top: 5px solid var(--lionheart-blue);
+}
+
+.lionheart-volume-card:nth-child(2) {
+  border-top-color: var(--lionheart-brown);
+}
+
+.lionheart-volume-card h2,
+.lionheart-panel-link h2 {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+}
+
+.lionheart-volume-card > p:not(.lionheart-kicker),
+.lionheart-panel-link > p:not(.lionheart-kicker) {
+  margin: 0.8rem 0 0;
+  color: rgba(17,17,17,0.68);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+.lionheart-progress-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  color: rgba(17,17,17,0.68);
+  font-size: 0.8rem;
+}
+
+.lionheart-progress-track {
+  height: 7px;
+  margin-top: 0.45rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dfeaf5;
+}
+
+.lionheart-progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--lionheart-blue);
+}
+
+.lionheart-panel-link {
+  border-left: 4px solid var(--lionheart-gold);
+}
+
+/* Chapter experience */
+.lionheart-chapter {
+  background: #fff;
+  color: var(--lionheart-black);
+}
+
+.lionheart-chapter-header {
+  border-bottom: 1px solid rgba(31,94,153,.18);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--lionheart-blue-pale);
+}
+
+.lionheart-back-link {
+  color: var(--lionheart-blue-deep);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.lionheart-chapter-header h1 {
+  max-width: 18ch;
+  margin: 0.65rem 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.lionheart-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+}
+
+.lionheart-meta-row span {
+  border: 1px solid rgba(31,94,153,.22);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  background: #fff;
+  color: rgba(17,17,17,.7);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.lionheart-mode-switch {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-top: 1.5rem;
+  border: 1px solid rgba(31,94,153,.2);
+  border-radius: 999px;
+  padding: 0.3rem;
+  background: #fff;
+}
+
+.lionheart-mode-switch button {
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  color: var(--lionheart-black);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.lionheart-mode-switch button.is-active {
+  background: var(--lionheart-blue);
+  color: #fff;
+}
+
+.lionheart-reading-surface {
+  min-height: 55vh;
+  padding: 3rem 1.5rem 4rem;
+  background: #fff;
+}
+
+.lionheart-reading-surface article.mx-auto.max-w-3xl {
+  max-width: 44rem;
+  border-left: 0;
+  padding: 0;
+}
+
+.lionheart-reading-surface article p {
+  margin-bottom: 1.45rem;
+  color: var(--lionheart-black) !important;
+  font-size: clamp(1.06rem, 1.8vw, 1.16rem);
+  line-height: 1.85;
+}
+
+.lionheart-reading-surface article h2 {
+  margin-top: 3rem;
+  color: var(--lionheart-brown) !important;
+  font-size: clamp(1.55rem, 3vw, 2rem);
+}
+
+.lionheart-research-surface {
+  min-height: 55vh;
+  border-top: 4px solid var(--lionheart-gold);
+  padding: 3rem 1.5rem 4rem;
+  background: var(--lionheart-blue-soft);
+}
+
+.lionheart-research-surface > div > h2 {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+}
+
+.lionheart-summary {
+  max-width: 70ch;
+  margin: 1rem 0 0;
+  white-space: pre-line;
+  color: rgba(17,17,17,.72);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.lionheart-panel {
+  border: 1px solid rgba(31,94,153,.2);
+  border-radius: 1rem;
+  padding: 1.4rem;
+  background: #fff;
+}
+
+.lionheart-panel h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+}
+
+.lionheart-research-item {
+  border-bottom: 1px solid rgba(31,94,153,.14);
+  padding-bottom: 1rem;
+}
+
+.lionheart-research-item:last-child {
+  border-bottom: 0;
+}
+
+.lionheart-status-text {
+  color: var(--lionheart-blue-deep);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.lionheart-chapter-nav {
+  border-top: 1px solid rgba(31,94,153,.18);
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+}
+
+.lionheart-chapter-nav a {
+  color: var(--lionheart-blue-deep) !important;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+@media (min-width: 760px) {
+  .lionheart-dashboard-hero {
+    grid-template-columns: minmax(0, 1.55fr) minmax(18rem, .65fr);
+  }
+  .lionheart-stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .lionheart-volume-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lionheart-work-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
