@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { navLinks } from "@/data/site";
 
+const publicNavLinks = navLinks.filter((link) => link.href !== "/lionheart");
+
 function isActive(pathname: string, href: string) {
   return pathname === href || (href !== "/" && pathname.startsWith(href));
 }
@@ -67,7 +69,7 @@ export function Header() {
         </Link>
 
         <nav className="hidden min-w-0 items-center justify-end xl:flex" aria-label="Primary navigation">
-          {navLinks.map((link) => (
+          {publicNavLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -121,7 +123,7 @@ export function Header() {
               </button>
             </div>
             <nav className="grid gap-1 py-6" aria-label="Mobile navigation">
-              {navLinks.map((link) => (
+              {publicNavLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
