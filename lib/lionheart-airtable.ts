@@ -102,10 +102,14 @@ export type LionheartPerson = {
   id: string;
   name: string;
   relationshipOrRole?: string;
+  peopleType?: string;
   firstAppears?: string;
   relatedChapters?: string;
   privacy?: string;
   publicLink?: string;
+  birthDate?: string;
+  birthDateStatus?: string;
+  sourceBasis?: string;
   notes?: string;
 };
 
@@ -475,10 +479,14 @@ export async function getLionheartPeople(): Promise<LionheartPerson[] | null> {
   type Fields = {
     Name?: string;
     "Relationship or Role"?: string;
+    "People Type"?: string;
     "First Appears"?: string;
     "Related Chapters"?: string;
     Privacy?: string;
     "Public Link"?: string;
+    "Birth Date"?: string;
+    "Birth Date Status"?: string;
+    "Source Basis"?: string;
     Notes?: string;
   };
 
@@ -490,10 +498,14 @@ export async function getLionheartPeople(): Promise<LionheartPerson[] | null> {
       id: record.id,
       name: record.fields.Name || "Unnamed person",
       relationshipOrRole: record.fields["Relationship or Role"],
+      peopleType: record.fields["People Type"],
       firstAppears: record.fields["First Appears"],
       relatedChapters: record.fields["Related Chapters"],
       privacy: record.fields.Privacy,
       publicLink: record.fields["Public Link"],
+      birthDate: record.fields["Birth Date"],
+      birthDateStatus: record.fields["Birth Date Status"],
+      sourceBasis: record.fields["Source Basis"],
       notes: record.fields.Notes,
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
