@@ -95,6 +95,15 @@ export type LionheartVersion = {
   notes?: string;
 };
 
+export type LionheartWorld = {
+  id: string;
+  world: string;
+  type?: string;
+  publicLink?: string;
+  relatedChapters?: string;
+  notes?: string;
+};
+
 export type LionheartFrontMatter = {
   id: string;
   section: string;
@@ -369,4 +378,27 @@ export async function getLionheartFrontMatter(volume?: number): Promise<Lionhear
 export async function getLionheartFrontMatterSection(volume: number, type: string): Promise<LionheartFrontMatter | null> {
   const sections = await getLionheartFrontMatter(volume);
   return sections?.find((item) => (item.type || "").toLowerCase() === type.toLowerCase()) ?? null;
+}
+
+
+export async function getLionheartWorlds(): Promise<LionheartWorld[] | null> {
+  type Fields = {
+    World?: string;
+    Type?: string;
+    "Public Link"?: string;
+    "Related Chapters"?: string;
+    Notes?: string;
+  };
+
+  const records = await listTable<Fields>(tableIds.worlds);
+  if (!records) return null;
+
+  return records.map((record) => ({
+    id: record.id,
+    world: record.fields.World || "Untitled world",
+    type: record.fields.Type,
+    publicLink: record.fields["Public Link"],
+    relatedChapters: record.fields["Related Chapters"],
+    notes: record.fields.Notes,
+  }));
 }
