@@ -8,6 +8,7 @@ const tableIds = {
   inbox: "tblwsMenLRxf86n1t",
   versions: "tbl8NXURSUTJPmFJL",
   worlds: "tblTBSU9t8pjrqe7A",
+  frontMatter: "tbluo0P6klxKBta6p",
 } as const;
 
 type AirtableRecord<T> = {
@@ -91,6 +92,20 @@ export type LionheartVersion = {
   storage?: string;
   sourceLink?: string;
   status?: string;
+  notes?: string;
+};
+
+export type LionheartFrontMatter = {
+  id: string;
+  section: string;
+  volume: number;
+  type?: string;
+  placement?: string;
+  status?: string;
+  draftText?: string;
+  draftSource?: string;
+  sourceLink?: string;
+  wordCount?: number;
   notes?: string;
 };
 
@@ -309,4 +324,44 @@ export async function getLionheartVersions(): Promise<LionheartVersion[] | null>
     status: record.fields.Status,
     notes: record.fields.Notes,
   }));
+}
+
+
+export async function getLionheartFrontMatter(volume?: number): Promise<LionheartFrontMatter[] | null> {
+  type Fields = {
+    Section?: string;
+    Volume?: number;
+    Type?: string;
+    Placement?: string;
+    Status?: string;
+    "Draft Text"?: string;
+    "Draft Source"?: string;
+    "Source Link"?: string;
+    "Word Count"?: number;
+    Notes?: string;
+  };
+
+  const records = await listTable<Fields>(tableIds.frontMatter);
+  if (!records) return null;
+
+  return records
+    .map((record) => ({
+      id: record.id,
+      section: record.fields.Section || "Untitled section",
+      volume: record.fields.Volume || 0,
+      type: record.fields.Type,
+      placement: record.fields.Placement,
+      status: record.fields.Status,
+      draftText: record.fields["Draft Text"],
+      draftSource: record.fields["Draft Source"],
+      sourceLink: record.fields["Source Link"],
+      wordCount: record.fields["Word Count"],
+      notes: record.fields.Notes,
+    }))
+    .filter((item) => volume === undefined || item.volume === volume);
+}
+
+export async function getLionheartFrontMatterSection(volume: number, type: string): Promise<LionheartFrontMatter | null> {
+  const sections = await getLionheartFrontMatter(volume);
+  return sections?.find((item) => (item.type || "").toLowerCase() === type.toLowerCase()) ?? null;
 }
