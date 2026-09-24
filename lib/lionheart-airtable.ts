@@ -104,6 +104,17 @@ export type LionheartWorld = {
   notes?: string;
 };
 
+export type LionheartPerson = {
+  id: string;
+  name: string;
+  relationshipOrRole?: string;
+  firstAppears?: string;
+  relatedChapters?: string;
+  privacy?: string;
+  publicLink?: string;
+  notes?: string;
+};
+
 export type LionheartFrontMatter = {
   id: string;
   section: string;
@@ -399,6 +410,33 @@ export async function getLionheartWorlds(): Promise<LionheartWorld[] | null> {
     type: record.fields.Type,
     publicLink: record.fields["Public Link"],
     relatedChapters: record.fields["Related Chapters"],
+    notes: record.fields.Notes,
+  }));
+}
+
+
+export async function getLionheartPeople(): Promise<LionheartPerson[] | null> {
+  type Fields = {
+    Name?: string;
+    "Relationship or Role"?: string;
+    "First Appears"?: string;
+    "Related Chapters"?: string;
+    Privacy?: string;
+    "Public Link"?: string;
+    Notes?: string;
+  };
+
+  const records = await listTable<Fields>("tblqbOXAOVDXX2BV3");
+  if (!records) return null;
+
+  return records.map((record) => ({
+    id: record.id,
+    name: record.fields.Name || "Unnamed person",
+    relationshipOrRole: record.fields["Relationship or Role"],
+    firstAppears: record.fields["First Appears"],
+    relatedChapters: record.fields["Related Chapters"],
+    privacy: record.fields.Privacy,
+    publicLink: record.fields["Public Link"],
     notes: record.fields.Notes,
   }));
 }
