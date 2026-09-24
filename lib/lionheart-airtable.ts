@@ -10,6 +10,8 @@ const tableIds = {
   worlds: "tblTBSU9t8pjrqe7A",
   frontMatter: "tbluo0P6klxKBta6p",
   legacyCrosswalk: "tblePRffJl6P6IOqh",
+  people: "tblqbOXAOVDXX2BV3",
+  timeline: "tblhV7C2T4AMWMciF",
 } as const;
 
 type AirtableRecord<T> = {
@@ -94,6 +96,32 @@ export type LionheartVersion = {
   sourceLink?: string;
   status?: string;
   notes?: string;
+};
+
+export type LionheartPerson = {
+  id: string;
+  name: string;
+  relationshipOrRole?: string;
+  firstAppears?: string;
+  relatedChapters?: string;
+  privacy?: string;
+  publicLink?: string;
+  notes?: string;
+};
+
+export type LionheartTimelineEvent = {
+  id: string;
+  order: number;
+  dateOrPeriod: string;
+  event: string;
+  volume: number;
+  chapter: number;
+  place?: string;
+  emotionalImpact?: string;
+  longTermConsequence?: string;
+  evidenceLevel?: string;
+  status?: string;
+  sourceNotes?: string;
 };
 
 export type LionheartWorld = {
@@ -440,4 +468,69 @@ export async function getLionheartLegacyCrosswalk(): Promise<LionheartLegacyCros
     action: record.fields.Action,
     notes: record.fields.Notes,
   }));
+}
+
+
+export async function getLionheartPeople(): Promise<LionheartPerson[] | null> {
+  type Fields = {
+    Name?: string;
+    "Relationship or Role"?: string;
+    "First Appears"?: string;
+    "Related Chapters"?: string;
+    Privacy?: string;
+    "Public Link"?: string;
+    Notes?: string;
+  };
+
+  const records = await listTable<Fields>(tableIds.people);
+  if (!records) return null;
+
+  return records
+    .map((record) => ({
+      id: record.id,
+      name: record.fields.Name || "Unnamed person",
+      relationshipOrRole: record.fields["Relationship or Role"],
+      firstAppears: record.fields["First Appears"],
+      relatedChapters: record.fields["Related Chapters"],
+      privacy: record.fields.Privacy,
+      publicLink: record.fields["Public Link"],
+      notes: record.fields.Notes,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export async function getLionheartTimeline(): Promise<LionheartTimelineEvent[] | null> {
+  type Fields = {
+    Order?: number;
+    "Date or Period"?: string;
+    Event?: string;
+    Volume?: number;
+    Chapter?: number;
+    Place?: string;
+    "Emotional Impact"?: string;
+    "Long-term Consequence"?: string;
+    "Evidence Level"?: string;
+    Status?: string;
+    "Source Notes"?: string;
+  };
+
+  const records = await listTable<Fields>(tableIds.timeline);
+  if (!records) return null;
+
+  return records
+    .map((record) => ({
+      id: record.id,
+      order: record.fields.Order || 9999,
+      dateOrPeriod: record.fields["Date or Period"] || "Undated",
+      event: record.fields.Event || "Untitled event",
+      volume: record.fields.Volume || 0,
+      chapter: record.fields.Chapter || 0,
+      place: record.fields.Place,
+      emotionalImpact: record.fields["Emotional Impact"],
+      longTermConsequence: record.fields["Long-term Consequence"],
+      evidenceLevel: record.fields["Evidence Level"],
+      status: record.fields.Status,
+      sourceNotes: record.fields["Source Notes"],
+    }))
+    .sort((a, b) => a.order - b.order);
 }
