@@ -9,6 +9,7 @@ const tableIds = {
   versions: "tbl8NXURSUTJPmFJL",
   worlds: "tblTBSU9t8pjrqe7A",
   frontMatter: "tbluo0P6klxKBta6p",
+  legacyCrosswalk: "tblePRffJl6P6IOqh",
 } as const;
 
 type AirtableRecord<T> = {
@@ -101,6 +102,17 @@ export type LionheartWorld = {
   type?: string;
   publicLink?: string;
   relatedChapters?: string;
+  notes?: string;
+};
+
+export type LionheartLegacyCrosswalk = {
+  id: string;
+  legacySection: string;
+  sourceVersion?: string;
+  legacyPart?: string;
+  timeFrame?: string;
+  target?: string;
+  action?: string;
   notes?: string;
 };
 
@@ -399,6 +411,33 @@ export async function getLionheartWorlds(): Promise<LionheartWorld[] | null> {
     type: record.fields.Type,
     publicLink: record.fields["Public Link"],
     relatedChapters: record.fields["Related Chapters"],
+    notes: record.fields.Notes,
+  }));
+}
+
+
+export async function getLionheartLegacyCrosswalk(): Promise<LionheartLegacyCrosswalk[] | null> {
+  type Fields = {
+    "Legacy Section"?: string;
+    "Source Version"?: string;
+    "Legacy Part"?: string;
+    "Time Frame"?: string;
+    Target?: string;
+    Action?: string;
+    Notes?: string;
+  };
+
+  const records = await listTable<Fields>(tableIds.legacyCrosswalk);
+  if (!records) return null;
+
+  return records.map((record) => ({
+    id: record.id,
+    legacySection: record.fields["Legacy Section"] || "Untitled legacy section",
+    sourceVersion: record.fields["Source Version"],
+    legacyPart: record.fields["Legacy Part"],
+    timeFrame: record.fields["Time Frame"],
+    target: record.fields.Target,
+    action: record.fields.Action,
     notes: record.fields.Notes,
   }));
 }
