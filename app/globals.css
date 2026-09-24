@@ -559,3 +559,197 @@ img { max-width: 100%; height: auto; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
+
+
+/* Lionheart private studio theme
+   Primary: blue + white
+   Accents: brown + gold
+   Text: black
+*/
+.lionheart-theme {
+  --lionheart-blue: #1f5e99;
+  --lionheart-blue-deep: #174a7e;
+  --lionheart-blue-soft: #eaf3fb;
+  --lionheart-blue-pale: #f5f9fd;
+  --lionheart-white: #ffffff;
+  --lionheart-black: #111111;
+  --lionheart-brown: #6b4a2f;
+  --lionheart-gold: #c89a32;
+  min-height: 100vh;
+  background: var(--lionheart-white);
+  color: var(--lionheart-black);
+}
+
+.lionheart-theme .bg-richBlack {
+  background-color: var(--lionheart-white) !important;
+}
+
+.lionheart-theme .bg-softBlack {
+  background-color: var(--lionheart-blue-soft) !important;
+}
+
+.lionheart-theme [class*="bg-[#120d09]"],
+.lionheart-theme [class*="bg-[#17100c]"],
+.lionheart-theme [class*="bg-[#1b130e]"] {
+  background-color: var(--lionheart-white) !important;
+}
+
+.lionheart-theme [class*="text-warmIvory"],
+.lionheart-theme [class*="text-richBlack"] {
+  color: var(--lionheart-black) !important;
+}
+
+.lionheart-theme [class*="text-softGold"] {
+  color: var(--lionheart-blue-deep) !important;
+}
+
+.lionheart-theme [class*="border-warmIvory"] {
+  border-color: rgba(31, 94, 153, 0.24) !important;
+}
+
+.lionheart-theme [class*="border-mutedGold"] {
+  border-color: rgba(200, 154, 50, 0.6) !important;
+}
+
+.lionheart-theme [class*="ring-mutedGold"] {
+  --tw-ring-color: var(--lionheart-blue) !important;
+}
+
+.lionheart-theme input,
+.lionheart-theme textarea,
+.lionheart-theme select {
+  background: var(--lionheart-white) !important;
+  color: var(--lionheart-black) !important;
+  border-color: rgba(31, 94, 153, 0.35) !important;
+}
+
+.lionheart-theme a {
+  text-decoration-color: rgba(31, 94, 153, 0.45);
+}
+
+.lionheart-theme a:hover {
+  color: var(--lionheart-blue-deep) !important;
+}
+
+.lionheart-theme section {
+  color: var(--lionheart-black);
+}
+
+.lionheart-theme article,
+.lionheart-theme form {
+  box-shadow: none !important;
+}
+
+.lionheart-theme article[class*="rounded"],
+.lionheart-theme form[class*="rounded"] {
+  background: var(--lionheart-white) !important;
+  border-color: rgba(31, 94, 153, 0.24) !important;
+}
+
+.lionheart-theme .eyebrow {
+  color: var(--lionheart-blue-deep) !important;
+}
+
+.lionheart-theme button.bg-mutedGold,
+.lionheart-theme [class*="bg-mutedGold"] {
+  background-color: var(--lionheart-gold) !important;
+  color: var(--lionheart-black) !important;
+}
+
+.lionheart-theme button:hover {
+  border-color: var(--lionheart-blue) !important;
+}
+
+.lionheart-theme > .min-h-screen > div:first-child {
+  background: var(--lionheart-blue-soft) !important;
+  border-bottom-color: rgba(31, 94, 153, 0.25) !important;
+}
+
+.lionheart-theme nav a {
+  background: var(--lionheart-white);
+  border-color: rgba(31, 94, 153, 0.28) !important;
+  color: var(--lionheart-black) !important;
+}
+
+.lionheart-theme nav a:hover {
+  background: var(--lionheart-blue-soft) !important;
+  border-color: var(--lionheart-blue) !important;
+}
+
+.lionheart-theme .font-serif.text-4xl,
+.lionheart-theme .font-serif.text-5xl,
+.lionheart-theme .font-serif.text-6xl,
+.lionheart-theme h1,
+.lionheart-theme h2,
+.lionheart-theme h3 {
+  color: var(--lionheart-black);
+}
+
+.lionheart-theme .font-serif.text-4xl.text-softGold,
+.lionheart-theme .font-serif.text-3xl.text-softGold,
+.lionheart-theme .font-bold.text-softGold {
+  color: var(--lionheart-blue-deep) !important;
+}
+
+/* Chapter reading surfaces */
+.lionheart-theme article.mx-auto.max-w-3xl {
+  background: var(--lionheart-white);
+  border-left: 4px solid var(--lionheart-blue);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.lionheart-theme article.mx-auto.max-w-3xl p {
+  color: var(--lionheart-black) !important;
+}
+
+.lionheart-theme article.mx-auto.max-w-3xl h2 {
+  color: var(--lionheart-brown) !important;
+}
+
+/* Carry the Lionheart palette through the global portfolio chrome only while
+   a Lionheart route is present. */
+body:has(.lionheart-theme) {
+  background: var(--lionheart-white);
+  color: var(--lionheart-black);
+}
+
+body:has(.lionheart-theme) .site-header {
+  background: var(--lionheart-white);
+  color: var(--lionheart-black);
+  border-bottom-color: rgba(31, 94, 153, 0.28);
+}
+
+body:has(.lionheart-theme) .site-header .brand-subtitle,
+body:has(.lionheart-theme) .site-header .nav-link {
+  color: var(--lionheart-black);
+}
+
+body:has(.lionheart-theme) .site-header .nav-link:hover,
+body:has(.lionheart-theme) .site-header .nav-link[aria-current="page"] {
+  background: var(--lionheart-blue-soft);
+  color: var(--lionheart-blue-deep);
+}
+
+body:has(.lionheart-theme) .site-header .icon-button {
+  border-color: rgba(31, 94, 153, 0.35);
+  color: var(--lionheart-black);
+}
+
+body:has(.lionheart-theme) footer {
+  background: var(--lionheart-blue-soft) !important;
+  color: var(--lionheart-black) !important;
+  border-top-color: rgba(31, 94, 153, 0.28) !important;
+}
+
+body:has(.lionheart-theme) footer [class*="text-warmIvory"] {
+  color: var(--lionheart-black) !important;
+}
+
+body:has(.lionheart-theme) footer [class*="text-softGold"] {
+  color: var(--lionheart-blue-deep) !important;
+}
+
+body:has(.lionheart-theme) ::selection {
+  background: rgba(31, 94, 153, 0.2);
+  color: var(--lionheart-black);
+}
