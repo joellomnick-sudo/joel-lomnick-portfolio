@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { navLinks } from "@/data/site";
 
+const publicNavLinks = navLinks.filter((link) => link.href !== "/lionheart");
+
 export function Footer() {
   return (
     <footer className="border-t border-mutedGold/25 bg-richBlack text-warmIvory">
@@ -16,7 +18,7 @@ export function Footer() {
         <nav aria-label="Footer navigation">
           <p className="text-base font-bold text-softGold">Explore</p>
           <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-0.5">
-            {navLinks.map((link) => (
+            {publicNavLinks.map((link) => (
               <li key={link.href}>
                 <Link className="inline-flex min-h-10 items-center text-[0.95rem] text-warmIvory hover:text-softGold focus-ring" href={link.href}>
                   {link.label}

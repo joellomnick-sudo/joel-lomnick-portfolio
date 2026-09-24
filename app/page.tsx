@@ -10,8 +10,8 @@ const worldLanes = [
   },
   {
     title: "The Storyteller",
-    href: "/lionheart",
-    body: "Lionheart, memoir, family history, humor, grief, imagination, and the unfinished work of becoming.",
+    href: "/my-story",
+    body: "Memoir, family history, humor, grief, imagination, and the unfinished work of becoming.",
   },
   {
     title: "The Community Builder",
@@ -60,7 +60,7 @@ export default function HomePage() {
           <div>
             <h2 className="section-title">Step into my world.</h2>
             <p className="prose-copy mt-5">
-              This site is not a box I am trying to fit inside. It is a guided walk through the rooms that made me: <Link className="text-link" href="/engineering">engineering</Link>, <Link className="text-link" href="/my-community">Black community</Link>, faith, brotherhood, culture, mentoring, creative work, and <Link className="text-link" href="/lionheart">Lionheart</Link>.
+              This site is not a box I am trying to fit inside. It is a guided walk through the rooms that made me: <Link className="text-link" href="/engineering">engineering</Link>, <Link className="text-link" href="/my-community">Black community</Link>, faith, brotherhood, culture, mentoring, creative work, and storytelling.
             </p>
           </div>
         </div>

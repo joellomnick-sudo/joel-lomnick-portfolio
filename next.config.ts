@@ -19,13 +19,23 @@ const nextConfig: NextConfig = {
     BUILD_TIMESTAMP: buildTimestamp,
   },
   async headers() {
-    return privateDocumentHeaders.map((source) => ({
-      source,
-      headers: [
-        { key: "X-Robots-Tag", value: "noindex, noarchive" },
-        { key: "Cache-Control", value: "public, max-age=3600, must-revalidate" },
-      ],
-    }));
+    return [
+      ...privateDocumentHeaders.map((source) => ({
+        source,
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, noarchive" },
+          { key: "Cache-Control", value: "public, max-age=3600, must-revalidate" },
+        ],
+      })),
+      {
+        source: "/lionheart/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" },
+          { key: "Cache-Control", value: "private, no-store, max-age=0" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
+    ];
   },
 };
 
