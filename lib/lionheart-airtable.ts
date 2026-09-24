@@ -2,6 +2,7 @@ const AIRTABLE_BASE_ID = process.env.LIONHEART_AIRTABLE_BASE_ID || "appu7uDUA0Br
 
 const tableIds = {
   chapters: "tblmZH0nSF2Vb3d6O",
+  scenes: "tblvqTGtI0Pqg8Of3",
   discrepancies: "tblM9grMG1iGYjhOe",
   sources: "tblcEN8CyK2WjHqoU",
   inbox: "tblwsMenLRxf86n1t",
@@ -31,6 +32,22 @@ export type LionheartChapter = {
   currentDraftLink?: string;
   wordCount?: number;
   editorialNotes?: string;
+  draftText?: string;
+  draftSource?: string;
+  draftNotes?: string;
+};
+
+export type LionheartScene = {
+  id: string;
+  scene: string;
+  volume: number;
+  chapter: number;
+  dateOrPeriod?: string;
+  place?: string;
+  status?: string;
+  narrativeNotes?: string;
+  sourceCoverage?: string;
+  sourceLinks?: string;
 };
 
 export type LionheartDiscrepancy = {
@@ -126,6 +143,9 @@ export async function getLionheartChapters(): Promise<LionheartChapter[] | null>
     "Current Draft Link"?: string;
     "Word Count"?: number;
     "Editorial Notes"?: string;
+    "Draft Text"?: string;
+    "Draft Source"?: string;
+    "Draft Notes"?: string;
   };
 
   const records = await listTable<Fields>(tableIds.chapters);
@@ -143,8 +163,48 @@ export async function getLionheartChapters(): Promise<LionheartChapter[] | null>
       currentDraftLink: record.fields["Current Draft Link"],
       wordCount: record.fields["Word Count"],
       editorialNotes: record.fields["Editorial Notes"],
+      draftText: record.fields["Draft Text"],
+      draftSource: record.fields["Draft Source"],
+      draftNotes: record.fields["Draft Notes"],
     }))
     .sort((a, b) => a.volume - b.volume || a.chapter - b.chapter);
+}
+
+export async function getLionheartChapter(volume: number, chapter: number): Promise<LionheartChapter | null> {
+  const chapters = await getLionheartChapters();
+  return chapters?.find((item) => item.volume === volume && item.chapter === chapter) ?? null;
+}
+
+export async function getLionheartScenes(volume?: number, chapter?: number): Promise<LionheartScene[] | null> {
+  type Fields = {
+    Scene?: string;
+    Volume?: number;
+    Chapter?: number;
+    "Date or Period"?: string;
+    Place?: string;
+    Status?: string;
+    "Narrative Notes"?: string;
+    "Source Coverage"?: string;
+    "Source Links"?: string;
+  };
+
+  const records = await listTable<Fields>(tableIds.scenes);
+  if (!records) return null;
+
+  return records
+    .map((record) => ({
+      id: record.id,
+      scene: record.fields.Scene || "Untitled scene",
+      volume: record.fields.Volume || 0,
+      chapter: record.fields.Chapter || 0,
+      dateOrPeriod: record.fields["Date or Period"],
+      place: record.fields.Place,
+      status: record.fields.Status,
+      narrativeNotes: record.fields["Narrative Notes"],
+      sourceCoverage: record.fields["Source Coverage"],
+      sourceLinks: record.fields["Source Links"],
+    }))
+    .filter((item) => (volume === undefined || item.volume === volume) && (chapter === undefined || item.chapter === chapter));
 }
 
 export async function getLionheartDiscrepancies(): Promise<LionheartDiscrepancy[] | null> {
