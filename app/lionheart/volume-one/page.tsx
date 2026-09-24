@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getLionheartChapters, isLionheartAirtableConfigured } from "@/lib/lionheart-airtable";
+import { getLionheartChapters, getLionheartFrontMatter, isLionheartAirtableConfigured } from "@/lib/lionheart-airtable";
 
 const fallback = [
   ["The First Blueprint", "1981–1988"],
@@ -12,8 +12,12 @@ const fallback = [
 ] as const;
 
 export default async function VolumeOnePage() {
-  const allChapters = await getLionheartChapters();
+  const [allChapters, frontMatter] = await Promise.all([
+    getLionheartChapters(),
+    getLionheartFrontMatter(1),
+  ]);
   const chapters = allChapters?.filter((chapter) => chapter.volume === 1) ?? null;
+  const prologue = frontMatter?.find((item) => item.type === "Prologue") ?? null;
 
   const displayChapters = chapters ?? fallback.map(([title, years], index) => ({
     id: `fallback-${index}`,
@@ -36,6 +40,21 @@ export default async function VolumeOnePage() {
         </p>
 
         <div className="mt-10 grid gap-5">
+          <Link
+            href="/lionheart/volume-one/prologue"
+            className="group rounded-2xl border border-mutedGold/30 bg-[#1b130e] p-6 transition hover:border-softGold"
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-softGold">Front Matter</p>
+            <div className="mt-2 flex flex-wrap items-start justify-between gap-4">
+              <h2 className="font-serif text-2xl font-bold group-hover:text-softGold">Prologue</h2>
+              <span className="rounded-full border border-warmIvory/15 px-3 py-1 text-xs font-bold text-warmIvory/70">{prologue?.status || "Developmental Draft"}</span>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-4 text-xs text-warmIvory/55">
+              {prologue?.wordCount ? <span>{prologue.wordCount.toLocaleString()} words</span> : null}
+              <span className="font-bold text-softGold">Read prologue →</span>
+            </div>
+          </Link>
+
           {displayChapters.map((chapter) => (
             <Link
               key={chapter.id}
