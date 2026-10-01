@@ -75,6 +75,11 @@ export default async function VolumeOnePage() {
               </div>
             </Link>
           ))}
+
+          <Link href="/lionheart/volume-one/epilogue" className="group rounded-2xl border border-mutedGold/30 bg-[#1b130e] p-6 transition hover:border-softGold">
+            <h2 className="font-serif text-2xl font-bold group-hover:text-softGold">Epilogue</h2>
+            <p className="mt-3 text-sm text-warmIvory/65">Read the Volume One epilogue →</p>
+          </Link>
         </div>
 
         {!isLionheartAirtableConfigured() ? (

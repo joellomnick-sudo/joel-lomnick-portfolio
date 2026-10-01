@@ -50,10 +50,10 @@ export default async function VolumeOneChapterPage({ params }: PageProps) {
       draftSource={chapter.draftSource}
       scenes={scenes ?? []}
       discrepancies={chapterDiscrepancies}
-      previousHref={chapterNumber > 1 ? `/lionheart/volume-one/${chapterNumber - 1}` : undefined}
-      previousLabel={chapterNumber > 1 ? `Chapter ${chapterNumber - 1}` : undefined}
-      nextHref={chapterNumber < 7 ? `/lionheart/volume-one/${chapterNumber + 1}` : "/lionheart/volume-two"}
-      nextLabel={chapterNumber < 7 ? `Chapter ${chapterNumber + 1}` : "Continue to Volume Two"}
+      previousHref={chapterNumber > 1 ? `/lionheart/volume-one/${chapterNumber - 1}` : "/lionheart/volume-one/prologue"}
+      previousLabel={chapterNumber > 1 ? `Chapter ${chapterNumber - 1}` : "Prologue"}
+      nextHref={chapterNumber < 7 ? `/lionheart/volume-one/${chapterNumber + 1}` : "/lionheart/volume-one/epilogue"}
+      nextLabel={chapterNumber < 7 ? `Chapter ${chapterNumber + 1}` : "Epilogue"}
     />
   );
 }

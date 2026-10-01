@@ -36,7 +36,7 @@ export default async function VolumeTwoPage() {
         <p className="text-xs font-bold uppercase tracking-[0.22em] text-softGold">Volume Two</p>
         <h1 className="mt-4 max-w-4xl font-serif text-4xl font-bold leading-tight sm:text-5xl">The Cost of Being Lionheart</h1>
         <p className="mt-5 max-w-3xl text-base leading-7 text-warmIvory/75">
-          2007–August 2026. The adult story of what happens when survival becomes a permanent operating system. The numbered chapters are currently research builds under the August 2026 structure; the existing preface is preserved as developmental prose.
+          2007–August 2026. The adult story of what happens when survival becomes a permanent operating system. The refreshed private edition follows the story through the August 2026 Okinawa assignment, with a preface, prologue, seven chapters, and epilogue.
         </p>
 
         <div className="mt-10 grid gap-5">
@@ -58,6 +58,11 @@ export default async function VolumeTwoPage() {
             </div>
           </Link>
 
+          <Link href="/lionheart/volume-two/prologue" className="group rounded-2xl border border-mutedGold/30 bg-[#1b130e] p-6 transition hover:border-softGold">
+            <h2 className="font-serif text-2xl font-bold group-hover:text-softGold">Prologue</h2>
+            <p className="mt-3 text-sm text-warmIvory/65">Read the Volume Two prologue →</p>
+          </Link>
+
           {displayChapters.map((chapter) => (
             <Link
               key={chapter.id}
@@ -72,9 +77,14 @@ export default async function VolumeTwoPage() {
                 <span className="rounded-full border border-warmIvory/15 px-3 py-1 text-xs font-bold text-warmIvory/70">{chapter.status}</span>
               </div>
               {chapter.workingSummary ? <p className="mt-4 whitespace-pre-line text-sm leading-6 text-warmIvory/75">{chapter.workingSummary}</p> : null}
-              <div className="mt-5 text-xs font-bold text-softGold">Open research build →</div>
+              <div className="mt-5 text-xs font-bold text-softGold">Read chapter →</div>
             </Link>
           ))}
+
+          <Link href="/lionheart/volume-two/epilogue" className="group rounded-2xl border border-mutedGold/30 bg-[#1b130e] p-6 transition hover:border-softGold">
+            <h2 className="font-serif text-2xl font-bold group-hover:text-softGold">Epilogue</h2>
+            <p className="mt-3 text-sm text-warmIvory/65">Read the Volume Two epilogue →</p>
+          </Link>
         </div>
 
         {!isLionheartAirtableConfigured() ? (
