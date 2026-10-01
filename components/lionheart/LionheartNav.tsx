@@ -1,44 +1,8 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const items = [
-  { label: "Home", href: "/lionheart" },
-  { label: "Volume One", href: "/lionheart/volume-one" },
-  { label: "Volume Two", href: "/lionheart/volume-two" },
-  { label: "Timeline", href: "/lionheart/timeline" },
-  { label: "People", href: "/lionheart/people" },
-  { label: "Worlds", href: "/lionheart/worlds" },
-  { label: "Archive", href: "/lionheart/archive" },
-  { label: "Discrepancies", href: "/lionheart/discrepancies" },
-  { label: "Story Studio", href: "/lionheart/story-studio" },
-  { label: "Media Lab", href: "/lionheart/media-lab" },
-] as const;
-
-function active(pathname: string, href: string) {
-  if (href === "/lionheart") return pathname === href;
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
 export function LionheartNav() {
-  const pathname = usePathname();
-
-  return (
-    <nav className="lionheart-nav" aria-label="Lionheart private navigation">
-      {items.map((item) => {
-        const selected = active(pathname, item.href);
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-current={selected ? "page" : undefined}
-            className={selected ? "lionheart-nav-link is-active" : "lionheart-nav-link"}
-          >
-            {item.label}
-          </Link>
-        );
-      })}
-    </nav>
-  );
+  const path = usePathname();
+  const group = path.startsWith("/lionheart/volume-") || path === "/lionheart" ? "Books" : /\/facts|\/people|\/timeline|\/worlds/.test(path) ? "Story Facts" : "Sources";
+  return <nav className="lionheart-nav" aria-label="Lionheart studio">{[{label:"Books",href:"/lionheart"},{label:"Story Facts",href:"/lionheart/facts"},{label:"Sources",href:"/lionheart/sources"}].map(item => <Link key={item.href} href={item.href} aria-current={group === item.label ? "page" : undefined} className={"lionheart-nav-link " + (group === item.label ? "is-active" : "")}>{item.label}</Link>)}</nav>;
 }

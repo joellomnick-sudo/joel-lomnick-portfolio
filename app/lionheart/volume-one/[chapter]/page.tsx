@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChapterExperience } from "@/components/lionheart/ChapterExperience";
-import { getLionheartChapter, getLionheartDiscrepancies, getLionheartScenes } from "@/lib/lionheart-airtable";
+import { getLionheartChapter, getLionheartDiscrepancies, getLionheartScenes, getLionheartPeople, getLionheartTimeline, getLionheartWorlds, getLionheartSources } from "@/lib/lionheart-airtable";
+
+import { mentionsChapter } from "@/lib/lionheart-links";
 
 type PageProps = {
   params: Promise<{ chapter: string }>;
@@ -13,10 +15,14 @@ export default async function VolumeOneChapterPage({ params }: PageProps) {
 
   if (!Number.isInteger(chapterNumber) || chapterNumber < 1 || chapterNumber > 7) notFound();
 
-  const [chapter, scenes, discrepancies] = await Promise.all([
+  const [chapter, scenes, discrepancies, people, timeline, worlds, sources] = await Promise.all([
     getLionheartChapter(1, chapterNumber),
     getLionheartScenes(1, chapterNumber),
     getLionheartDiscrepancies(),
+    getLionheartPeople(),
+    getLionheartTimeline(),
+    getLionheartWorlds(),
+    getLionheartSources(),
   ]);
 
   if (!chapter) {
@@ -33,11 +39,16 @@ export default async function VolumeOneChapterPage({ params }: PageProps) {
   }
 
   const chapterDiscrepancies = (discrepancies ?? []).filter((item) =>
-    (item.affectedChapters || "").toLowerCase().includes(`chapter ${chapterNumber}`),
+    mentionsChapter(item.affectedChapters, 1, chapterNumber),
   );
 
   return (
     <ChapterExperience
+      id={chapter.id}
+      sources={(sources ?? []).filter(s => mentionsChapter(s.relatedChapters, 1, chapterNumber))}
+      people={(people ?? []).filter(p => p.storyInclusion === "In story" && mentionsChapter(p.relatedChapters, 1, chapterNumber))}
+      timeline={(timeline ?? []).filter(e => e.volume === 1 && e.chapter === chapterNumber)}
+      worlds={(worlds ?? []).filter(w => mentionsChapter(w.relatedChapters, 1, chapterNumber))}
       volume={1}
       chapter={chapter.chapter}
       title={chapter.title}

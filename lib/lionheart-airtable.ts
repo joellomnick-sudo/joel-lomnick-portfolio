@@ -67,6 +67,7 @@ export type LionheartDiscrepancy = {
 
 export type LionheartSource = {
   id: string;
+  relatedChapters?: string;
   source: string;
   type?: string;
   storage?: string;
@@ -99,6 +100,7 @@ export type LionheartVersion = {
 };
 
 export type LionheartPerson = {
+  storyInclusion?: string;
   id: string;
   name: string;
   relationshipOrRole?: string;
@@ -308,6 +310,7 @@ export async function getLionheartDiscrepancies(): Promise<LionheartDiscrepancy[
 
 export async function getLionheartSources(): Promise<LionheartSource[] | null> {
   type Fields = {
+    "Related Chapters"?: string;
     Source?: string;
     Type?: string;
     Storage?: string;
@@ -323,6 +326,7 @@ export async function getLionheartSources(): Promise<LionheartSource[] | null> {
   return records.map((record) => ({
     id: record.id,
     source: record.fields.Source || "Untitled source",
+    relatedChapters: record.fields["Related Chapters"],
     type: record.fields.Type,
     storage: record.fields.Storage,
     dateOrPeriod: record.fields["Date or Period"],
@@ -478,6 +482,7 @@ export async function getLionheartLegacyCrosswalk(): Promise<LionheartLegacyCros
 export async function getLionheartPeople(): Promise<LionheartPerson[] | null> {
   type Fields = {
     Name?: string;
+    "Story Inclusion"?: string;
     "Relationship or Role"?: string;
     "People Type"?: string;
     "First Appears"?: string;
@@ -497,6 +502,7 @@ export async function getLionheartPeople(): Promise<LionheartPerson[] | null> {
     .map((record) => ({
       id: record.id,
       name: record.fields.Name || "Unnamed person",
+      storyInclusion: record.fields["Story Inclusion"],
       relationshipOrRole: record.fields["Relationship or Role"],
       peopleType: record.fields["People Type"],
       firstAppears: record.fields["First Appears"],

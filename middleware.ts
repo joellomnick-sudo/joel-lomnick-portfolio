@@ -47,6 +47,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname.startsWith("/lionheart/api/")) return NextResponse.json({ error: "Unlock the studio before editing." }, { status: 401, headers: { "Cache-Control": "no-store" } });
+
   const destination = request.nextUrl.clone();
   destination.pathname = "/lionheart";
   destination.search = "";
