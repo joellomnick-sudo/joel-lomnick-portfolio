@@ -39,13 +39,13 @@ export default async function VolumeTwoChapterPage({ params }: PageProps) {
   }
 
   const chapterDiscrepancies = (discrepancies ?? []).filter((item) =>
-    mentionsChapter(item.affectedChapters, 2, chapterNumber),
+    !/resolved|closed/i.test(item.status || "") && mentionsChapter(item.affectedChapters, 2, chapterNumber),
   );
 
   return (
     <ChapterExperience
       id={chapter.id}
-      sources={(sources ?? []).filter(s => mentionsChapter(s.relatedChapters, 2, chapterNumber))}
+      sources={(sources ?? []).filter(s => s.chapterRecordIds?.length ? s.chapterRecordIds.includes(chapter.id) : mentionsChapter(s.relatedChapters, 2, chapterNumber))}
       people={(people ?? []).filter(p => p.storyInclusion === "In story" && mentionsChapter(p.relatedChapters, 2, chapterNumber))}
       timeline={(timeline ?? []).filter(e => e.volume === 2 && e.chapter === chapterNumber)}
       worlds={(worlds ?? []).filter(w => mentionsChapter(w.relatedChapters, 2, chapterNumber))}

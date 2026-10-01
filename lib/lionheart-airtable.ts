@@ -67,6 +67,7 @@ export type LionheartDiscrepancy = {
 
 export type LionheartSource = {
   id: string;
+  chapterRecordIds?: string[];
   relatedChapters?: string;
   source: string;
   type?: string;
@@ -310,6 +311,7 @@ export async function getLionheartDiscrepancies(): Promise<LionheartDiscrepancy[
 
 export async function getLionheartSources(): Promise<LionheartSource[] | null> {
   type Fields = {
+    "Chapter Records"?: string[];
     "Related Chapters"?: string;
     Source?: string;
     Type?: string;
@@ -326,6 +328,7 @@ export async function getLionheartSources(): Promise<LionheartSource[] | null> {
   return records.map((record) => ({
     id: record.id,
     source: record.fields.Source || "Untitled source",
+    chapterRecordIds: record.fields["Chapter Records"],
     relatedChapters: record.fields["Related Chapters"],
     type: record.fields.Type,
     storage: record.fields.Storage,

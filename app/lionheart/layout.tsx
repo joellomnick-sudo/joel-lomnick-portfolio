@@ -1,3 +1,4 @@
+import "./editorial.css";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { LionheartLogin } from "@/components/lionheart/LionheartLogin";

@@ -1,0 +1,24 @@
+.lh-writing-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; align-items: start; }
+.lh-writing-canvas, .lh-reference-rail { min-width: 0; }
+.lh-reference-rail .lh-context { margin: 0; }
+.lh-reference-rail .lh-context-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.lh-reference-rail h2 { font-size: 1.15rem; }
+.lh-review { margin: 24px 0; }
+.lh-review > p { margin: 14px 0; line-height: 1.7; }
+.lh-review h2 { font: 600 1.5rem Georgia, serif; }
+.lh-review-toggle { display: flex; align-items: center; gap: 12px; min-height: 44px; margin: 18px 0; }
+.lh-review-toggle input { width: 20px; height: 20px; flex-shrink: 0; }
+.lh-change { border-left: 4px solid #aaa; padding: 18px; margin: 18px 0; overflow-wrap: anywhere; }
+.lh-change strong { font-size: .8rem; }
+.lh-change p { font: 400 1.05rem/1.8 Georgia, serif; margin-top: 12px; white-space: pre-wrap; }
+.lh-change-removed { border-color: #9c472f; background: #fff0ea; }
+.lh-change-added { border-color: #406848; background: #edf5e9; }
+.lh-change-kept { background: #f5f2ec; }
+.lh-draft-tools { border-top: 1px solid #d9cdbb; padding-top: 18px; margin-top: 24px; }
+.lh-draft-tools summary, .lh-editor > details summary { min-height: 44px; cursor: pointer; }
+.lh-draft-tools button { margin-right: 12px; }
+.lh-source-history { white-space: pre-wrap; line-height: 1.7; overflow-wrap: anywhere; }
+.lh-passage-note { background: #f6f0e4; padding: 18px; margin-top: 18px; border-radius: 10px; }
+.lh-passage-note blockquote { border-left: 3px solid #8f672e; padding-left: 16px; white-space: pre-wrap; overflow-wrap: anywhere; font: 400 1rem/1.7 Georgia, serif; }
+.lh-passage-note button { margin-right: 12px; }
+@media (max-width: 1000px) { .lh-writing-layout { grid-template-columns: minmax(0, 1fr); } }

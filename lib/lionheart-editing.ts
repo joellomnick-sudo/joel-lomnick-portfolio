@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 
 export const editingTables = {
-  chapter: { table: "tblmZH0nSF2Vb3d6O", fields: ["Draft Text", "Draft Notes"], title: "Chapter Title" },
-  frontMatter: { table: "tbluo0P6klxKBta6p", fields: ["Draft Text", "Notes"], title: "Section" },
+  chapter: { table: "tblmZH0nSF2Vb3d6O", fields: ["Draft Text", "Draft Notes", "Author Notes"], title: "Chapter Title" },
+  frontMatter: { table: "tbluo0P6klxKBta6p", fields: ["Draft Text", "Notes", "Author Notes"], title: "Section" },
   person: { table: "tblqbOXAOVDXX2BV3", fields: ["Name", "Relationship or Role", "Birth Date", "Birth Date Status", "Related Chapters", "Source Basis", "Notes", "Story Inclusion"], title: "Name" },
   event: { table: "tblhV7C2T4AMWMciF", fields: ["Event", "Date or Period", "Place", "Source Notes"], title: "Event" },
   world: { table: "tblTBSU9t8pjrqe7A", fields: ["World", "Related Chapters", "Notes"], title: "World" },

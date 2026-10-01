@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LIONHEART_SESSION_COOKIE, verifyLionheartSessionToken } from "@/lib/lionheart-auth";
 import { editableFields, editingRequest, editingTables, isEditingKind, revision } from "@/lib/lionheart-editing";
+import { mentionsChapter } from "@/lib/lionheart-links";
 
 export const dynamic = "force-dynamic";
 type Context = { params: Promise<{ kind: string; recordId: string }> };
@@ -59,6 +60,17 @@ export async function PATCH(request: NextRequest, context: Context) {
       Date: new Date().toISOString(), Notes: "Complete record snapshot created before an author edit.",
     } }] }) });
     const updates = { ...body.fields };
+    if (target.kind === "source" && previous["Related Chapters"] !== body.fields["Related Chapters"]) {
+      const query = new URLSearchParams(); query.append("fields[]", "Volume"); query.append("fields[]", "Chapter");
+      const chapters: Array<{ id: string; fields: { Volume?: number; Chapter?: number } }> = [];
+      let offset: string | undefined;
+      do {
+        if (offset) query.set("offset", offset);
+        const page = await editingRequest(`tblmZH0nSF2Vb3d6O?${query}`);
+        chapters.push(...page.records); offset = page.offset;
+      } while (offset);
+      updates["Chapter Records"] = chapters.filter(c => mentionsChapter(body.fields["Related Chapters"], c.fields.Volume || 0, c.fields.Chapter || 0)).map(c => c.id);
+    }
     if (manuscript) {
       updates["Word Count"] = body.fields["Draft Text"].trim().split(/\s+/).length;
       if (target.kind === "chapter") updates["Draft Prose"] = body.fields["Draft Text"];

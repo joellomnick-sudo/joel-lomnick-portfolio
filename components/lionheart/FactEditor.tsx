@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function FactEditor({ kind, id, title }: { kind: "person" | "event" | "world" | "source"; id: string; title: string }) {
+  const router = useRouter();
   const [fields, setFields] = useState<Record<string, string> | null>(null);
   const [revision, setRevision] = useState("");
   const [message, setMessage] = useState("");
@@ -16,7 +18,7 @@ export function FactEditor({ kind, id, title }: { kind: "person" | "event" | "wo
   }
   async function save() {
     setBusy(true); setMessage("");
-    try { const r = await fetch(endpoint, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields, revision }) }); const data = await r.json(); if (!r.ok) throw new Error(data.error); setFields(data.fields); setRevision(data.revision); setDirty(false); setVersions(null); setMessage("Saved. Reload to refresh chapter references and the directory."); }
+    try { const r = await fetch(endpoint, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields, revision }) }); const data = await r.json(); if (!r.ok) throw new Error(data.error); setFields(data.fields); setRevision(data.revision); setDirty(false); setVersions(null); setMessage("Saved. The directory and chapter references are refreshing."); router.refresh(); }
     catch (error) { setMessage(error instanceof Error ? error.message : "Save failed."); } finally { setBusy(false); }
   }
   async function history() {
