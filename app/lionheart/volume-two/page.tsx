@@ -8,7 +8,7 @@ const fallback = [
   ["The Floor Vanished", "2014–2016"],
   ["The House Inside Me", "2016–2020"],
   ["The Builder Became Visible", "2020–2024"],
-  ["The Backup Generator Trips", "2024–August 2026"],
+  ["The Backup Generator Trips", "2024–October 2026"],
 ] as const;
 
 export default async function VolumeTwoPage() {
@@ -36,7 +36,7 @@ export default async function VolumeTwoPage() {
         <p className="text-xs font-bold uppercase tracking-[0.22em] text-softGold">Volume Two</p>
         <h1 className="mt-4 max-w-4xl font-serif text-4xl font-bold leading-tight sm:text-5xl">The Cost of Being Lionheart</h1>
         <p className="mt-5 max-w-3xl text-base leading-7 text-warmIvory/75">
-          2007–August 2026. The adult story of what happens when survival becomes a permanent operating system. The refreshed private edition follows the story through the August 2026 Okinawa assignment, with a preface, prologue, seven chapters, and epilogue.
+          2007–October 2026. The adult story of what happens when survival becomes a permanent operating system. The refreshed private edition now carries the research timeline beyond the August 2026 Okinawa assignment into September and early October, while keeping new findings separated by evidence status across the preface, prologue, seven chapters, and epilogue.
         </p>
 
         <div className="mt-10 grid gap-5">
