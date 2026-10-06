@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { ButtonLink } from "@/components/ButtonLink";
 import { navLinks } from "@/data/site";
 
 function isActive(pathname: string, href: string) {
@@ -79,10 +78,6 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden shrink-0 xl:block">
-          <ButtonLink href="https://www.lomnickpro.com/connect" size="compact" className="header-consultation">Let’s connect</ButtonLink>
-        </div>
-
         <button
           type="button"
           className="icon-button focus-ring xl:hidden"
@@ -133,9 +128,6 @@ export function Header() {
                 </Link>
               ))}
             </nav>
-            <ButtonLink href="https://www.lomnickpro.com/connect" className="mt-auto w-full" onClick={() => setOpen(false)}>
-              Let’s connect
-            </ButtonLink>
           </div>
         </div>
       ) : null}
