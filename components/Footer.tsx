@@ -20,7 +20,7 @@ export function Footer() {
           <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-0.5">
             {publicNavLinks.map((link) => (
               <li key={link.href}>
-                <Link className="inline-flex min-h-10 items-center text-[0.95rem] text-warmIvory hover:text-softGold focus-ring" href={link.href}>
+                <Link className="inline-flex min-h-10 items-center text-[0.95rem] text-warmIvory hover:text-softGold focus-ring" href={"https://www.lomnickpro.com" + link.href}>
                   {link.label}
                 </Link>
               </li>

@@ -63,7 +63,7 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="site-container flex min-h-[74px] items-center justify-between gap-3 py-2">
-        <Link href="/" className="brand-lockup focus-ring" aria-label="Joel M. Lomnick home">
+        <Link href="https://www.lomnickpro.com/" className="brand-lockup focus-ring" aria-label="Joel M. Lomnick home">
           <span className="brand-name">Joel M. Lomnick</span>
           <span className="brand-subtitle">Engineer | Storyteller | Community Builder</span>
         </Link>
@@ -72,7 +72,7 @@ export function Header() {
           {publicNavLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={"https://www.lomnickpro.com" + link.href}
               aria-current={isActive(pathname, link.href) ? "page" : undefined}
               className="nav-link focus-ring"
             >
@@ -82,7 +82,7 @@ export function Header() {
         </nav>
 
         <div className="hidden shrink-0 xl:block">
-          <ButtonLink href="/connect" size="compact" className="header-consultation">Connect with me</ButtonLink>
+          <ButtonLink href="https://www.lomnickpro.com/connect" size="compact" className="header-consultation">Connect with me</ButtonLink>
         </div>
 
         <button
@@ -126,7 +126,7 @@ export function Header() {
               {publicNavLinks.map((link) => (
                 <Link
                   key={link.href}
-                  href={link.href}
+                  href={"https://www.lomnickpro.com" + link.href}
                   aria-current={isActive(pathname, link.href) ? "page" : undefined}
                   className="mobile-nav-link focus-ring"
                   onClick={() => setOpen(false)}
@@ -135,7 +135,7 @@ export function Header() {
                 </Link>
               ))}
             </nav>
-            <ButtonLink href="/connect" className="mt-auto w-full" onClick={() => setOpen(false)}>
+            <ButtonLink href="https://www.lomnickpro.com/connect" className="mt-auto w-full" onClick={() => setOpen(false)}>
               Connect with me
             </ButtonLink>
           </div>

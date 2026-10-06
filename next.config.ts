@@ -18,6 +18,15 @@ const nextConfig: NextConfig = {
   env: {
     BUILD_TIMESTAMP: buildTimestamp,
   },
+  // The Vercel host serves the private Lionheart studio only.
+  // Public portfolio pages and Power PE always live on the canonical www host.
+  async redirects() {
+    return [{
+      source: "/:path((?!lionheart(?:/|$)|api(?:/|$)|_next(?:/|$)|images(?:/|$)|documents(?:/|$)|audio(?:/|$)|favicon\\.ico$).*)",
+      destination: "https://www.lomnickpro.com/:path",
+      permanent: true,
+    }];
+  },
   async headers() {
     return [
       ...privateDocumentHeaders.map((source) => ({
