@@ -2,13 +2,13 @@ import Link from "next/link";
 import { getLionheartChapters, getLionheartFrontMatter, isLionheartAirtableConfigured } from "@/lib/lionheart-airtable";
 
 const fallback = [
-  ["The First Blueprint", "1981–1988"],
-  ["Back to Rochester, Back to the Rules", "1988–1995"],
-  ["The Night Childhood Ended", "1995–1997"],
-  ["Most Likely to Succeed", "1997–1999"],
-  ["Trash Bags and Mini-Fridges", "1999–2001"],
-  ["The Rooms That Kept Me Alive", "2001–2005"],
-  ["The Promised Land Never Arrived", "2005–2007"],
+  ["A Family Scattered, a Boy Taking Root", "1981–1988"],
+  ["Rochester Raised Me: Rules, Wonder, and Belonging", "1988–1995"],
+  ["Sterling Street: The Boy Who Became a Protector", "1995–1997"],
+  ["Edison Tech: Big Dreams and a Life Beyond the Grades", "1997–1999"],
+  ["RIT: Finding My People, Losing My Certainty", "1999–2001"],
+  ["Finding My Rhythm, Earning My Place", "2001–2005"],
+  ["Corn Hill: A Degree, a Home, and the Need to Leave", "2005–2007"],
 ] as const;
 
 export default async function VolumeOnePage() {
