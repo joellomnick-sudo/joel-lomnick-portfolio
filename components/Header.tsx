@@ -7,8 +7,6 @@ import { useEffect, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { navLinks } from "@/data/site";
 
-const publicNavLinks = navLinks.filter((link) => link.href !== "/lionheart");
-
 function isActive(pathname: string, href: string) {
   return pathname === href || (href !== "/" && pathname.startsWith(href));
 }
@@ -64,12 +62,12 @@ export function Header() {
     <header className="site-header">
       <div className="site-container flex min-h-[74px] items-center justify-between gap-3 py-2">
         <Link href="https://www.lomnickpro.com/" className="brand-lockup focus-ring" aria-label="Joel M. Lomnick home">
-          <span className="brand-name">Joel M. Lomnick</span>
-          <span className="brand-subtitle">Engineer | Storyteller | Community Builder</span>
+          <span className="brand-name">LomnickPro</span>
+          <span className="brand-subtitle">The world of Joel M. Lomnick</span>
         </Link>
 
         <nav className="hidden min-w-0 items-center justify-end xl:flex" aria-label="Primary navigation">
-          {publicNavLinks.map((link) => (
+          {navLinks.map((link) => (
             <Link
               key={link.href}
               href={"https://www.lomnickpro.com" + link.href}
@@ -82,7 +80,7 @@ export function Header() {
         </nav>
 
         <div className="hidden shrink-0 xl:block">
-          <ButtonLink href="https://www.lomnickpro.com/connect" size="compact" className="header-consultation">Connect with me</ButtonLink>
+          <ButtonLink href="https://www.lomnickpro.com/connect" size="compact" className="header-consultation">Let’s connect</ButtonLink>
         </div>
 
         <button
@@ -110,7 +108,7 @@ export function Header() {
             <div className="flex items-start justify-between gap-4 border-b border-warmIvory/15 pb-5">
               <div>
                 <p className="font-serif text-2xl font-bold text-warmIvory">Joel M. Lomnick</p>
-                <p className="mt-1 text-base text-warmIvory/75">Step into my world</p>
+                <p className="mt-1 text-sm text-warmIvory/75">Engineer | Storyteller | Community Builder</p>
               </div>
               <button
                 ref={closeRef}
@@ -123,7 +121,7 @@ export function Header() {
               </button>
             </div>
             <nav className="grid gap-1 py-6" aria-label="Mobile navigation">
-              {publicNavLinks.map((link) => (
+              {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={"https://www.lomnickpro.com" + link.href}
@@ -136,7 +134,7 @@ export function Header() {
               ))}
             </nav>
             <ButtonLink href="https://www.lomnickpro.com/connect" className="mt-auto w-full" onClick={() => setOpen(false)}>
-              Connect with me
+              Let’s connect
             </ButtonLink>
           </div>
         </div>

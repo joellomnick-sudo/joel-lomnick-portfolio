@@ -7,7 +7,8 @@ export function LionheartLogin({ configured, error }: LionheartLoginProps) {
   return (
     <section className="min-h-[70vh] bg-softBlack px-6 py-20 text-warmIvory">
       <div className="mx-auto max-w-xl">
-        <p className="eyebrow">Private access</p>
+        <a href="https://www.lomnickpro.com/" className="focus-ring inline-flex min-h-11 items-center text-softGold underline">← Back to LomnickPro</a>
+        <p className="eyebrow mt-4">Private access</p>
         <h1 className="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl">Lionheart Story Studio</h1>
         <p className="mt-5 max-w-lg text-base leading-7 text-warmIvory/80">
           This area is private. Enter the owner access key to continue.

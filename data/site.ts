@@ -3,11 +3,11 @@ import type { PublicAssetId } from "@/data/publicAssets";
 export type NavLink = { label: string; href: string };
 
 export const navLinks: NavLink[] = [
+  { label: "Home", href: "/" },
   { label: "My Story", href: "/my-story" },
   { label: "Engineering", href: "/engineering" },
-  { label: "My Community", href: "/my-community" },
-  { label: "I Build Things", href: "/i-build-things" },
-  { label: "Lionheart", href: "/lionheart" },
+  { label: "Community", href: "/my-community" },
+  { label: "Projects", href: "/i-build-things" },
   { label: "Connect", href: "/connect" },
 ];
 
