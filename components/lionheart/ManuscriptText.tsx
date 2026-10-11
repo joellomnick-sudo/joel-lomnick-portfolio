@@ -10,13 +10,14 @@ function isLikelyHeading(block: string) {
 
 export function ManuscriptText({ text }: ManuscriptTextProps) {
   const blocks = text.split(/\n\s*\n/g).map((block) => block.trim()).filter(Boolean);
+  const hasExplicitHeadings = blocks.some(block => block.startsWith("## "));
 
   return (
     <article className="mx-auto max-w-3xl">
       {blocks.map((block, index) =>
-        isLikelyHeading(block) ? (
+        (block.startsWith("## ") || (!hasExplicitHeadings && isLikelyHeading(block))) ? (
           <h2 key={`${index}-heading`} className="mb-5 mt-12 font-serif text-2xl font-bold text-softGold sm:text-3xl">
-            {block}
+            {block.replace(/^## /, "")}
           </h2>
         ) : (
           <p key={`${index}-paragraph`} className="mb-6 text-[1.05rem] leading-8 text-warmIvory/90 sm:text-[1.1rem]">
