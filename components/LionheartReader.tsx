@@ -7,17 +7,11 @@ import {
   ChevronRight,
   ExternalLink,
   Maximize2,
-  Pause,
-  Play,
-  Square,
-  Volume2,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
 import type { PDFDocumentProxy, RenderTask } from "pdfjs-dist";
 import type { LionheartVolume } from "@/data/lionheart";
-
-type SpeechState = "idle" | "playing" | "paused";
 
 const toolClass = "reader-tool focus-ring";
 
@@ -27,7 +21,6 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
   const readerRef = useRef<HTMLDivElement>(null);
   const documentRef = useRef<PDFDocumentProxy | null>(null);
   const renderTaskRef = useRef<RenderTask | null>(null);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [zoom, setZoom] = useState(1);
@@ -37,35 +30,22 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
   const [readerStatus, setReaderStatus] = useState("Loading preview...");
   const [readerError, setReaderError] = useState("");
   const [sectionIndex, setSectionIndex] = useState(0);
-  const [speechSupported, setSpeechSupported] = useState(false);
-  const [speechState, setSpeechState] = useState<SpeechState>("idle");
-  const [speechRate, setSpeechRate] = useState(1);
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [voiceURI, setVoiceURI] = useState("");
   const [announcement, setAnnouncement] = useState("");
 
   const currentSection = volume.sections[sectionIndex];
-
-  const stopNarration = useCallback(() => {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
-    utteranceRef.current = null;
-    setSpeechState("idle");
-  }, []);
 
   const moveToPage = useCallback((nextPage: number) => {
     const bounded = Math.min(Math.max(nextPage, 1), pageCount || 1);
     setPageNumber(bounded);
     const matchingSection = volume.sections.findIndex((section) => section.page === bounded);
     if (matchingSection >= 0) setSectionIndex(matchingSection);
-    stopNarration();
-  }, [pageCount, stopNarration, volume.sections]);
+  }, [pageCount, volume.sections]);
 
   const moveToSection = useCallback((nextIndex: number) => {
     const bounded = Math.min(Math.max(nextIndex, 0), volume.sections.length - 1);
     setSectionIndex(bounded);
     setPageNumber(volume.sections[bounded].page);
-    stopNarration();
-  }, [stopNarration, volume.sections]);
+  }, [volume.sections]);
 
   useEffect(() => {
     const element = viewerRef.current;
@@ -157,51 +137,6 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
     };
   }, [fitWidth, pageNumber, viewerWidth, zoom, pageCount]);
 
-  useEffect(() => {
-    const supported = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
-    setSpeechSupported(supported);
-    if (!supported) return;
-    const updateVoices = () => setVoices(window.speechSynthesis.getVoices());
-    updateVoices();
-    window.speechSynthesis.addEventListener("voiceschanged", updateVoices);
-    return () => {
-      window.speechSynthesis.removeEventListener("voiceschanged", updateVoices);
-      window.speechSynthesis.cancel();
-    };
-  }, []);
-
-  const playNarration = () => {
-    if (!speechSupported) return;
-    stopNarration();
-    const utterance = new SpeechSynthesisUtterance(`${currentSection.title}. ${currentSection.paragraphs.join(" ")}`);
-    utterance.rate = speechRate;
-    const selectedVoice = voices.find((voice) => voice.voiceURI === voiceURI);
-    if (selectedVoice) utterance.voice = selectedVoice;
-    utterance.onend = () => setSpeechState("idle");
-    utterance.onerror = () => {
-      setSpeechState("idle");
-      setAnnouncement("Narration stopped because the browser voice could not continue.");
-    };
-    utteranceRef.current = utterance;
-    window.speechSynthesis.speak(utterance);
-    setSpeechState("playing");
-    setAnnouncement(`Reading ${currentSection.title}.`);
-  };
-
-  const pauseNarration = () => {
-    if (speechState !== "playing") return;
-    window.speechSynthesis.pause();
-    setSpeechState("paused");
-    setAnnouncement("Narration paused.");
-  };
-
-  const resumeNarration = () => {
-    if (speechState !== "paused") return;
-    window.speechSynthesis.resume();
-    setSpeechState("playing");
-    setAnnouncement("Narration resumed.");
-  };
-
   const enterFullscreen = async () => {
     if (!readerRef.current?.requestFullscreen) {
       setAnnouncement("Full screen is not available in this browser.");
@@ -249,29 +184,8 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
             {readerError ? <div className="border-t border-alertRed bg-warmIvory p-5 text-ink" role="alert"><p className="font-semibold">The embedded reader could not load this preview.</p><p className="mt-2 text-base text-mutedBrown">{readerError}</p><a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="reader-tool focus-ring mt-4">Open original PDF <ExternalLink size={18} aria-hidden="true" /></a></div> : null}
           </article>
 
-          <aside className="order-1 border-t-4 border-mutedGold bg-warmIvory p-5 shadow-premium xl:order-2" aria-label="Read-aloud controls">
-            <div className="flex items-center gap-3"><Volume2 size={24} aria-hidden="true" /><h2 className="subsection-title">Listen to this preview</h2></div>
-            <div className="mt-5 grid grid-cols-2 gap-2">
-              <button type="button" className={toolClass} onClick={playNarration} disabled={!speechSupported} title="Play current section"><Play size={18} aria-hidden="true" /> Play</button>
-              <button type="button" className={toolClass} onClick={pauseNarration} disabled={speechState !== "playing"} title="Pause narration"><Pause size={18} aria-hidden="true" /> Pause</button>
-              <button type="button" className={toolClass} onClick={resumeNarration} disabled={speechState !== "paused"} title="Resume narration"><Play size={18} aria-hidden="true" /> Resume</button>
-              <button type="button" className={toolClass} onClick={stopNarration} disabled={speechState === "idle"} title="Stop narration"><Square size={17} aria-hidden="true" /> Stop</button>
-            </div>
-            {!speechSupported ? <p className="mt-3 text-sm text-alertRed">Read-aloud is not available in this browser. The structured preview text remains available to assistive technology.</p> : null}
-
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-              <label className="font-ui text-base font-semibold text-mutedBrown">Reading speed
-                <select className="mt-1 min-h-11 w-full rounded-md border border-deepBrown/30 bg-white px-3 font-ui text-base" value={speechRate} onChange={(event) => setSpeechRate(Number(event.target.value))}>
-                  <option value="0.75">0.75x</option><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="1.75">1.75x</option>
-                </select>
-              </label>
-              <label className="font-ui text-base font-semibold text-mutedBrown">Voice
-                <select className="mt-1 min-h-11 w-full rounded-md border border-deepBrown/30 bg-white px-3 font-ui text-base" value={voiceURI} onChange={(event) => setVoiceURI(event.target.value)}>
-                  <option value="">Default system voice</option>
-                  {voices.map((voice) => <option key={voice.voiceURI} value={voice.voiceURI}>{voice.name} ({voice.lang})</option>)}
-                </select>
-              </label>
-            </div>
+          <aside className="order-1 border-t-4 border-mutedGold bg-warmIvory p-5 shadow-premium xl:order-2" aria-label="Preview sections">
+            <h2 className="subsection-title">Preview sections</h2>
 
             <div className="mt-6 border-t border-deepBrown/15 pt-5">
               <p className="font-ui text-sm font-semibold text-mutedBrown">Section {sectionIndex + 1} of {volume.sections.length}</p>
@@ -280,7 +194,7 @@ export function LionheartReader({ volume, pdfUrl }: { volume: LionheartVolume; p
                 <button type="button" className={toolClass} onClick={() => moveToSection(sectionIndex - 1)} disabled={sectionIndex === 0} title="Previous text section"><ChevronLeft size={18} aria-hidden="true" /> Previous section</button>
                 <button type="button" className={toolClass} onClick={() => moveToSection(sectionIndex + 1)} disabled={sectionIndex === volume.sections.length - 1} title="Next text section">Next section <ChevronRight size={18} aria-hidden="true" /></button>
               </div>
-              <p className="mt-4 text-sm leading-6 text-mutedBrown" role="status" aria-live="polite">{announcement || "Narration is ready and will not start automatically."}</p>
+              <p className="mt-4 text-sm leading-6 text-mutedBrown" role="status" aria-live="polite">{announcement}</p>
             </div>
           </aside>
         </div>

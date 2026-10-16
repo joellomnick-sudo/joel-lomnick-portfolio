@@ -406,40 +406,9 @@ test("Lionheart readers render PDFs, navigate accessibly, and keep duplicate tex
     expect(accessibleSourceStyle.overflow).toBe("hidden");
     expect(accessibleSourceStyle.clip).not.toBe("auto");
     await expect(page.getByText("Open full accessible text companion")).toHaveCount(0);
-    expect(await page.locator('aside[aria-label="Read-aloud controls"]').innerText()).not.toContain(excerpt);
+    expect(await page.locator('aside[aria-label="Preview sections"]').innerText()).not.toContain(excerpt);
     await expect(page.getByRole("link", { name: "Open original PDF" }).last()).toHaveAttribute("rel", "noopener noreferrer");
   }
-});
-
-test("Lionheart narration controls use browser speech without autoplay", async ({ page }) => {
-  await page.addInitScript(() => {
-    class MockUtterance {
-      text: string; rate = 1; voice: SpeechSynthesisVoice | null = null; onend: (() => void) | null = null; onerror: (() => void) | null = null;
-      constructor(text: string) { this.text = text; }
-    }
-    const mockVoice = { default: true, lang: "en-US", localService: true, name: "Test Voice", voiceURI: "test-voice" } as SpeechSynthesisVoice;
-    const speech = {
-      speaking: false, paused: false, pending: false,
-      speak(utterance: MockUtterance) { (window as Window & { __spokenText?: string }).__spokenText = utterance.text; this.speaking = true; },
-      cancel() { this.speaking = false; this.paused = false; },
-      pause() { this.paused = true; }, resume() { this.paused = false; },
-      getVoices() { return [mockVoice]; }, addEventListener() {}, removeEventListener() {}, dispatchEvent() { return true; },
-    };
-    Object.defineProperty(window, "SpeechSynthesisUtterance", { configurable: true, value: MockUtterance });
-    Object.defineProperty(window, "speechSynthesis", { configurable: true, value: speech });
-  });
-  await page.goto("/lionheart/volume-1-preview");
-  expect(await page.evaluate(() => (window as Window & { __spokenText?: string }).__spokenText)).toBeUndefined();
-  await page.getByRole("button", { name: "Play", exact: true }).click();
-  expect(await page.evaluate(() => (window as Window & { __spokenText?: string }).__spokenText)).toContain("Before the Roar");
-  await expect(page.getByRole("button", { name: "Pause" })).toBeEnabled();
-  await page.getByRole("button", { name: "Pause" }).click();
-  await expect(page.getByRole("button", { name: "Resume" })).toBeEnabled();
-  await page.getByRole("button", { name: "Resume" }).click();
-  await page.getByRole("button", { name: "Stop" }).click();
-  await expect(page.getByRole("button", { name: "Stop" })).toBeDisabled();
-  await expect(page.getByLabel("Reading speed")).toHaveValue("1");
-  await expect(page.getByLabel("Voice")).toContainText("Test Voice");
 });
 
 test("Lionheart mobile reader fits the viewport and supports keyboard paging", async ({ page }) => {
@@ -449,7 +418,7 @@ test("Lionheart mobile reader fits the viewport and supports keyboard paging", a
     await expect(page.getByRole("status").filter({ hasText: "Page 1 of 10 ready." })).toBeVisible({ timeout: 20_000 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
     const order = await page.evaluate(() => ({
-      controls: document.querySelector<HTMLElement>('aside[aria-label="Read-aloud controls"]')!.getBoundingClientRect().top,
+      controls: document.querySelector<HTMLElement>('aside[aria-label="Preview sections"]')!.getBoundingClientRect().top,
       viewer: document.querySelector<HTMLElement>('article[aria-label="PDF preview reader"]')!.getBoundingClientRect().top,
       back: document.querySelector<HTMLElement>('[data-testid="lionheart-return"]')!.getBoundingClientRect().top,
     }));
@@ -465,7 +434,7 @@ test("Lionheart mobile reader fits the viewport and supports keyboard paging", a
   await page.keyboard.press("ArrowRight");
   await expect(page.getByText("Page 2 of 10", { exact: true })).toBeVisible();
   await expect(page.getByText("Before the Road Opens Again").first()).toBeVisible();
-  await page.getByLabel("Reading speed").focus();
+  await page.getByRole("button", { name: "Fit width" }).focus();
   await page.keyboard.press("ArrowDown");
   await expect(page.getByText("Page 2 of 10", { exact: true })).toBeVisible();
 });
@@ -477,7 +446,7 @@ test("Lionheart desktop reader gives the PDF about three quarters of the workspa
     await expect(page.getByRole("status").filter({ hasText: "Page 1 of 10 ready." })).toBeVisible({ timeout: 20_000 });
     const ratio = await page.getByTestId("lionheart-reader-layout").evaluate((layout) => {
       const pdf = layout.querySelector<HTMLElement>('article[aria-label="PDF preview reader"]')!.getBoundingClientRect();
-      const controls = layout.querySelector<HTMLElement>('aside[aria-label="Read-aloud controls"]')!.getBoundingClientRect();
+      const controls = layout.querySelector<HTMLElement>('aside[aria-label="Preview sections"]')!.getBoundingClientRect();
       return pdf.width / (pdf.width + controls.width);
     });
     expect(ratio).toBeGreaterThanOrEqual(0.72);
