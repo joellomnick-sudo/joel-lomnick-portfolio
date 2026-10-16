@@ -1,3 +1,4 @@
+import { mp3Frames } from "@/lib/mp3-frames";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { LIONHEART_SESSION_COOKIE, verifyLionheartSessionToken } from "@/lib/lionheart-auth";
@@ -56,7 +57,7 @@ export async function POST(request: Request) {
     const first = await generate(section.parts[0]);
     if (!first.ok || !first.body) return json({ error: speechifyProblem(first.status) }, 502);
     let index = 0;
-    let reader = first.body.getReader();
+    let reader = mp3Frames(first.body).getReader();
     const stream = new ReadableStream<Uint8Array>({
       async pull(controller) {
         try {
@@ -67,7 +68,7 @@ export async function POST(request: Request) {
             if (index >= section.parts.length) { controller.close(); return; }
             const response = await generate(section.parts[index]);
             if (!response.ok || !response.body) throw new Error("Audio generation interrupted.");
-            reader = response.body.getReader();
+            reader = mp3Frames(response.body).getReader();
             next = await reader.read();
           }
           controller.enqueue(next.value);
