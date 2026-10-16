@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SpeechifyBookPlayer } from "@/components/lionheart/SpeechifyBookPlayer";
 import { SimpleBookReader } from "@/components/lionheart/SimpleBookReader";
 import { cookies } from "next/headers";
 import { LIONHEART_SESSION_COOKIE, verifyLionheartSessionToken } from "@/lib/lionheart-auth";
@@ -12,6 +13,7 @@ export default async function LionheartPage() {
   const [chapters, sections] = await Promise.all([getLionheartChapters(), getLionheartFrontMatter()]);
   return <div className="lh-workspace"><header className="lh-page-heading"><p className="lionheart-kicker">Your writing desk</p><h1>Make room for the whole story.</h1><p>Choose a section to write, read, or recover an earlier version. Save when you are ready to update the private manuscript.</p></header>
     <p className="lh-edition-note">Book baseline: October 11, 2026 · Both PDFs retain the original front and back covers. Studio edits made after synchronization do not automatically change these dated downloads.</p>
+    {process.env.SPEECHIFY_API_KEY && <SpeechifyBookPlayer />}
     {chapters && sections && <SimpleBookReader books={([1, 2] as const).map(volume => {
       const prose = [
         ...sections.filter(s => s.volume === volume && s.type === "Prologue").map(s => ({ title: "Prologue. " + s.section, text: s.draftText || "" })),
