@@ -27,5 +27,6 @@ try{
  for(const text of ["Listen to your books","fixture-volume-1-private-narrative","fixture-volume-2-private-narrative","/lionheart/books/one","/lionheart/books/two"])assert(html.includes(text),"Missing "+text);
  assert(!html.includes("not-for-narration"));
  const tampered=await(await fetch(origin+"/lionheart",{headers:{Cookie:"lionheart_session="+expires+".invalid"}})).text();assert(!tampered.includes("fixture-volume-1-private-narrative"));
+ if(process.env.READ_ALOUD_BROWSER==="1"){const {checkVoicePlayer}=await import("./read-aloud-browser-checks.mjs");await checkVoicePlayer(origin,expires+"."+signature);}
  console.log("HTTP flow passed: anonymous and tampered sessions hide narrative; authorized page includes both book texts, original PDF downloads and reader; response is private/no-store.");
 }finally{child.kill("SIGTERM");await new Promise(resolve=>{if(child.exitCode!==null)resolve();else child.once("exit",resolve);});await rm(folder,{recursive:true,force:true});}
